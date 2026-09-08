@@ -1,0 +1,73 @@
+project:
+  type: website
+  # Un solo sitio para toda la materia: la raiz es el indice y cada unidad
+  # numerada aporta sus paginas. Se publica desde aca, no desde una unidad.
+  output-dir: _site
+  # Lista explicita: Quarto renderiza solo esto. Lo que no figura no llega al
+  # sitio publico -- ahi es donde quedan afuera los solucionarios y los
+  # notebooks con la resolucion de los trabajos practicos.
+  render:
+    - index.qmd
+    - 01-busqueda/busqueda.ipynb
+    - 01-busqueda/8-puzzle/enunciado.md
+    # La unidad 02 todavia es un esqueleto: descomentar estas dos lineas --y
+    # las de la navegacion, mas abajo, y la seccion en index.qmd-- cuando el
+    # contenido este escrito.
+    # - 02-agentes/agentes.ipynb
+    # - 02-agentes/enunciado.md
+
+# Los notebooks ya traen las salidas guardadas -- las paginas paso a paso pesan
+# 300 KB y estan adentro del .ipynb. Quarto no re-ejecuta notebooks por
+# defecto; esto lo deja explicito, asi tampoco lo intenta en una maquina que
+# no tenga el entorno de Python armado.
+execute:
+  enabled: false
+
+lang: es
+
+website:
+  title: "ML · UNLU 2026"
+  description: "Material de clase: notebooks, trabajos prácticos y visualizaciones."
+  page-navigation: true
+  navbar:
+    left:
+      - href: index.qmd
+        text: Inicio
+      - text: "01 · Búsqueda"
+        menu:
+          - href: 01-busqueda/busqueda.ipynb
+            text: "Clase — Búsqueda no informada"
+          - href: 01-busqueda/8-puzzle/enunciado.md
+            text: "Práctico — El 8-puzzle"
+      # - text: "02 · Agentes"
+      #   menu:
+      #     - href: 02-agentes/agentes.ipynb
+      #       text: "Clase — Agentes basados en conocimiento"
+      #     - href: 02-agentes/enunciado.md
+      #       text: "Práctico"
+  sidebar:
+    style: floating
+    contents:
+      - href: index.qmd
+        text: Inicio
+      - section: "01 · Búsqueda no informada"
+        contents:
+          - href: 01-busqueda/busqueda.ipynb
+            text: Clase
+          - href: 01-busqueda/8-puzzle/enunciado.md
+            text: Práctico — El 8-puzzle
+      # - section: "02 · Agentes basados en conocimiento"
+      #   contents:
+      #     - href: 02-agentes/agentes.ipynb
+      #       text: Clase
+      #     - href: 02-agentes/enunciado.md
+      #       text: Práctico
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    toc-title: "En esta página"
+    code-copy: true
+    code-overflow: wrap

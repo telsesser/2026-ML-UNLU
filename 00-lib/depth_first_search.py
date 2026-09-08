@@ -62,8 +62,8 @@ if __name__ == "__main__":
     import sys
     from pathlib import Path
 
-    # El mapa de Rumania vive en la carpeta del problema, no en 0-lib.
-    sys.path.append(str(Path(__file__).resolve().parent.parent / "1-romania"))
+    # El mapa de Rumania vive en la carpeta de la unidad, no en 00-lib.
+    sys.path.append(str(Path(__file__).resolve().parent.parent / "01-busqueda"))
 
     from node import depth, path_states
     from problem import RouteProblem

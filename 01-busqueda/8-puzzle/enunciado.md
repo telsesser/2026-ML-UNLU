@@ -14,7 +14,7 @@ el 8-puzzle sin modificar una sola línea.
 
 ## Parte 1 — Modelado del problema
 
-Definir una clase `EightPuzzle` que herede de `Problem` (`lib/problem.py`) y
+Definir una clase `EightPuzzle` que herede de `Problem` (`00-lib/problem.py`) y
 represente el problema de la figura 3.4:
 
 ```
@@ -101,7 +101,7 @@ de vuelta, y de paso acota su longitud. Notar que la función usa `ACTIONS` y
 `RESULT`: hasta que esos dos no estén, no genera ningún tablero.
 
 El modelado está terminado cuando esto corre, tal cual está escrito, sin haber
-tocado nada de `lib/`:
+tocado nada de `00-lib/`:
 
 ```python
 from breadth_first_search import breadth_first_search
@@ -177,7 +177,7 @@ solucion, expandidos, hondo = medir(bidirectional_search, problem, problem_b,
                                     tope=200_000)
 ```
 
-`Contador` hereda de `Silent`, la clase de `lib/view.py` que los algoritmos usan
+`Contador` hereda de `Silent`, la clase de `00-lib/view.py` que los algoritmos usan
 por omisión y que no hace nada. Los algoritmos van avisando lo que hacen —cada
 vez que sacan un nodo de la frontera, por ejemplo— y `Contador` se limita a
 escuchar y llevar la cuenta. Vale la pena notar por qué la medición se hace así

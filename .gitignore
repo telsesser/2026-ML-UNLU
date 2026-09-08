@@ -1,14 +1,16 @@
 _site/
-.quarto/
+/.quarto/
+**/*.quarto_ipynb
 .venv/
 __pycache__/
 *.pyc
 
-/.quarto/
-**/*.quarto_ipynb
-
-# Paginas que generan los scripts de 0-lib/ al correrse solos.
+# Paginas que generan los scripts de 00-lib/ al correrse solos.
 salidas/
 
 # Config local del editor/agente.
 .claude/
+
+# Material de referencia con copyright (capitulos escaneados, papers). Vive en
+# la maquina, no en el repositorio: este es publico.
+**/info/

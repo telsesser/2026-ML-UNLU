@@ -1,0 +1,58 @@
+---
+title: "Aprendizaje Automático"
+subtitle: "Universidad Nacional de Luján — 2026"
+toc: false
+---
+
+Material de clase: cada unidad tiene un **notebook** que se puede recorrer paso
+a paso y un **trabajo práctico** con su enunciado.
+
+Las referencias son a Russell & Norvig, *Artificial Intelligence: A Modern
+Approach*, 4ª edición.
+
+---
+
+## 01 · Búsqueda no informada {#unidad-01}
+
+Cómo se resuelve un problema cuando lo único que se tiene es el estado inicial,
+las acciones y una prueba de objetivo. Los cinco algoritmos del capítulo 3,
+narrados sobre el mapa de Rumania: de Arad a Bucharest.
+
+La búsqueda se recorre paso a paso, con el mapa o con el árbol de búsqueda.
+
+| | |
+| --- | --- |
+| [Clase — Búsqueda no informada](01-busqueda/busqueda.ipynb) | amplitud, costo uniforme, profundidad, profundidad iterativa y bidireccional, sobre un grafo escrito de antemano. |
+| [Práctico — El 8-puzzle](01-busqueda/8-puzzle/enunciado.md) | los mismos algoritmos sobre un problema de 181.440 estados, donde el grafo no existe y los sucesores se calculan en el momento. |
+
+*Capítulo 3, secciones 3.1 a 3.4.*
+
+---
+
+<!-- La unidad 02 todavia es un esqueleto. Descomentar esta seccion
+     --y las lineas de la unidad 02 en _quarto.yml-- cuando este escrita.
+
+## 02 · Agentes basados en conocimiento {#unidad-02}
+
+Un agente que no busca sobre un mapa sino que **razona**: representa lo que sabe
+en una base de conocimiento y deduce de ahí lo que no observó directamente.
+
+| | |
+| --- | --- |
+| [Clase — Agentes basados en conocimiento](02-agentes/agentes.ipynb) | lógica proposicional, inferencia y el mundo del wumpus. |
+| [Práctico](02-agentes/enunciado.md) | enunciado del trabajo. |
+
+*Capítulo 7.*
+
+-->
+
+---
+
+## Cómo está armado
+
+Todo el código vive en el repositorio
+[telsesser/2026-ML-UNLU](https://github.com/telsesser/2026-ML-UNLU).
+
+La carpeta `00-lib/` tiene lo común a todas las unidades —`Problem`, `Node`, la
+frontera, el narrador y los algoritmos—, y no sabe nada de ningún problema en
+particular. Cada unidad numerada agrega solo las piezas que le sirven a ella.

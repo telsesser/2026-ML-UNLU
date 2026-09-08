@@ -33,8 +33,8 @@ Uso:
 import sys
 from pathlib import Path
 
-# Los modulos comunes viven en la carpeta 0-lib/ de al lado.
-LIB = str(Path(__file__).resolve().parent.parent / "0-lib")
+# Los modulos comunes viven en 00-lib/, en la raiz del repo.
+LIB = str(Path(__file__).resolve().parent.parent.parent / "00-lib")
 if LIB not in sys.path:
     sys.path.append(LIB)
 
