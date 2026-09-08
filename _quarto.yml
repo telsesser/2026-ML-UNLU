@@ -9,7 +9,6 @@ project:
   render:
     - index.qmd
     - 01-busqueda/busqueda.ipynb
-    - 01-busqueda/8-puzzle/enunciado.md
     # La unidad 02 todavia es un esqueleto: descomentar estas dos lineas --y
     # las de la navegacion, mas abajo, y la seccion en index.qmd-- cuando el
     # contenido este escrito.
@@ -37,8 +36,8 @@ website:
         menu:
           - href: 01-busqueda/busqueda.ipynb
             text: "Clase — Búsqueda no informada"
-          - href: 01-busqueda/8-puzzle/enunciado.md
-            text: "Práctico — El 8-puzzle"
+          - href: 01-busqueda/TP1-agentes-y-busqueda-no-informada.docx
+            text: "Práctico — TP1 (.docx)"
       # - text: "02 · Agentes"
       #   menu:
       #     - href: 02-agentes/agentes.ipynb
@@ -54,8 +53,8 @@ website:
         contents:
           - href: 01-busqueda/busqueda.ipynb
             text: Clase
-          - href: 01-busqueda/8-puzzle/enunciado.md
-            text: Práctico — El 8-puzzle
+          - href: 01-busqueda/TP1-agentes-y-busqueda-no-informada.docx
+            text: "Práctico — TP1 (.docx)"
       # - section: "02 · Agentes basados en conocimiento"
       #   contents:
       #     - href: 02-agentes/agentes.ipynb

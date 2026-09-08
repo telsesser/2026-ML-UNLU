@@ -11,16 +11,18 @@ Referencias a Russell & Norvig, *Artificial Intelligence: A Modern Approach*,
 | carpeta | qué hay |
 | --- | --- |
 | [`00-lib/`](00-lib/) | lo común a todas las unidades: `Problem`, `Node`, la frontera, el narrador (`view`, `web`) y los cinco algoritmos de búsqueda. Nada de esto sabe de ningún problema en particular. |
-| [`01-busqueda/`](01-busqueda/) | **búsqueda no informada** sobre el mapa de Rumania, y el práctico del [8-puzzle](01-busqueda/8-puzzle/). |
+| [`01-busqueda/`](01-busqueda/) | **búsqueda no informada** sobre el mapa de Rumania, la guía del TP1 y el [8-puzzle](01-busqueda/8-puzzle/) que el TP pide resolver. |
 | [`02-agentes/`](02-agentes/) | **agentes basados en conocimiento**: lógica proposicional e inferencia. |
 
 Cada unidad guarda las piezas que solo le sirven a ella:
 `01-busqueda/romania.py` es el mapa; `01-busqueda/8-puzzle/puzzle.py`,
 `web_puzzle.py` y `plantilla_puzzle.html` son el tablero y su dibujo.
 
-Para agregar una unidad: crear `NN-nombre/` con su notebook y su
-`enunciado.md`, y sumar las dos páginas a `render:` y a la navegación en
-[`_quarto.yml`](_quarto.yml), más su fila en [`index.qmd`](index.qmd).
+Para agregar una unidad: crear `NN-nombre/` con su notebook y su guía, sumar
+lo que se publique a `render:` y a la navegación en [`_quarto.yml`](_quarto.yml),
+y su fila en [`index.qmd`](index.qmd). La guía se enlaza desde el índice: si es
+un `.docx` Quarto la copia al sitio como descarga, si es un `.md` se renderiza
+como una página más.
 
 ## Cómo se corre
 
@@ -54,7 +56,10 @@ Queda en <https://telsesser.github.io/2026-ML-UNLU/>.
 
 `_quarto.yml` trae una lista explícita en `render:`: Quarto renderiza solo lo
 que figura ahí. Quedan deliberadamente afuera del sitio público los
-solucionarios y los notebooks con la resolución de los prácticos —hoy
-`01-busqueda/8-puzzle/solucionario.md` y `01-busqueda/8-puzzle/8-puzzle.ipynb`—.
-Están versionados en el repositorio, que es público: si tienen que ser
-privados, hay que sacarlos del repositorio, no solo del sitio.
+notebooks con la resolución de los prácticos —hoy
+`01-busqueda/8-puzzle/8-puzzle.ipynb`—, que están versionados en el
+repositorio: es público, así que lo que tenga que ser privado hay que sacarlo
+del repositorio, no solo del sitio.
+
+Por lo mismo, `**/info/` está en `.gitignore`: ahí va el material de referencia
+con copyright (capítulos escaneados, papers), que se queda en la máquina.
