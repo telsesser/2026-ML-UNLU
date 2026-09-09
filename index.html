@@ -114,6 +114,17 @@ ul.task-list li input[type="checkbox"] {
   </li>  
     </ul>
   </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-agentes" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">02 · Agentes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-agentes">    
+        <li>
+    <a class="dropdown-item" href="./02-agentes/agentes.html">
+ <span class="dropdown-text">Clase — Agentes basados en conocimiento</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -162,6 +173,23 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="./01-busqueda/TP1-agentes-y-busqueda-no-informada.docx" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Práctico — TP1 (.docx)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">02 · Agentes basados en conocimiento</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-agentes/agentes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clase</span></a>
   </div>
 </li>
       </ul>
@@ -216,22 +244,19 @@ ul.task-list li input[type="checkbox"] {
 </table>
 <p><em>Capítulo 3, secciones 3.1 a 3.4.</em></p>
 <hr>
-<!-- La unidad 02 todavia es un esqueleto. Descomentar esta seccion
-     --y las lineas de la unidad 02 en _quarto.yml-- cuando este escrita.
-
-## 02 · Agentes basados en conocimiento {#unidad-02}
-
-Un agente que no busca sobre un mapa sino que **razona**: representa lo que sabe
-en una base de conocimiento y deduce de ahí lo que no observó directamente.
-
-| | |
-| --- | --- |
-| [Clase — Agentes basados en conocimiento](02-agentes/agentes.ipynb) | lógica proposicional, inferencia y el mundo del wumpus. |
-| [Práctico](02-agentes/enunciado.md) | enunciado del trabajo. |
-
-*Capítulo 7.*
-
--->
+</section>
+<section id="unidad-02" class="level2">
+<h2 class="anchored" data-anchor-id="unidad-02">02 · Agentes basados en conocimiento</h2>
+<p>Un agente que no busca sobre un mapa sino que <strong>razona</strong>: representa lo que sabe en una base de conocimiento y deduce de ahí lo que no observó directamente.</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td><a href="./02-agentes/agentes.html">Clase — Agentes basados en conocimiento</a></td>
+<td>lógica proposicional, inferencia y el mundo del wumpus.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Capítulo 7.</em></p>
 <hr>
 </section>
 <section id="cómo-está-armado" class="level2">
@@ -316,7 +341,7 @@ en una base de conocimiento y deduce de ahí lo que no observó directamente.
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/telsesser\.github\.io\/2026-ML-UNLU\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
