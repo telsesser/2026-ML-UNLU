@@ -269,12 +269,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#el-muro" id="toc-el-muro" class="nav-link" data-scroll-target="#el-muro">3.5 — El muro</a></li>
   <li><a href="#el-agente" id="toc-el-agente" class="nav-link" data-scroll-target="#el-agente">3.6 — El agente</a></li>
   <li><a href="#la-corrida-paso-a-paso" id="toc-la-corrida-paso-a-paso" class="nav-link" data-scroll-target="#la-corrida-paso-a-paso">3.7 — La corrida, paso a paso</a></li>
-  <li><a href="#lo-que-dejamos-afuera-el-tiempo" id="toc-lo-que-dejamos-afuera-el-tiempo" class="nav-link" data-scroll-target="#lo-que-dejamos-afuera-el-tiempo">3.8 — Lo que dejamos afuera: el tiempo</a></li>
-  </ul></li>
-  <li><a href="#parte-4-inferencia-que-escala" id="toc-parte-4-inferencia-que-escala" class="nav-link" data-scroll-target="#parte-4-inferencia-que-escala">Parte 4 — Inferencia que escala</a>
-  <ul class="collapse">
-  <li><a href="#resolución" id="toc-resolución" class="nav-link" data-scroll-target="#resolución">4.1 — Resolución</a></li>
-  <li><a href="#dpll" id="toc-dpll" class="nav-link" data-scroll-target="#dpll">4.2 — DPLL</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -1153,7 +1147,7 @@ KB ⊨ ¬P1,2: True
 KB ⊨ ¬P2,2: False</code></pre>
 </div>
 </div>
-<p>Los mismos dos resultados que en 1.4, pero ahora salidos de un algoritmo general y no de una función escrita a medida del problema. Son siete símbolos, así que la tabla tiene 2⁷ = 128 filas: es exactamente la figura 7.9 del libro.</p>
+<p>Los mismos dos resultados que en 1.4, pero ahora salidos de un algoritmo general y no de una función escrita a medida del problema. Son siete símbolos, así que la tabla tiene 2⁷ = 128 filas.</p>
 <div id="a57" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-09T15:54:32.068359Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-09T15:54:32.067878Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-09T15:54:32.072814Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-09T15:54:32.072221Z&quot;}}" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> product</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1171,7 +1165,7 @@ modelos donde la KB es cierta: 3</code></pre>
 </section>
 <section id="el-muro" class="level3">
 <h3 class="anchored" data-anchor-id="el-muro">3.5 — El muro</h3>
-<p>Para la cueva entera esa cuenta no cierra. Son cuatro símbolos por casilla —el pozo, el wumpus, la brisa y el hedor— sobre dieciséis casillas.</p>
+<p>Para la cueva entera son cuatro símbolos por casilla —el pozo, el wumpus, la brisa y el hedor— sobre dieciséis casillas.</p>
 <div id="a59" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-09T15:54:32.075396Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-09T15:54:32.075202Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-09T15:54:32.078648Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-09T15:54:32.078086Z&quot;}}" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>n_simbolos <span class="op">=</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">16</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n_simbolos<span class="sc">}</span><span class="ss"> simbolos → </span><span class="sc">{</span><span class="dv">2</span> <span class="op">**</span> n_simbolos<span class="sc">:.3g}</span><span class="ss"> modelos"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1179,13 +1173,13 @@ modelos donde la KB es cierta: 3</code></pre>
 <pre><code>64 simbolos → 1.84e+19 modelos</code></pre>
 </div>
 </div>
-<p>Dieciocho trillones de modelos. Y no es un problema de esta implementación: decidir la implicación en lógica proposicional es co-NP-completo, así que <strong>todo algoritmo conocido tiene, en el peor caso, un costo exponencial en el tamaño de la entrada</strong>. La salida de fondo son algoritmos que en la práctica no visitan todo el espacio —la resolución y DPLL, que vienen en la Parte 4—; en 3.8 hay un número que muestra hasta dónde llegan.</p>
-<p>Pero hay una salida barata que además es la que usa el libro en su propio ejemplo: <strong>preguntar menos</strong>. Dos observaciones alcanzan.</p>
+<p>Dieciocho trillones de modelos.</p>
+<p>Pero hay una salida más eficiente: <strong>preguntar menos</strong>. Dos observaciones alcanzan.</p>
 <p>La primera: la KB solo habla de las casillas visitadas y de sus vecinas. Del resto de la cueva no dice absolutamente nada, así que no hace falta enumerarlas —y sobre ellas el agente no puede probar nada, que es la respuesta correcta—. Llamamos a ese conjunto las casillas <em>en juego</em>.</p>
 <p>La segunda: ninguna sentencia mezcla pozos con wumpus. Las brisas hablan de pozos y los hedores hablan del wumpus, y la KB es la conjunción de dos partes que no comparten ningún símbolo. Entonces se pueden preguntar por separado, y en vez de 2^(2k) modelos son 2^k más 2^k. Van a ser <strong>dos bases</strong>, una por mitad.</p>
 <p>Con eso cada consulta pasa de dieciocho trillones de modelos a unos pocos cientos.</p>
-<section id="una-base-de-conocimiento-en-serio" class="level4">
-<h4 class="anchored" data-anchor-id="una-base-de-conocimiento-en-serio">3.5.1 — Una base de conocimiento, en serio</h4>
+<section id="una-base-de-conocimiento" class="level4">
+<h4 class="anchored" data-anchor-id="una-base-de-conocimiento">3.5.1 — Una base de conocimiento</h4>
 <p>Hasta acá veníamos armando sentencias sueltas. Con <code>tt_entails</code> escrito ya podemos completar la clase que quedó declarada en 1.1: <code>TELL</code> agrega una sentencia y <code>ASK</code> responde si algo se sigue de las que ya están.</p>
 <div id="a61" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-09T15:54:32.082163Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-09T15:54:32.081850Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-09T15:54:32.086523Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-09T15:54:32.085909Z&quot;}}" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BaseProposicional(KnowledgeBase):</span>
@@ -1225,8 +1219,7 @@ KB ⊨ ¬P2,2: False</code></pre>
 </section>
 <section id="el-agente" class="level3">
 <h3 class="anchored" data-anchor-id="el-agente">3.6 — El agente</h3>
-<p>Es una versión simplificada de HYBRID-WUMPUS-AGENT, la figura 7.20 del libro. “Híbrido” porque combina dos cosas que ya tenemos: la inferencia lógica de esta unidad para saber <strong>qué casillas son seguras</strong>, y la búsqueda de la unidad 1 para saber <strong>cómo llegar</strong> hasta ellas.</p>
-<p>Esa segunda mitad es literal. Planear una ruta es un problema de búsqueda como los de Rumania, con una sola diferencia: solo se puede pisar lo que se probó seguro. Los algoritmos los importamos de <code>00-lib/</code>, donde quedaron.</p>
+<p>Es una versión simplificada de HYBRID-WUMPUS-AGENT. “Híbrido” porque combina dos cosas que ya tenemos: la inferencia lógica de esta unidad para saber <strong>qué casillas son seguras</strong>, y la búsqueda de la unidad 1 para saber <strong>cómo llegar</strong> hasta ellas.</p>
 <div id="a65" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-09T15:54:32.096021Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-09T15:54:32.095589Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-09T15:54:32.104296Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-09T15:54:32.103778Z&quot;}}" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> breadth_first_search <span class="im">import</span> breadth_first_search</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> node <span class="im">import</span> failure, path_states</span>
@@ -1251,7 +1244,6 @@ KB ⊨ ¬P2,2: False</code></pre>
 </div>
 <p>El agente arranca con dos bases vacías y les hace TELL de su conocimiento de fondo: en la casilla de partida no hay pozo ni wumpus. Después, una vez por casilla nueva, traduce a sentencias lo que percibió.</p>
 <p>De cada percepción salen dos cosas. Que sigue vivo parado ahí, así que esa casilla está limpia. Y lo que dicen sus sensores: con brisa, alguna vecina tiene pozo; sin brisa, ninguna. Esto último es la eliminación del bicondicional de 1.7 aplicada a <code>Bx,y ⇔ (…)</code> junto con la percepción, y es lo que hace desaparecer del problema los símbolos <code>B</code> y <code>S</code>.</p>
-<p>El axioma de que hay a lo sumo un wumpus se instancia de a poco, sobre las casillas que van entrando en juego. En lógica proposicional no hay otra: no se puede decir “para todo par de casillas” de una vez, hay que escribir el par. Es, en chiquito, el argumento de 3.8.</p>
 <p>El método <code>paso</code> es el <code>kb_agent</code> de 1.1, hecho concreto: le hace TELL a la base de lo que percibió, le pregunta con ASK qué es seguro, y decide. Le falta el tercer TELL de la figura 7.1, el de la acción ejecutada, porque nuestra base no habla del tiempo y no tendría qué hacer con él. En 3.8 está lo que pasa cuando sí.</p>
 <div id="a67" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-09T15:54:32.107123Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-09T15:54:32.106908Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-09T15:54:32.120602Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-09T15:54:32.119516Z&quot;}}" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> P(c):</span>
@@ -1421,7 +1413,6 @@ probadas seguras:  [(1, 1), (1, 2), (2, 1)]</code></pre>
 </section>
 <section id="la-corrida-paso-a-paso" class="level3">
 <h3 class="anchored" data-anchor-id="la-corrida-paso-a-paso">3.7 — La corrida, paso a paso</h3>
-<p>La misma corrida, cuadro por cuadro. A la izquierda, lo que el agente tiene probado en cada casilla; el botón de arriba cambia a la cueva de verdad, la que él no ve. A la derecha, lo que percibió, lo que le preguntó a la base, cuántos modelos quedaron en pie y qué decidió hacer.</p>
 <div id="a74" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-09T15:54:37.025606Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-09T15:54:37.025403Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-09T15:54:37.034678Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-09T15:54:37.033973Z&quot;}}" data-execution_count="35">
 <div class="cell-output cell-output-display" data-execution_count="35">
 <div><iframe srcdoc="<title>El mundo del wumpus</title>
@@ -1917,105 +1908,12 @@ cambiarVista(&quot;saber&quot;);
 " style="width:100%; height:780px; border:1px solid #dee2e6; border-radius:.25rem" title="el agente paso a paso"></iframe></div>
 </div>
 </div>
-<p>Vale la pena mirar el cuadro del instante 3, cuando el agente vuelve de <code>[2,1]</code> y entra a <code>[1,2]</code>. Ahí percibe hedor y no percibe brisa, y con eso cierra tres inferencias de golpe:</p>
+<p>Vale la pena mirar el cuadro del instante 3, cuando el agente vuelve de <code>[2,1]</code> y entra a <code>[1,2]</code>. Ahí percibe hedor y no percibe brisa, y con eso cierra tres inferencias:</p>
 <ul>
 <li>no hay brisa en <code>[1,2]</code>, así que ninguna vecina tiene pozo: <code>[2,2]</code> está limpia. Pero en <code>[2,1]</code> sí había brisa, y sus vecinas en duda eran <code>[2,2]</code> y <code>[3,1]</code>. Entonces <strong>el pozo está en <code>[3,1]</code></strong>;</li>
 <li>hay hedor en <code>[1,2]</code>, así que el wumpus está en <code>[1,1]</code>, <code>[1,3]</code> o <code>[2,2]</code>. En <code>[1,1]</code> no está, porque es la casilla de arranque. En <code>[2,2]</code> tampoco, porque en <code>[2,1]</code> no había hedor. Entonces <strong>el wumpus está en <code>[1,3]</code></strong>;</li>
 <li>sin pozo y sin wumpus, <strong><code>[2,2]</code> es segura</strong>.</li>
 </ul>
-<p>Es la figura 7.4(a) del libro, y es una inferencia difícil: combina conocimiento adquirido en momentos distintos, en lugares distintos, y usa la <strong>ausencia</strong> de una percepción como premisa. En el panel de ese cuadro se ve que de los 64 modelos posibles quedó exactamente uno en pie: a esa altura la KB determina por completo la parte de la cueva que está en juego.</p>
-</section>
-<section id="lo-que-dejamos-afuera-el-tiempo" class="level3">
-<h3 class="anchored" data-anchor-id="lo-que-dejamos-afuera-el-tiempo">3.8 — Lo que dejamos afuera: el tiempo</h3>
-<p>El agente que corrimos deduce <strong>dónde hay pozos y wumpus</strong>, que es lo que no cambia. Todo lo demás —dónde está parado, si ya agarró el oro, si le queda la flecha— lo lleva en atributos de Python, no en la base de conocimiento. El agente del libro lo mete todo en la KB, y ahí aparecen los problemas interesantes.</p>
-<p>Un símbolo que cambia con el tiempo se llama <strong>fluente</strong>, y se lo indexa con el instante: <code>L^1,1</code> con superíndice 4 significa “el agente está en [1,1] en el momento 4”. Las percepciones también: se le hace TELL de <code>Stench⁴</code>, no de <code>Stench</code>, porque si no la percepción de ahora contradiría a la de antes.</p>
-<p>Para describir cómo cambia el mundo uno escribiría <strong>axiomas de efecto</strong>, que dicen qué provoca cada acción:</p>
-<pre><code>L⁰1,1 ∧ FacingEast⁰ ∧ Forward⁰  ⇒  (L¹2,1 ∧ ¬L¹1,1)</code></pre>
-<p>Y ahí salta el <strong>problema del marco</strong>: el axioma dice qué cambió, pero no dice qué <strong>quedó igual</strong>. Después de avanzar, el agente ya no puede probar que todavía tiene la flecha. Habría que agregar un axioma por cada cosa que no cambia y por cada acción, que son <em>O(mn)</em> sentencias para <em>m</em> acciones y <em>n</em> fluentes. La solución es dar vuelta el foco: en vez de escribir axiomas sobre las acciones, se escriben <strong>axiomas de estado sucesor</strong> sobre los fluentes, uno por fluente, de la forma</p>
-<pre><code>F^(t+1) ⇔ AlgunaAccionLoCausó^t ∨ (F^t ∧ NingunaAcciónLoDeshizo^t)</code></pre>
-<p>Con eso el agente puede responder cualquier pregunta contestable sobre el estado actual del mundo. Pero el costo de cada ASK crece con el tiempo, porque hay que razonar hacia atrás sobre toda la historia de percepciones —el libro lo resuelve con <strong>estimación de estado</strong>, guardando una aproximación conservadora de lo que sabe— y, sobre todo, la representación no escala. Para una cueva de 100×100 y mil instantes harían falta decenas de millones de sentencias, porque en lógica proposicional hay que escribir “para cada casilla <code>[x,y]</code>” y “para cada instante <em>t</em>” a mano, una vez por casilla y por instante.</p>
-<p>Ese es el límite real, y no es de los algoritmos sino del lenguaje. La lógica proposicional no puede hablar de <em>todas</em> las casillas de una vez. El capítulo 8 introduce la <strong>lógica de primer orden</strong>, donde el mundo del wumpus entero se describe en unas diez sentencias en vez de diez millones.</p>
-<section id="cuánto-cuesta-hacerlo-completo" class="level4">
-<h4 class="anchored" data-anchor-id="cuánto-cuesta-hacerlo-completo">Cuánto cuesta hacerlo completo</h4>
-<p>No hace falta creerlo de palabra. La librería oficial del libro, <a href="https://github.com/aimacode/aima-python">aima-python</a>, implementa exactamente esto: una <code>WumpusKB</code> con los axiomas de estado sucesor para la ubicación, la orientación, la flecha y el wumpus vivo, y un <code>HybridWumpusAgent</code> que es la figura 7.20 completa, con disparo y con ruta por A*. Su <code>ASK</code> ni siquiera usa verificación de modelos: usa DPLL por refutación, porque —según su propio comentario— la clausura de resolución sobre ese conjunto de cláusulas no termina.</p>
-<p>Aun así, lo que tarda en decidir <strong>la primera acción</strong>, según el tamaño de la cueva:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>cueva</th>
-<th>cláusulas</th>
-<th>símbolos</th>
-<th>primera acción</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>2×2</td>
-<td>81</td>
-<td>32</td>
-<td>0,4 s</td>
-</tr>
-<tr class="even">
-<td>3×3</td>
-<td>228</td>
-<td>62</td>
-<td>7,8 s</td>
-</tr>
-<tr class="odd">
-<td>4×4</td>
-<td>521</td>
-<td>104</td>
-<td><strong>70 s</strong></td>
-</tr>
-</tbody>
-</table>
-<p>Setenta segundos para un solo movimiento en la cueva del libro. Y es el movimiento del instante 0, el más barato de todos, porque la base temporal todavía está vacía. Lo que pasa después, ya en la cueva <strong>más chica posible</strong>, la de 2×2:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>instante</th>
-<th>cláusulas</th>
-<th>decidir la acción</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>t = 0</td>
-<td>90</td>
-<td>0,4 s</td>
-</tr>
-<tr class="even">
-<td>t = 1</td>
-<td>343</td>
-<td>5,8 s</td>
-</tr>
-<tr class="odd">
-<td>t = 2</td>
-<td>596</td>
-<td>28,5 s</td>
-</tr>
-<tr class="even">
-<td>t = 3</td>
-<td>—</td>
-<td>no terminó en 75 s</td>
-</tr>
-</tbody>
-</table>
-<p>Cada instante agrega su tanda de axiomas de estado sucesor —uno por fluente, por casilla— y el costo de cada ASK crece con toda la historia. Sus propios tests ejercitan únicamente la cueva de 2×2 y únicamente el primer paso, con esta aclaración: <em>“only t=0 is exercised: the propositional Fig 7.20 inference grows expensive as the temporal KB accumulates”</em>.</p>
-<p>Nuestro agente hace los doce pasos de la cueva de 4×4 en aproximadamente un segundo. La diferencia no está en la implementación: está en que no razona sobre el tiempo. Ese es el precio, y es el que justifica el capítulo 8.</p>
-<hr>
-</section>
-</section>
-</section>
-<section id="parte-4-inferencia-que-escala" class="level2">
-<h2 class="anchored" data-anchor-id="parte-4-inferencia-que-escala">Parte 4 — Inferencia que escala</h2>
-<section id="resolución" class="level3">
-<h3 class="anchored" data-anchor-id="resolución">4.1 — Resolución</h3>
-<p><em>(por escribir: PL-RESOLUTION sobre la FNC de 1.8, y la prueba por refutación —<code>α ⊨ β</code> si y solo si <code>α ∧ ¬β</code> es insatisfacible— que ya quedó planteada en 1.7)</em></p>
-</section>
-<section id="dpll" class="level3">
-<h3 class="anchored" data-anchor-id="dpll">4.2 — DPLL</h3>
-<p><em>(por escribir: el algoritmo que hace posible lo del 3.5 sin restringir nada —terminación temprana, símbolos puros, cláusulas unitarias—)</em></p>
 
 
 </section>
