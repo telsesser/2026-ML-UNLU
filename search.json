@@ -62,39 +62,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Aprendizaje Automático",
+    "title": "Aprendizaje automático 2026 - UNLU",
     "section": "",
-    "text": "Material de clase: cada unidad tiene un notebook que se puede recorrer paso a paso y un trabajo práctico con su enunciado.\nLas referencias son a Russell & Norvig, Artificial Intelligence: A Modern Approach, 4ª edición.",
-    "crumbs": [
-      "Inicio"
-    ]
-  },
-  {
-    "objectID": "index.html#unidad-01",
-    "href": "index.html#unidad-01",
-    "title": "Aprendizaje Automático",
-    "section": "01 · Búsqueda no informada",
-    "text": "01 · Búsqueda no informada\nCómo se resuelve un problema cuando lo único que se tiene es el estado inicial, las acciones y una prueba de objetivo. Los cinco algoritmos del capítulo 3, narrados sobre el mapa de Rumania: de Arad a Bucharest.\nLa búsqueda se recorre paso a paso, con el mapa o con el árbol de búsqueda.\n\n\n\nClase — Búsqueda no informada\namplitud, costo uniforme, profundidad, profundidad iterativa y bidireccional, sobre un grafo escrito de antemano.\n\n\nPráctico — TP1\n⬇ descarga .docx. Los fundamentos de agentes y búsqueda, y el 8-puzzle: los mismos algoritmos sobre un problema de 181.440 estados, donde el grafo no existe y los sucesores se calculan en el momento.\n\n\n\nCapítulo 3, secciones 3.1 a 3.4.",
-    "crumbs": [
-      "Inicio"
-    ]
-  },
-  {
-    "objectID": "index.html#unidad-02",
-    "href": "index.html#unidad-02",
-    "title": "Aprendizaje Automático",
-    "section": "02 · Agentes basados en conocimiento",
-    "text": "02 · Agentes basados en conocimiento\nUn agente que no busca sobre un mapa sino que razona: representa lo que sabe en una base de conocimiento y deduce de ahí lo que no observó directamente.\n\n\n\nClase — Agentes basados en conocimiento\nlógica proposicional, inferencia y el mundo del wumpus.\n\n\n\nCapítulo 7.",
-    "crumbs": [
-      "Inicio"
-    ]
-  },
-  {
-    "objectID": "index.html#cómo-está-armado",
-    "href": "index.html#cómo-está-armado",
-    "title": "Aprendizaje Automático",
-    "section": "Cómo está armado",
-    "text": "Cómo está armado\nTodo el código vive en el repositorio telsesser/2026-ML-UNLU.\nLa carpeta 00-lib/ tiene lo común a todas las unidades —Problem, Node, la frontera, el narrador y los algoritmos—, y no sabe nada de ningún problema en particular. Cada unidad numerada agrega solo las piezas que le sirven a ella.",
+    "text": "01\nBúsqueda no informada · TP1\n\n\n02\nAgentes basados en conocimiento",
     "crumbs": [
       "Inicio"
     ]

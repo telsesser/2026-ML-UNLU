@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Aprendizaje Automático – ML · UNLU 2026</title>
+<title>Aprendizaje automático 2026 - UNLU – ML · UNLU 2026</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -205,8 +205,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Aprendizaje Automático</h1>
-<p class="subtitle lead">Universidad Nacional de Luján — 2026</p>
+<h1 class="title">Aprendizaje automático 2026 - UNLU</h1>
+<p class="subtitle lead">Notebooks complementarios</p>
 </div>
 
 
@@ -223,49 +223,20 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Material de clase: cada unidad tiene un <strong>notebook</strong> que se puede recorrer paso a paso y un <strong>trabajo práctico</strong> con su enunciado.</p>
-<p>Las referencias son a Russell &amp; Norvig, <em>Artificial Intelligence: A Modern Approach</em>, 4ª edición.</p>
-<hr>
-<section id="unidad-01" class="level2">
-<h2 class="anchored" data-anchor-id="unidad-01">01 · Búsqueda no informada</h2>
-<p>Cómo se resuelve un problema cuando lo único que se tiene es el estado inicial, las acciones y una prueba de objetivo. Los cinco algoritmos del capítulo 3, narrados sobre el mapa de Rumania: de Arad a Bucharest.</p>
-<p>La búsqueda se recorre paso a paso, con el mapa o con el árbol de búsqueda.</p>
 <table class="caption-top table">
 <tbody>
 <tr class="odd">
-<td><a href="./01-busqueda/busqueda.html">Clase — Búsqueda no informada</a></td>
-<td>amplitud, costo uniforme, profundidad, profundidad iterativa y bidireccional, sobre un grafo escrito de antemano.</td>
+<td>01</td>
+<td><a href="./01-busqueda/busqueda.html">Búsqueda no informada</a> · <a href="01-busqueda/TP1-agentes-y-busqueda-no-informada.docx">TP1</a></td>
 </tr>
 <tr class="even">
-<td><a href="01-busqueda/TP1-agentes-y-busqueda-no-informada.docx">Práctico — TP1</a></td>
-<td>⬇ descarga <code>.docx</code>. Los fundamentos de agentes y búsqueda, y el 8-puzzle: los mismos algoritmos sobre un problema de 181.440 estados, donde el grafo no existe y los sucesores se calculan en el momento.</td>
+<td>02</td>
+<td><a href="./02-agentes/agentes.html">Agentes basados en conocimiento</a></td>
 </tr>
 </tbody>
 </table>
-<p><em>Capítulo 3, secciones 3.1 a 3.4.</em></p>
-<hr>
-</section>
-<section id="unidad-02" class="level2">
-<h2 class="anchored" data-anchor-id="unidad-02">02 · Agentes basados en conocimiento</h2>
-<p>Un agente que no busca sobre un mapa sino que <strong>razona</strong>: representa lo que sabe en una base de conocimiento y deduce de ahí lo que no observó directamente.</p>
-<table class="caption-top table">
-<tbody>
-<tr class="odd">
-<td><a href="./02-agentes/agentes.html">Clase — Agentes basados en conocimiento</a></td>
-<td>lógica proposicional, inferencia y el mundo del wumpus.</td>
-</tr>
-</tbody>
-</table>
-<p><em>Capítulo 7.</em></p>
-<hr>
-</section>
-<section id="cómo-está-armado" class="level2">
-<h2 class="anchored" data-anchor-id="cómo-está-armado">Cómo está armado</h2>
-<p>Todo el código vive en el repositorio <a href="https://github.com/telsesser/2026-ML-UNLU">telsesser/2026-ML-UNLU</a>.</p>
-<p>La carpeta <code>00-lib/</code> tiene lo común a todas las unidades —<code>Problem</code>, <code>Node</code>, la frontera, el narrador y los algoritmos—, y no sabe nada de ningún problema en particular. Cada unidad numerada agrega solo las piezas que le sirven a ella.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
