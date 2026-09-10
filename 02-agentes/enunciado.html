@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Aprendizaje automático 2026 - UNLU – ML · UNLU 2026</title>
+<title>Agentes basados en conocimiento – ML · UNLU 2026</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,27 +26,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./01-busqueda/busqueda.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-722e05f976e177018ab3cac10df43184.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../02-agentes/agentes.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-722e05f976e177018ab3cac10df43184.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -78,14 +113,14 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating nav-fixed fullcontent quarto-light">
+<body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">ML · UNLU 2026</span>
     </a>
   </div>
@@ -96,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Inicio</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -105,11 +140,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-búsqueda">    
         <li>
-    <a class="dropdown-item" href="./01-busqueda/busqueda.html">
+    <a class="dropdown-item" href="../01-busqueda/busqueda.html">
  <span class="dropdown-text">Clase — Búsqueda no informada</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./01-busqueda/TP1-agentes-y-busqueda-no-informada.docx">
+    <a class="dropdown-item" href="../01-busqueda/TP1-agentes-y-busqueda-no-informada.docx">
  <span class="dropdown-text">Práctico — TP1 (.docx)</span></a>
   </li>  
     </ul>
@@ -120,11 +155,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-agentes">    
         <li>
-    <a class="dropdown-item" href="./02-agentes/agentes.html">
+    <a class="dropdown-item" href="../02-agentes/agentes.html">
  <span class="dropdown-text">Clase — Agentes basados en conocimiento</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./02-agentes/enunciado.html">
+    <a class="dropdown-item" href="../02-agentes/enunciado.html">
  <span class="dropdown-text">Práctico — Guía de laboratorio</span></a>
   </li>  
     </ul>
@@ -140,7 +175,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Inicio</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-agentes/agentes.html">02 · Agentes basados en conocimiento</a></li><li class="breadcrumb-item"><a href="../02-agentes/enunciado.html">Práctico</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -154,7 +189,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Inicio</span></a>
   </div>
 </li>
@@ -169,13 +204,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-busqueda/busqueda.html" class="sidebar-item-text sidebar-link">
+  <a href="../01-busqueda/busqueda.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Clase</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-busqueda/TP1-agentes-y-busqueda-no-informada.docx" class="sidebar-item-text sidebar-link">
+  <a href="../01-busqueda/TP1-agentes-y-busqueda-no-informada.docx" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Práctico — TP1 (.docx)</span></a>
   </div>
 </li>
@@ -192,13 +227,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-agentes/agentes.html" class="sidebar-item-text sidebar-link">
+  <a href="../02-agentes/agentes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Clase</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-agentes/enunciado.html" class="sidebar-item-text sidebar-link">
+  <a href="../02-agentes/enunciado.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Práctico</span></a>
   </div>
 </li>
@@ -209,14 +244,27 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#objetivo" id="toc-objetivo" class="nav-link active" data-scroll-target="#objetivo">Objetivo</a></li>
+  <li><a href="#un-ejemplo-pequeño-para-razonar" id="toc-un-ejemplo-pequeño-para-razonar" class="nav-link" data-scroll-target="#un-ejemplo-pequeño-para-razonar">1. Un ejemplo pequeño para razonar</a></li>
+  <li><a href="#de-la-idea-a-la-implementación" id="toc-de-la-idea-a-la-implementación" class="nav-link" data-scroll-target="#de-la-idea-a-la-implementación">2. De la idea a la implementación</a></li>
+  <li><a href="#desafío-podemos-lanzar-el-experimento" id="toc-desafío-podemos-lanzar-el-experimento" class="nav-link" data-scroll-target="#desafío-podemos-lanzar-el-experimento">3. Desafío: ¿podemos lanzar el experimento?</a></li>
+  <li><a href="#desafío-qué-conviene-revisar-en-una-sala-de-lectura" id="toc-desafío-qué-conviene-revisar-en-una-sala-de-lectura" class="nav-link" data-scroll-target="#desafío-qué-conviene-revisar-en-una-sala-de-lectura">4. Desafío: ¿qué conviene revisar en una sala de lectura?</a></li>
+  <li><a href="#un-problema-nuevo" id="toc-un-problema-nuevo" class="nav-link" data-scroll-target="#un-problema-nuevo">5. Un problema nuevo</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-agentes/agentes.html">02 · Agentes basados en conocimiento</a></li><li class="breadcrumb-item"><a href="../02-agentes/enunciado.html">Práctico</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Aprendizaje automático 2026 - UNLU</h1>
-<p class="subtitle lead">Notebooks complementarios</p>
+<h1 class="title">Agentes basados en conocimiento</h1>
+<p class="subtitle lead">Guía de laboratorio</p>
 </div>
 
 
@@ -233,20 +281,205 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="objetivo" class="level2">
+<h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
+<p>Modelar un problema como una base de conocimiento en lógica proposicional, consultarla por implicación lógica con SymPy, y distinguir con claridad las tres respuestas posibles: lo que se deduce, lo que se refuta y lo que queda desconocido. Sobre el final, reconocer el límite de la lógica proposicional que motiva la de primer orden.</p>
+<p>Referencia: Russell y Norvig, <em>Artificial Intelligence: A Modern Approach</em>, 4ª edición, capítulos 7 y 8. El <a href="../02-agentes/agentes.html">notebook de la clase</a> tiene todo el código que hace falta.</p>
+</section>
+<section id="un-ejemplo-pequeño-para-razonar" class="level2">
+<h2 class="anchored" data-anchor-id="un-ejemplo-pequeño-para-razonar">1. Un ejemplo pequeño para razonar</h2>
+<p>Considerá la siguiente base de conocimiento, con tres símbolos:</p>
+<pre><code>R1:  Llueve ⇒ Mojada
+R2:  Riego ⇒ Mojada
+R3:  Mojada</code></pre>
+<p>Razoná primero sin ejecutar código:</p>
+<ul>
+<li><p>¿Cuántos modelos posibles hay? ¿En cuántos de ellos es verdadera la base?</p></li>
+<li><p>¿Se sigue <code>Llueve</code>? ¿Se sigue <code>¬Llueve</code>? ¿Qué respondería <code>consultar</code> a cada pregunta, y por qué las dos respuestas no se contradicen?</p></li>
+<li><p>Agregá <code>R4: ¬Riego</code>. ¿Cambia alguna de las respuestas anteriores? Explicá por qué la lluvia sigue sin poder afirmarse.</p></li>
+<li><p>Reemplazá <code>R1</code> y <code>R2</code> por una sola sentencia, <code>Mojada ⇔ (Llueve ∨ Riego)</code>. Con <code>R3</code> y <code>R4</code>, ¿qué se sigue ahora? ¿Qué diferencia hay entre decir “si llueve, se moja” y “se moja exactamente cuando llueve o se riega”?</p></li>
+<li><p>Escribí cada versión de la base en forma normal conjuntiva. ¿Cuáles de sus cláusulas son definidas? ¿Alguna de las versiones podría resolverse por encadenamiento hacia adelante?</p></li>
+</ul>
+</section>
+<section id="de-la-idea-a-la-implementación" class="level2">
+<h2 class="anchored" data-anchor-id="de-la-idea-a-la-implementación">2. De la idea a la implementación</h2>
+<p>En esta parte usamos SymPy y la función <code>consultar</code> de la clase. El entorno del curso ya tiene SymPy instalado; no hace falta programar ningún motor de inferencia ni definir clases.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> symbols, And, Or, Not, Implies, Equivalent, to_cnf</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy.logic.boolalg <span class="im">import</span> truth_table</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy.logic.inference <span class="im">import</span> satisfiable</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> consultar(base, proposicion):</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> satisfiable(base) <span class="kw">is</span> <span class="va">False</span>:</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Base inconsistente"</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> satisfiable(And(base, Not(proposicion))) <span class="kw">is</span> <span class="va">False</span>:</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Verdadero"</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> satisfiable(And(base, proposicion)) <span class="kw">is</span> <span class="va">False</span>:</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Falso"</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"Desconocido"</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>Llueve, Riego, Mojada <span class="op">=</span> symbols(<span class="st">"Llueve Riego Mojada"</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> And(Implies(Llueve, Mojada), Implies(Riego, Mojada), Mojada)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(consultar(base, Llueve))</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(to_cnf(base))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ejecutá las consultas de la parte 1 sobre las tres versiones de la base y reuní evidencias de su comportamiento.</p>
+<ul>
+<li><p>Informá, para cada versión, la respuesta a <code>Llueve</code> y a <code>¬Llueve</code>, y compará con lo que razonaste.</p></li>
+<li><p>Contá los modelos de cada versión con <code>truth_table</code> y verificá tu cuenta a mano.</p></li>
+<li><p>Convertí cada versión con <code>to_cnf</code>. Sobre la que sea de cláusulas definidas, corré el encadenamiento hacia adelante del notebook (<code>pl_fc_entails</code>) y comparalo con <code>consultar</code>. Registrá cuándo coinciden y cuándo no, y qué significa cada <code>False</code> del encadenamiento.</p></li>
+</ul>
+</section>
+<section id="desafío-podemos-lanzar-el-experimento" class="level2">
+<h2 class="anchored" data-anchor-id="desafío-podemos-lanzar-el-experimento">3. Desafío: ¿podemos lanzar el experimento?</h2>
+<p>Un equipo prepara experimentos de aprendizaje automático. Antes de ejecutarlos, necesita decidir qué recurso puede usar y qué tareas pendientes debe resolver. El asistente <strong>no elige el mejor modelo ni ejecuta el experimento</strong>: revisa condiciones declaradas.</p>
+<p>El equipo acordó este protocolo:</p>
+<ul>
+<li><p>Los datos están listos cuando fueron validados y su uso fue autorizado. Ambas condiciones son necesarias; el protocolo define «datos listos» exactamente de esa manera.</p></li>
+<li><p>El entorno está listo si están instaladas las dependencias y la prueba mínima de ejecución funciona. También se define exactamente por esas dos condiciones.</p></li>
+<li><p>Si los datos y el entorno están listos, el experimento está técnicamente preparado.</p></li>
+<li><p>Si está preparado y hay una GPU disponible, se puede lanzar en GPU.</p></li>
+<li><p>Si está preparado, el experimento admite CPU y hay una CPU disponible, se puede lanzar en CPU.</p></li>
+<li><p>Basta con que pueda lanzarse en alguno de esos recursos para recomendar iniciar una ejecución.</p></li>
+<li><p>Si se comprobó que los datos no fueron validados, se recomienda validar los datos. Si se comprobó que falta autorización, se recomienda gestionarla. Si se comprobó que la prueba mínima falla, se recomienda revisar el entorno.</p></li>
+</ul>
+<p>Que un experimento pueda usar ambos recursos no obliga a elegir uno: la prioridad, el costo y la planificación quedan fuera de este protocolo.</p>
 <table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Observación</th>
+<th style="text-align: center;">Caso A</th>
+<th style="text-align: center;">Caso B</th>
+<th style="text-align: center;">Caso C</th>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
-<td>01</td>
-<td><a href="./01-busqueda/busqueda.html">Búsqueda no informada</a> · <a href="01-busqueda/TP1-agentes-y-busqueda-no-informada.docx">TP1</a></td>
+<td style="text-align: left;">Datos validados</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">Sí</td>
 </tr>
 <tr class="even">
-<td>02</td>
-<td><a href="./02-agentes/agentes.html">Agentes basados en conocimiento</a> · <a href="./02-agentes/enunciado.html">Práctico</a></td>
+<td style="text-align: left;">Uso autorizado</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dependencias instaladas</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">Sí</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Prueba mínima funciona</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">Sí</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GPU disponible</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Sí</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Admite CPU</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">No</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CPU disponible</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">No</td>
 </tr>
 </tbody>
 </table>
+<p><code>?</code> significa que no tenemos esa información, no que la respuesta sea negativa.</p>
+<ol type="1">
+<li><p>Modelen el protocolo. Distingan las expresiones «si» de las definiciones «exactamente cuando»: ¿qué conector corresponde en cada caso?</p></li>
+<li><p>Para cada caso, consulten si los datos están listos, si se puede usar cada recurso y si se recomienda iniciar. Fundamenten las respuestas con las reglas y observaciones relevantes.</p></li>
+<li><p>Completen el caso C primero con autorización positiva y luego con autorización negativa, en <strong>dos bases separadas</strong>. Comparen las conclusiones y las recomendaciones.</p></li>
+<li><p>Construyan un caso inconsistente y comprueben que se detecta antes de recomendar acciones. No confundan una imposibilidad de ejecución con una contradicción lógica.</p></li>
+</ol>
+</section>
+<section id="desafío-qué-conviene-revisar-en-una-sala-de-lectura" class="level2">
+<h2 class="anchored" data-anchor-id="desafío-qué-conviene-revisar-en-una-sala-de-lectura">4. Desafío: ¿qué conviene revisar en una sala de lectura?</h2>
+<p>Una biblioteca recibe quejas porque algunas salas están demasiado oscuras. Quiere un asistente sencillo que sugiera comprobaciones sin atribuir causas que todavía no se verificaron.</p>
+<p>El protocolo de mantenimiento establece:</p>
+<ul>
+<li><p>Una sala se considera bien iluminada exactamente cuando tiene suficiente luz natural <strong>o</strong> iluminación artificial suficiente; también puede tener ambas.</p></li>
+<li><p>Si la sala está ocupada y no está bien iluminada, se recomienda intervenir.</p></li>
+<li><p>Si se recomienda intervenir y las cortinas están cerradas, se recomienda abrirlas.</p></li>
+<li><p>Si se recomienda intervenir y las lámparas están apagadas, se recomienda encenderlas.</p></li>
+<li><p>Si se recomienda intervenir, las lámparas están encendidas y la iluminación artificial no es suficiente, se recomienda revisar las luminarias.</p></li>
+</ul>
+<p>No sabemos de antemano si abrir las cortinas o encender las lámparas resolverá el problema. Las reglas recomiendan acciones; <strong>no incorporan sus resultados como hechos</strong>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Observación</th>
+<th style="text-align: center;">Sala A</th>
+<th style="text-align: center;">Sala B</th>
+<th style="text-align: center;">Sala C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Está ocupada</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">Sí</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Luz natural suficiente</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Iluminación artificial suficiente</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cortinas cerradas</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Sí</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lámparas encendidas</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Sí</td>
+<td style="text-align: center;">No</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li><p>Definan el vocabulario y modelen el protocolo. Presten atención a que «lámparas encendidas» e «iluminación artificial suficiente» no significan lo mismo.</p></li>
+<li><p>Consulten si cada sala está bien iluminada y qué acciones se recomiendan. Expliquen cualquier diferencia entre desconocido y falso.</p></li>
+<li><p>Para la sala A, supongan que se abrieron las cortinas. Armen <strong>una nueva observación</strong>, cambiando ese dato y dejando desconocido si ahora la luz natural alcanza. ¿Se puede afirmar que el problema se resolvió? Luego incorporen el resultado de una nueva medición y vuelvan a consultar.</p></li>
+<li><p>Propongan una nueva regla útil, justifíquenla y construyan un caso que muestre su efecto. No cambien el motor: cambien el conocimiento del dominio.</p></li>
+</ol>
+</section>
+<section id="un-problema-nuevo" class="level2">
+<h2 class="anchored" data-anchor-id="un-problema-nuevo">5. Un problema nuevo</h2>
+<p>Elegí un protocolo, reglamento o lista de control que conozcas bien —las condiciones para rendir una materia, el checklist de un despliegue, los requisitos de un préstamo— y construí con él un asistente como el de la clase.</p>
+<ul>
+<li><p>Definí el vocabulario: qué proposiciones hay, qué significa cada una, cuáles son observaciones y cuáles recomendaciones.</p></li>
+<li><p>Escribí las reglas y armá al menos tres casos, uno de ellos con una observación desconocida. Consultá las conclusiones y separá lo demostrado, lo refutado y lo desconocido.</p></li>
+<li><p>Buscá en tu base las reglas que se repiten con distintos nombres —una por sala, una por equipo, una por materia—. Escribí, en lógica de primer orden y con cuantificadores, la sentencia única que las reemplazaría. ¿Qué supuesto sobre el dominio hace falta para volver a desplegarla con un <code>for</code> de Python?</p></li>
+</ul>
+<p>Para cerrar, comparen los modelos entre grupos: ¿usan los mismos símbolos?, ¿hay reglas que parecen razonables pero afirman más de lo que dice el protocolo?, ¿cuándo una recomendación no demostrada se confundió con una recomendación prohibida? Una base puede ser consistente y, aun así, representar mal el problema.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -651,11 +884,11 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../02-agentes/agentes.html" class="pagination-link" aria-label="Clase">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Clase</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01-busqueda/busqueda.html" class="pagination-link" aria-label="Clase">
-        <span class="nav-page-text">Clase</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
