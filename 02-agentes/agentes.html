@@ -323,7 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>TELL(KB, α)   agrega la sentencia α a la base
 ASK(KB, α)    pregunta qué acción tomar</code></pre>
 <p>Las dos involucran <strong>inferencia</strong>: derivar sentencias nuevas a partir de las ya conocidas.</p>
-<div id="celda004" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.442172Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.441979Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.445396Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.444338Z&quot;}}" data-execution_count="2">
+<div id="celda004" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.531431Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.531275Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.534126Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.533577Z&quot;}}" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># La base de conocimiento es una lista de sentencias.</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> TELL(KB, sentencia):</span>
@@ -337,7 +337,7 @@ ASK(KB, α)    pregunta qué acción tomar</code></pre>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">NotImplementedError</span> </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Con esas dos operaciones ya se puede escribir el programa del agente. La idea es usar el mismo esqueleto para cualquier agente basado en conocimiento: recibe una percepción y devuelve una acción.</p>
-<div id="celda006" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.447462Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.447265Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.451663Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.450646Z&quot;}}" data-execution_count="3">
+<div id="celda006" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.535503Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.535338Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.538949Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.538375Z&quot;}}" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_percept_sentence(percept, t):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""La sentencia "percibi `percept` en el instante `t`"."""</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">NotImplementedError</span></span>
@@ -398,7 +398,7 @@ ASK(KB, α)    pregunta qué acción tomar</code></pre>
 <p>Veamos el mismo análisis en el <strong>mundo del wumpus</strong>: una cueva de 4×4 habitaciones, algunas con pozos, donde vale la regla de que <strong>hay brisa exactamente en las habitaciones vecinas a un pozo</strong>.</p>
 <p>El agente arranca en <code>[1,1]</code>, no percibe nada, y se mueve a <code>[2,1]</code>, donde percibe brisa. Su KB son las reglas del mundo más esas dos percepciones. La pregunta es si hay pozo en <code>[1,2]</code>, en <code>[2,2]</code> o en <code>[3,1]</code>.</p>
 <p>Tres habitaciones, cada una con pozo o sin pozo: 2³ = 8 modelos posibles. Los enumeramos todos y nos quedamos con los que satisfacen la KB.</p>
-<div id="celda011" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.453498Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.453322Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.458856Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.458274Z&quot;}}" data-execution_count="4">
+<div id="celda011" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.540503Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.540311Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.545395Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.544808Z&quot;}}" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Un modelo le asigna un valor de verdad a cada simbolo. Aca los simbolos</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># son "hay un pozo en tal habitacion", para las tres en cuestion.</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>habitaciones <span class="op">=</span> [<span class="st">"[1,2]"</span>, <span class="st">"[2,2]"</span>, <span class="st">"[3,1]"</span>]</span>
@@ -424,7 +424,7 @@ ASK(KB, α)    pregunta qué acción tomar</code></pre>
  {'[1,2]': True, '[2,2]': True, '[3,1]': True}]</code></pre>
 </div>
 </div>
-<div id="celda012" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.460558Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.460391Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.465984Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.465052Z&quot;}}" data-execution_count="5">
+<div id="celda012" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.546716Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.546563Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.550250Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.549707Z&quot;}}" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> KB(m):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""¿Es verdadera la base de conocimiento del agente en el modelo `m`?</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -451,7 +451,7 @@ ASK(KB, α)    pregunta qué acción tomar</code></pre>
  {'[1,2]': False, '[2,2]': True, '[3,1]': True}]</code></pre>
 </div>
 </div>
-<div id="99c514dd" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.468721Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.468446Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.472313Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.471853Z&quot;}}" data-execution_count="6">
+<div id="99c514dd" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.551695Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.551511Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.554822Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.554246Z&quot;}}" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">""</span>.join(<span class="ss">f"</span><span class="sc">{</span>h<span class="sc">:&gt;8}</span><span class="ss">"</span> <span class="cf">for</span> h <span class="kw">in</span> habitaciones), <span class="st">"  KB"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> modelos:</span>
@@ -472,7 +472,7 @@ ASK(KB, α)    pregunta qué acción tomar</code></pre>
 <p>De los ocho modelos, la KB es verdadera en tres. Sobre esos tres preguntamos por dos conclusiones posibles:</p>
 <pre><code>α1 = "no hay pozo en [1,2]"
 α2 = "no hay pozo en [2,2]"</code></pre>
-<div id="celda014" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.474194Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.473946Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.477250Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.476623Z&quot;}}" data-execution_count="7">
+<div id="celda014" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.556358Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.556201Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.559389Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.558818Z&quot;}}" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> alfa_1(m):</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">not</span> m[<span class="st">"[1,2]"</span>]</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -489,7 +489,7 @@ ASK(KB, α)    pregunta qué acción tomar</code></pre>
 KB ⊨ α2: False</code></pre>
 </div>
 </div>
-<div id="celda015" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.480010Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.479566Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.485468Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.484328Z&quot;}}" data-execution_count="8">
+<div id="celda015" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.560749Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.560611Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.564862Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.564246Z&quot;}}" data-execution_count="8">
 <div class="cell-output cell-output-display" data-execution_count="8">
 
 <style>
@@ -639,7 +639,7 @@ P ∨ Q    P | Q         P ⇒ Q    P &gt;&gt; Q</code></pre>
 <p><code>⇔</code> no tiene operador: siempre es <code>Equivalent(P, Q)</code>. <code>print()</code> muestra la sentencia con los operadores.</p>
 <p><strong>Una sentencia no tiene valor de verdad.</strong> <code>And(P, Q)</code> no es <code>True</code> ni <code>False</code>: es una expresión que espera un modelo. Recién cuando se le da un valor a cada símbolo —con <code>.subs</code>, o adentro de <code>satisfiable</code>— hay algo que evaluar.</p>
 <p>Con SymPy los cinco se escriben así:</p>
-<div id="celda021" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.487592Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.487385Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.777766Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.777069Z&quot;}}" data-execution_count="9">
+<div id="celda021" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.566455Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.566195Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.820829Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.820074Z&quot;}}" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> (And, Equivalent, Implies, Not, Or, Symbol, init_printing,</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                   pretty, symbols, to_cnf)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy.logic.boolalg <span class="im">import</span> truth_table</span>
@@ -656,7 +656,7 @@ P ∨ Q    P | Q         P ⇒ Q    P &gt;&gt; Q</code></pre>
 </div>
 </div>
 <p>Las reglas se pueden expresar también como <strong>tablas de verdad</strong>, que dan el valor de la sentencia compleja para cada asignación posible a sus partes. Es la figura 7.8 del libro:</p>
-<div id="celda023" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.780963Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.780693Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.788466Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.787856Z&quot;}}" data-execution_count="10">
+<div id="celda023" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.822706Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.822461Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.829372Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.828627Z&quot;}}" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>conectivos <span class="op">=</span> [(<span class="st">"¬P"</span>, Not(P)), (<span class="st">"P∧Q"</span>, And(P, Q)), (<span class="st">"P∨Q"</span>, Or(P, Q)),</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>              (<span class="st">"P⇒Q"</span>, Implies(P, Q)), (<span class="st">"P⇔Q"</span>, Equivalent(P, Q))]</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -694,7 +694,7 @@ R4:  ¬B1,1
 R5:  B2,1</code></pre>
 <p>R1, R2 y R3 son verdaderas en todos los mundos del wumpus: son los <strong>axiomas</strong> del mundo, el conocimiento de fondo del agente.</p>
 <p>R4 y R5 son de esta interacción en particular que ingresaron a la KB por TELL.</p>
-<div id="celda025" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.789924Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.789736Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.795132Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.794553Z&quot;}}" data-execution_count="11">
+<div id="celda025" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.831225Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.831064Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.836427Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.835794Z&quot;}}" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Un simbolo proposicional es un Symbol de SymPy. El nombre es literal: la</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># coma de "P1,2" es parte del nombre, no un operador.</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>B11, B21 <span class="op">=</span> Symbol(<span class="st">"B1,1"</span>), Symbol(<span class="st">"B2,1"</span>)</span>
@@ -739,7 +739,7 @@ R5:  B2,1</code></pre>
 (α ∧ (β ∨ γ))  ≡  ((α ∧ β) ∨ (α ∧ γ))           distributividad de ∧ sobre ∨
 (α ∨ (β ∧ γ))  ≡  ((α ∨ β) ∧ (α ∨ γ))           distributividad de ∨ sobre ∧</code></pre>
 <p>Dos sentencias son equivalentes cuando el bicondicional entre ellas es verdadero en todo modelo, y eso es justo lo que contesta <code>valid</code>:</p>
-<div id="celda028" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.796567Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.796392Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.836816Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.836118Z&quot;}}" data-execution_count="12">
+<div id="celda028" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.837976Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.837827Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.879626Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.879044Z&quot;}}" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>alfa, beta, gamma <span class="op">=</span> symbols(<span class="st">"α β γ"</span>)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>equivalencias <span class="op">=</span> [</span>
@@ -768,7 +768,7 @@ R5:  B2,1</code></pre>
 <blockquote class="blockquote">
 <p>para cualesquiera α y β, <code>α ⊨ β</code> si y solo si la sentencia <code>(α ⇒ β)</code> es válida.</p>
 </blockquote>
-<div id="celda030" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.838553Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.838377Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.844578Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.843955Z&quot;}}" data-execution_count="13">
+<div id="celda030" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.881659Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.881515Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.886272Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.885676Z&quot;}}" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"¿P ∨ ¬P es válida?"</span>, valid(Or(P, Not(P))))</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"¿P ⇒ Q es válida? "</span>, valid(Implies(P, Q)))</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -790,7 +790,7 @@ R5:  B2,1</code></pre>
 <p>Probar β a partir de α mostrando que <code>(α ∧ ¬β)</code> es insatisfacible es exactamente la técnica del <em>reductio ad absurdum</em>: se supone que β es falsa y se muestra que eso lleva a una contradicción. También se la llama prueba por <strong>refutación</strong> o por contradicción.</p>
 <p>EJ: Si llueve entonces la calle está mojada <code>(L→M)∧L ⊨ M</code> <code>α∧¬β</code> -&gt; <code>[(L→M)∧L]∧¬M</code></p>
 <p><code>satisfiable</code> es la función de SymPy que resuelve esto. Devuelve <strong>un modelo</strong> —un diccionario que le da un valor de verdad a cada símbolo— o <code>False</code> si no existe ninguno. Es importante: lo que devuelve no es “sí/no” a nuestra pregunta, es un ejemplo o la ausencia de ejemplos.</p>
-<div id="celda032" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.846527Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.846343Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.858942Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.858435Z&quot;}}" data-execution_count="14">
+<div id="celda032" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.888055Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.887890Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.899765Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.899198Z&quot;}}" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Un modelo donde la base es verdadera: uno de los tres de la figura 7.9.</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"un modelo de la KB:"</span>, satisfiable(base))</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -804,18 +804,18 @@ R5:  B2,1</code></pre>
 <span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">contraejemplo a ¬P1,2:"</span>, satisfiable(And(base, P12)))</span>
 <span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"contraejemplo a ¬P2,2:"</span>, satisfiable(And(base, P22)))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>un modelo de la KB: {P2,2: True, B2,1: True, P3,1: False, P1,2: False, P1,1: False, B1,1: False, P2,1: False}
+<pre><code>un modelo de la KB: {B2,1: True, P3,1: True, P2,2: False, P2,1: False, P1,2: False, B1,1: False, P1,1: False}
 
 símbolos: 7  →  filas: 128
 modelos donde la KB es verdadera: 3
 
 contraejemplo a ¬P1,2: False
-contraejemplo a ¬P2,2: {P2,2: True, B2,1: True, P3,1: False, P1,2: False, P1,1: False, B1,1: False, P2,1: False}</code></pre>
+contraejemplo a ¬P2,2: {B2,1: True, P2,2: True, P2,1: False, P1,2: False, B1,1: False, P1,1: False, P3,1: False}</code></pre>
 </div>
 </div>
 <p>Para <code>¬P1,2</code> no hay contraejemplo, así que se sigue de la base. Para <code>¬P2,2</code> hay uno, así que no se sigue.</p>
 <p>Con eso ya se puede escribir el <code>ASK</code> que quedó pendiente en 1.1.</p>
-<div id="celda034" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.860676Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.860476Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.863865Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.863380Z&quot;}}" data-execution_count="15">
+<div id="celda034" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.901550Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.901390Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.905173Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.904573Z&quot;}}" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> consultar(base, proposicion):</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Las cuatro respuestas posibles a "¿que dice `base` sobre `proposicion`?"."""</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Si no existe ningun modelo, la base se contradice: de una contradiccion</span></span>
@@ -839,7 +839,7 @@ contraejemplo a ¬P2,2: {P2,2: True, B2,1: True, P3,1: False, P1,2: False, P1,1:
 <span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Responde qué se sigue de lo que la base ya tiene."""</span></span>
 <span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> consultar(And(<span class="op">*</span>KB), consulta)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="celda035" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.865502Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.865307Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.873088Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.872474Z&quot;}}" data-execution_count="16">
+<div id="celda035" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.906596Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.906412Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.914342Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.913566Z&quot;}}" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> consulta <span class="kw">in</span> (Not(P12), Not(P22), P22, B21):</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>pretty(consulta, use_unicode<span class="op">=</span><span class="va">True</span>)<span class="sc">:&gt;6}</span><span class="ss">  →  </span><span class="sc">{</span>ASK(kb, consulta)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -854,7 +854,7 @@ contraejemplo a ¬P2,2: {P2,2: True, B2,1: True, P3,1: False, P1,2: False, P1,1:
 <p><strong>Monotonicidad</strong>: el conjunto de sentencias implicadas solo puede <strong>crecer</strong> a medida que se agrega información a la base.</p>
 <pre><code>si   KB ⊨ α    entonces   KB ∧ β ⊨ α</code></pre>
 <p>Agregar β puede permitir sacar conclusiones nuevas, pero no puede invalidar ninguna conclusión α que ya se había sacado.</p>
-<div id="celda037" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.874623Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.874412Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.882158Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.881617Z&quot;}}" data-execution_count="17">
+<div id="celda037" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.915899Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.915727Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.923450Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.922741Z&quot;}}" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Una percepcion mas: tampoco hay brisa en [1,2], asi que ninguna de sus</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># vecinas tiene pozo. Con eso [2,2] queda limpia y el pozo tiene que estar</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># en [3,1] -- la inferencia de la figura 7.4 del libro.</span></span>
@@ -882,7 +882,7 @@ contraejemplo a ¬P2,2: {P2,2: True, B2,1: True, P3,1: False, P1,2: False, P1,1:
 <pre><code>α ∧ β
 ──────
    α</code></pre>
-<div id="celda039" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.883941Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.883747Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.897832Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.897169Z&quot;}}" data-execution_count="18">
+<div id="celda039" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.925244Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.925073Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.938674Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.938097Z&quot;}}" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># El punto de partida: el axioma de la brisa en [1,1].</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"R2 :"</span>, pretty(R2, use_unicode<span class="op">=</span><span class="va">True</span>), <span class="st">"  →"</span>, ASK(kb, R2))</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -940,7 +940,7 @@ R10: ¬P1,2 ∧ ¬P2,1   → Verdadero</code></pre>
 <p>si el agente está en <code>[1,1]</code> y percibe brisa, entonces hay brisa en <code>[1,1]</code>. En forma de Horn, la premisa se llama <strong>cuerpo</strong> y la conclusión, <strong>cabeza</strong>. Una sentencia formada por un único literal positivo, como <code>L1,1</code>, se llama <strong>hecho</strong>: también se puede escribir en forma de implicación, como <code>True ⇒ L1,1</code>, pero es más simple escribir directamente <code>L1,1</code>.</p>
 <p><strong>2.</strong> La inferencia con cláusulas de Horn se puede hacer con los algoritmos de <strong>encadenamiento hacia adelante</strong> (<em>forward chaining</em>) y <strong>hacia atrás</strong> (<em>backward chaining</em>).</p>
 <p><strong>3.</strong> Decidir la implicación con cláusulas de Horn lleva un tiempo <strong>lineal</strong> en el tamaño de la base de conocimiento.</p>
-<div id="celda042" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.899834Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.899675Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.906234Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.905579Z&quot;}}" data-execution_count="19">
+<div id="celda042" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.940554Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.940365Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.947610Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.947090Z&quot;}}" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># El procedimiento de arriba, hecho por SymPy.</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>display(to_cnf(R2))</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -977,7 +977,7 @@ P1,2 ∨ P2,1 ∨ ¬B1,1      2 positivo(s)  ni definida ni de Horn</code></pre>
 <section id="una-base-de-cláusulas-definidas" class="level3">
 <h3 class="anchored" data-anchor-id="una-base-de-cláusulas-definidas">2.1 — Una base de cláusulas definidas</h3>
 <p>Una cláusula definida tiene exactamente un literal positivo, así que siempre se puede escribir como una implicación: el <strong>cuerpo</strong> es una conjunción de símbolos y la <strong>cabeza</strong> es un símbolo solo. Escrita así, <code>Implies(And(L, M), P)</code> ya tiene las dos partes adentro; solo hacen falta dos funciones para sacarlas. Un hecho es una cláusula sin cuerpo: <code>True ⇒ A</code> se escribe <code>A</code>.</p>
-<div id="celda045" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.907742Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.907596Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.910442Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.909869Z&quot;}}" data-execution_count="20">
+<div id="celda045" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.949494Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.949329Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.952399Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.951832Z&quot;}}" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cuerpo(clausula):</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Los simbolos que se conjugan en la premisa. Un hecho no tiene cuerpo."""</span></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> clausula.is_Symbol:</span>
@@ -992,7 +992,7 @@ P1,2 ∨ P2,1 ∨ ¬B1,1      2 positivo(s)  ni definida ni de Horn</code></pre>
 <span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> clausula <span class="cf">if</span> clausula.is_Symbol <span class="cf">else</span> clausula.args[<span class="dv">1</span>]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>La base con la que vamos a trabajar es la del libro. Son cinco reglas y dos hechos, y la consulta va a ser el símbolo <code>Q</code>.</p>
-<div id="celda047" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.911956Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.911814Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.916278Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.915539Z&quot;}}" data-execution_count="21">
+<div id="celda047" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.954049Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.953815Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.959403Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.958500Z&quot;}}" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>A, B, L, M <span class="op">=</span> symbols(<span class="st">"A B L M"</span>)</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>clausulas <span class="op">=</span> [</span>
@@ -1033,7 +1033,7 @@ B              cuerpo ()  cabeza B</code></pre>
 <h3 class="anchored" data-anchor-id="encadenamiento-hacia-adelante">2.2 — Encadenamiento hacia adelante</h3>
 <p>Arranca de los hechos —los literales positivos que ya están en la base— y propaga hacia arriba. Si se conocen todas las premisas de una implicación, se agrega su conclusión al conjunto de hechos conocidos. Sigue hasta que aparece la consulta o hasta que no se puede inferir nada más.</p>
 <p>Lo que hace que corra en tiempo lineal es la tabla <code>count</code>: para cada cláusula guarda cuántos símbolos de su cuerpo faltan probar. Cada vez que se procesa un símbolo nuevo se les resta uno a las cláusulas donde aparece, y cuando un contador llega a cero, esa cláusula ya se puede disparar. Así nunca hay que revisar una cláusula entera de nuevo.</p>
-<div id="celda050" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.917824Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.917620Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.921322Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.920768Z&quot;}}" data-execution_count="22">
+<div id="celda050" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.961128Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.960915Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.965014Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.964390Z&quot;}}" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> deque</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1066,7 +1066,7 @@ B              cuerpo ()  cabeza B</code></pre>
 <span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a>                        queue.append(cabeza(c))</span>
 <span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="celda051" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.923129Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.922959Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.929185Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.928594Z&quot;}}" data-execution_count="23">
+<div id="celda051" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.966444Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.966281Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.972433Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.971899Z&quot;}}" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Symbol(<span class="st">"Z"</span>)</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"¿la base implica Q?"</span>, pl_fc_entails(clausulas, Q))</span>
@@ -1087,7 +1087,7 @@ consultar Z: Desconocido</code></pre>
 </div>
 <p><code>pl_fc_entails</code> contesta <code>False</code> para <code>Z</code>, y <code>consultar</code> contesta <em>desconocido</em>. No se contradicen: el algoritmo responde “no pude probarlo”, que es una pregunta distinta de “¿es falso?”. <code>Z</code> no aparece en ninguna cláusula, así que hay modelos de la base donde es verdadera y otros donde es falsa.</p>
 <p>Paso a paso, para ver los contadores bajando:</p>
-<div id="celda055" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.936694Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.936511Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.940749Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.940176Z&quot;}}" data-execution_count="25">
+<div id="celda055" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.979571Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.979401Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.983470Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.982986Z&quot;}}" data-execution_count="25">
 <div class="cell-output cell-output-stdout">
 <pre><code>hechos conocidos: A, B
 saco A
@@ -1114,7 +1114,7 @@ saco Q   es la consulta</code></pre>
 <h3 class="anchored" data-anchor-id="encadenamiento-hacia-atrás">2.3 — Encadenamiento hacia atrás</h3>
 <p>Va al revés: arranca en la consulta. Si <code>q</code> ya se sabe verdadero, no hay nada que hacer. Si no, busca en la base las implicaciones cuya <strong>conclusión</strong> sea <code>q</code>, y para cada una intenta probar todas sus premisas, otra vez hacia atrás. Baja por el grafo hasta llegar a hechos conocidos.</p>
 <p>Las dos condiciones de corte importan. Si un subobjetivo ya está en la cadena de objetivos que se están intentando probar más arriba, hay un <strong>ciclo</strong> y esa rama se abandona. Y para no repetir trabajo, conviene recordar los subobjetivos que ya se probaron y los que ya fallaron; la versión de acá no lo hace, y en la traza se va a ver el costo.</p>
-<div id="celda058" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.942385Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.942177Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.945831Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.945193Z&quot;}}" data-execution_count="26">
+<div id="celda058" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.985129Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.984957Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.988289Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.987633Z&quot;}}" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pl_bc_entails(KB, q, objetivos<span class="op">=</span>()):</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""¿Se sigue el simbolo `q` de KB? Trabaja hacia atras, desde la consulta.</span></span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1130,7 +1130,7 @@ saco Q   es la consulta</code></pre>
 <span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="va">True</span></span>
 <span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="celda059" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.947323Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.947173Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.950257Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.949447Z&quot;}}" data-execution_count="27">
+<div id="celda059" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.989729Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.989589Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:34.992441Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:34.991972Z&quot;}}" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"¿la base implica Q?"</span>, pl_bc_entails(clausulas, Q))</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"¿la base implica Z?"</span>, pl_bc_entails(clausulas, Z))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1139,7 +1139,7 @@ saco Q   es la consulta</code></pre>
 </div>
 </div>
 <p>La traza es directamente el grafo AND–OR, leído de arriba hacia abajo: cada sangría es un nivel más abajo, los símbolos de una misma cláusula son la conjunción y las cláusulas alternativas son la disyunción.</p>
-<div id="celda062" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.959592Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.959425Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.964295Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.963539Z&quot;}}" data-execution_count="29">
+<div id="celda062" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:34.999369Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:34.999225Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:35.003371Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:35.002741Z&quot;}}" data-execution_count="29">
 <div class="cell-output cell-output-stdout">
 <pre><code>¿Q?  pruebo con  P → Q
     ¿P?  pruebo con  (L ∧ M) → P
@@ -1217,7 +1217,6 @@ Q probado</code></pre>
 </section>
 <section id="parte-3-un-sistema-basado-en-conocimiento" class="level2">
 <h2 class="anchored" data-anchor-id="parte-3-un-sistema-basado-en-conocimiento">Parte 3 — Un sistema basado en conocimiento</h2>
-<p>Hasta acá la base de conocimiento fue la de un ejemplo del libro. Ahora la escribimos nosotros para un problema propio, que es donde aparece el trabajo de verdad: decidir qué proposiciones existen y qué reglas las relacionan.</p>
 <p>Una persona informa: <strong>«La computadora está conectada, pero no puedo abrir el sitio que necesito para la clase»</strong>. ¿Qué conviene revisar?</p>
 <p>Una mesa de ayuda atiende consultas de conectividad. Su protocolo simplificado recomienda revisar alimentación, conexión local o resolución de nombres —<strong>DNS</strong> es el sistema que relaciona nombres como los de los sitios web con direcciones IP—. El asistente recibe resultados de comprobaciones hechas por una persona: no prueba la red por su cuenta.</p>
 <table class="caption-top table">
@@ -1247,7 +1246,6 @@ Q probado</code></pre>
 </tbody>
 </table>
 <p>La recomendación esperada es <strong>revisar DNS</strong>. No estamos afirmando que el servidor DNS esté roto: la evidencia justifica una comprobación, no un diagnóstico.</p>
-<p>Es el <code>kb_agent</code> de 1.1 sin actuadores: percibe, consulta y comunica.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1280,8 +1278,8 @@ Q probado</code></pre>
 </table>
 <section id="el-vocabulario" class="level3">
 <h3 class="anchored" data-anchor-id="el-vocabulario">3.1 — El vocabulario</h3>
-<p>Distinguimos observaciones, conclusiones intermedias y recomendaciones. No son tipos distintos de Python: son papeles distintos dentro del modelo que diseñamos. Y crear el símbolo <code>Enciende</code> no afirma que la computadora encienda: nombrar no es afirmar.</p>
-<div id="celda066" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.966604Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.966409Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.969506Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.968874Z&quot;}}" data-execution_count="30">
+<p>Distinguimos observaciones, conclusiones intermedias y recomendaciones.</p>
+<div id="celda066" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:35.004847Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:35.004697Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:35.007265Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:35.006874Z&quot;}}" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>Enciende, RedLocal <span class="op">=</span> symbols(<span class="st">"Enciende RedLocal"</span>)</span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>AccesoIP, AccesoNombre <span class="op">=</span> symbols(<span class="st">"AccesoIP AccesoNombre"</span>)</span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>EquipoEnRed, ConexionExterior <span class="op">=</span> symbols(<span class="st">"EquipoEnRed ConexionExterior"</span>)</span>
@@ -1333,7 +1331,7 @@ Q probado</code></pre>
 <li>Si enciende, pero no tiene conexión local, recomendamos revisar la red local.</li>
 <li>Si no enciende, recomendamos revisar la alimentación.</li>
 </ol>
-<div id="celda068" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.971236Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.971008Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.979331Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.978740Z&quot;}}" data-execution_count="31">
+<div id="celda068" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:35.008920Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:35.008763Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:35.016109Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:35.015618Z&quot;}}" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>reglas <span class="op">=</span> [</span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>    Implies(And(Enciende, RedLocal), EquipoEnRed),</span>
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>    Implies(And(EquipoEnRed, AccesoIP), ConexionExterior),</span>
@@ -1360,12 +1358,12 @@ Q probado</code></pre>
 <pre><code>¬Enciende → RevisarAlimentacion</code></pre>
 </div>
 </div>
-<p>Son cinco reglas explícitas, no un árbol de <code>if</code> que decide el diagnóstico. La diferencia es la de 1.2: acá se le dice al programa <strong>qué</strong> es verdad, no <strong>cómo</strong> comportarse.</p>
+<p>Son cinco reglas explícitas, no un árbol de <code>if</code> que decide el diagnóstico, le dice al programa <strong>qué</strong> es verdad, no <strong>cómo</strong> comportarse.</p>
 </section>
 <section id="los-hechos-del-caso" class="level3">
 <h3 class="anchored" data-anchor-id="los-hechos-del-caso">3.3 — Los hechos del caso</h3>
 <p>Las observaciones pertenecen a <strong>un único incidente</strong>. Para otro equipo o para una prueba nueva se arma una base nueva con las mismas reglas: no se acumulan respuestas de momentos distintos.</p>
-<div id="celda070" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.980830Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.980670Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.991638Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.991093Z&quot;}}" data-execution_count="32">
+<div id="celda070" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:35.017808Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:35.017644Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:35.027382Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:35.026792Z&quot;}}" data-execution_count="32">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>hechos <span class="op">=</span> [Enciende, RedLocal, AccesoIP, Not(AccesoNombre)]</span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="co"># El conocimiento de fondo mas lo percibido, igual que en 1.6.3.</span></span>
@@ -1373,20 +1371,22 @@ Q probado</code></pre>
 <span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sentencia <span class="kw">in</span> reglas <span class="op">+</span> hechos:</span>
 <span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>    TELL(base_soporte, sentencia)</span>
 <span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> proposicion <span class="kw">in</span> (EquipoEnRed, ConexionExterior, RevisarDNS,</span>
-<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a>                    RevisarRedLocal, AccesoNombre):</span>
-<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">str</span>(proposicion)<span class="sc">:&gt;20}</span><span class="ss">  →  </span><span class="sc">{</span>ASK(base_soporte, proposicion)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Una consulta por linea: cada una es una pregunta distinta a la misma base.</span></span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"     EquipoEnRed  </span><span class="ch">\u2192</span><span class="st"> "</span>, ASK(base_soporte, EquipoEnRed))</span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"ConexionExterior  </span><span class="ch">\u2192</span><span class="st"> "</span>, ASK(base_soporte, ConexionExterior))</span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"      RevisarDNS  </span><span class="ch">\u2192</span><span class="st"> "</span>, ASK(base_soporte, RevisarDNS))</span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">" RevisarRedLocal  </span><span class="ch">\u2192</span><span class="st"> "</span>, ASK(base_soporte, RevisarRedLocal))</span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"    AccesoNombre  </span><span class="ch">\u2192</span><span class="st"> "</span>, ASK(base_soporte, AccesoNombre))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         EquipoEnRed  →  Verdadero
-    ConexionExterior  →  Verdadero
-          RevisarDNS  →  Verdadero
-     RevisarRedLocal  →  Desconocido
-        AccesoNombre  →  Falso</code></pre>
+<pre><code>     EquipoEnRed  →  Verdadero
+ConexionExterior  →  Verdadero
+      RevisarDNS  →  Verdadero
+ RevisarRedLocal  →  Desconocido
+    AccesoNombre  →  Falso</code></pre>
 </div>
 </div>
-<p>Las tres respuestas de 1.7, ahora sobre un problema real.</p>
-<p><code>RevisarDNS</code> está <strong>demostrado</strong>, y esa es la recomendación del caso. <code>AccesoNombre</code> es <strong>falso</strong>: la persona lo respondió que no. Y <code>RevisarRedLocal</code> queda <strong>desconocido</strong>, no falso: nuestras reglas dicen cuándo recomendarlo, pero no establecen las condiciones bajo las que hay que descartarlo. <strong>Que no se active una regla no implica negar su conclusión.</strong></p>
-<p>La cadena que lleva a la recomendación se puede seguir a mano. No es una traza que devuelva el solucionador —<code>satisfiable</code> no explica nada—, es la lectura de las reglas:</p>
+<p><code>RevisarDNS</code> está <strong>demostrado</strong>, y esa es la recomendación del caso. <code>AccesoNombre</code> es <strong>falso</strong>: la persona lo respondió que no. Y <code>RevisarRedLocal</code> queda <strong>desconocido</strong>, no falso: nuestras reglas dicen cuándo recomendarlo, pero no establecen las condiciones bajo las que hay que descartarlo.</p>
+<p>La cadena que lleva a la recomendación se puede seguir a mano. las reglas:</p>
 <pre><code>Enciende + RedLocal
         └─ regla 1 → EquipoEnRed
 EquipoEnRed + AccesoIP
@@ -1394,7 +1394,7 @@ EquipoEnRed + AccesoIP
 ConexionExterior + NO AccesoNombre
         └─ regla 3 → RevisarDNS</code></pre>
 <p>Leída así, de los datos hacia la conclusión, es el encadenamiento hacia adelante de 2.2. Pero solo las dos primeras reglas son cláusulas definidas: las otras tres tienen una premisa negada, y eso las saca de la familia:</p>
-<div id="celda072" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.993414Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.993202Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:44.998050Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:44.997449Z&quot;}}" data-execution_count="33">
+<div id="celda072" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:35.028878Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:35.028695Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:35.034002Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:35.033562Z&quot;}}" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cada regla es una implicacion de conjuncion a simbolo: su FNC es una sola</span></span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="co"># clausula, asi que `positivos` se puede aplicar directo.</span></span>
 <span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, regla <span class="kw">in</span> <span class="bu">enumerate</span>(reglas, start<span class="op">=</span><span class="dv">1</span>):</span>
@@ -1410,12 +1410,12 @@ regla 4: RedLocal ∨ RevisarRedLocal ∨ ¬Enciende         ni definida ni de H
 regla 5: Enciende ∨ RevisarAlimentacion                 ni definida ni de Horn</code></pre>
 </div>
 </div>
-<p>Por eso el asistente no usa <code>pl_fc_entails</code> sino <code>consultar</code>, que no le pide nada a la forma de las sentencias.</p>
+<p>Por eso el asistente no usa <code>pl_fc_entails</code> sino <code>ASK</code>, que no necesita un tipo especifico de sentencia.</p>
 </section>
 <section id="cuando-cambia-lo-que-sabemos" class="level3">
 <h3 class="anchored" data-anchor-id="cuando-cambia-lo-que-sabemos">3.4 — Cuando cambia lo que sabemos</h3>
 <p>Que falte información no autoriza a completarla con «no».</p>
-<div id="celda074" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:44.999508Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:44.999349Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:45.006173Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:45.005554Z&quot;}}" data-execution_count="34">
+<div id="celda073b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:35.035543Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:35.035313Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:35.042173Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:35.041406Z&quot;}}" data-execution_count="34">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># No conocemos el resultado de la prueba por nombre.</span></span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>sin_prueba <span class="op">=</span> And(<span class="op">*</span>reglas, Enciende, RedLocal, AccesoIP)</span>
 <span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"sin esa prueba: "</span>, consultar(sin_prueba, RevisarDNS))</span>
@@ -1437,7 +1437,7 @@ con las dos:     Base inconsistente</code></pre>
 <section id="el-sistemita" class="level3">
 <h3 class="anchored" data-anchor-id="el-sistemita">3.5 — El sistemita</h3>
 <p>Los mensajes para la persona van separados de las reglas lógicas. La función que sigue no decide qué condiciones llevan a DNS: eso ya está en la base.</p>
-<div id="celda076" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:45.007639Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:45.007479Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:45.016135Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:45.015493Z&quot;}}" data-execution_count="35">
+<div id="celda076" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:35.043580Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:35.043405Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:35.051904Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:35.051386Z&quot;}}" data-execution_count="35">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>mensajes <span class="op">=</span> {</span>
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>    RevisarAlimentacion: <span class="st">"Revisar alimentación, conexiones eléctricas y encendido."</span>,</span>
 <span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>    RevisarRedLocal: <span class="st">"Revisar cable o Wi-Fi y la configuración de red local."</span>,</span>
@@ -1469,7 +1469,7 @@ con las dos:     Base inconsistente</code></pre>
 <pre><code>  • Revisar resolución de nombres y configuración de DNS.</code></pre>
 </div>
 </div>
-<div id="celda077" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:45.017799Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:45.017627Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:45.035366Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:45.034534Z&quot;}}" data-execution_count="36">
+<div id="celda077" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:35.053604Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:35.053459Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:35.070690Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:35.070144Z&quot;}}" data-execution_count="36">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>casos <span class="op">=</span> {</span>
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"No enciende"</span>: [Not(Enciende)],</span>
 <span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Enciende, sin red local"</span>: [Enciende, Not(RedLocal)],</span>
@@ -1500,7 +1500,7 @@ Las cuatro pruebas funcionan
 </div>
 <p>No obtener recomendaciones <strong>no significa que todo funcione</strong>: el conocimiento puede ser insuficiente o no cubrir el problema real.</p>
 <p>Falta la parte de los sensores: preguntarle a la persona. <code>sí</code> incorpora la proposición, <code>no</code> su negación, y <code>?</code> no agrega nada —ni la afirma ni la niega—.</p>
-<div id="celda079" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:19:45.037390Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:19:45.037208Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:19:45.047319Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:19:45.046694Z&quot;}}" data-execution_count="37">
+<div id="celda079" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-10T17:32:35.072572Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-10T17:32:35.072411Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-10T17:32:35.082514Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-10T17:32:35.081817Z&quot;}}" data-execution_count="37">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>preguntas <span class="op">=</span> [</span>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>    (Enciende, <span class="st">"¿La computadora enciende?"</span>),</span>
 <span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>    (RedLocal, <span class="st">"¿Tiene conexión a la red local?"</span>),</span>
