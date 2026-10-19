@@ -1,0 +1,490 @@
+<title>El mundo del wumpus</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap">
+
+<style>
+/* ---------------------------------------------------------------------
+   Hermana de plantilla.html: la misma paleta, la misma barra y el mismo
+   riel de pasos. Lo unico distinto es lo que se dibuja en el medio, que
+   aca es una cueva de 4x4 en vez de un mapa.
+   --------------------------------------------------------------------- */
+
+:root {
+  --sans: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+          "Courier New", monospace;
+
+  --papel:  #FFFFFF;
+  --carta:  #FFFFFF;
+  --pauta:  #F1F3F5;
+  --prosa:  #343A40;
+  --tinta:  #003B4F;
+  --tinta2: #5E5E5E;
+  --linea:  #DEE2E6;
+  --muerto: #999CA0;
+
+  --acento: #00769E;   /* el agente, lo que esta pasando ahora */
+  --verde:  #20794D;   /* lo que se probo seguro, el oro */
+  --ocre:   #8F5902;   /* lo posible pero no probado */
+  --rojo:   #AD0000;   /* lo probado peligroso */
+  --otro:   #4758AB;
+
+  --tenue:   rgba(0, 118, 158, .07);
+  --verdoso: rgba(32, 121, 77, .08);
+  --rojizo:  rgba(173, 0, 0, .07);
+  --ocroso:  rgba(143, 89, 2, .07);
+  --radio:   4px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--prosa);
+  font: 400 15px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* ---------- barra ---------- */
+
+.barra {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap;
+  padding: 18px 28px 14px;
+  background: var(--pauta);
+  border-bottom: 1px solid var(--linea);
+}
+.barra h1 { margin: 0; font: 700 19px/1.25 var(--sans); letter-spacing: -.005em; }
+.barra .sub { margin: 3px 0 0; color: var(--tinta2); font-size: 13.5px; }
+.barra .sub b { font-family: var(--mono); font-weight: 400; color: var(--acento); }
+
+.mando { display: flex; align-items: center; gap: 10px; }
+.mando button {
+  font: 600 14px/1 var(--sans);
+  color: var(--tinta); background: var(--carta);
+  border: 1px solid var(--linea); border-radius: var(--radio);
+  padding: 9px 14px; cursor: pointer;
+}
+.mando button:hover:not(:disabled) { border-color: var(--acento); color: var(--acento); }
+.mando button:disabled { opacity: .35; cursor: default; }
+.mando button:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
+.mando .vista { display: flex; border: 1px solid var(--linea); border-radius: var(--radio); overflow: hidden; }
+.mando .vista button {
+  font-weight: 400; font-size: 13px;
+  border: 0; border-radius: 0; padding: 9px 13px;
+  color: var(--tinta2); background: var(--carta);
+}
+.mando .vista button[aria-pressed="true"] {
+  background: var(--tenue); color: var(--acento); font-weight: 600;
+}
+.contador { color: var(--tinta2); font-size: 13px; min-width: 96px; text-align: center; }
+.contador b { color: var(--tinta); font-weight: 600; }
+
+/* ---------- riel de pasos ---------- */
+
+.riel {
+  display: flex; align-items: center; gap: 6px;
+  padding: 12px 28px; overflow-x: auto;
+  border-bottom: 1px solid var(--linea);
+}
+.riel .et {
+  color: var(--muerto); font-size: 11px; letter-spacing: .09em;
+  text-transform: uppercase; margin-right: 6px; white-space: nowrap;
+}
+.riel button {
+  font: 400 13px/1 var(--sans); white-space: nowrap;
+  color: var(--tinta2); background: transparent;
+  border: 1px solid var(--linea); border-radius: var(--radio);
+  padding: 6px 11px; cursor: pointer;
+}
+.riel button:hover { color: var(--acento); border-color: var(--acento); }
+.riel button[aria-current="true"] {
+  color: var(--papel); background: var(--acento); border-color: var(--acento);
+  font-weight: 600;
+}
+.riel button:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
+
+/* ---------- cuerpo ---------- */
+
+main {
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(340px, .85fr);
+  gap: 22px; padding: 22px 28px 40px; align-items: start;
+}
+@media (max-width: 900px) { main { grid-template-columns: minmax(0, 1fr); } }
+
+.tarjeta { background: var(--carta); border: 1px solid var(--linea); border-radius: var(--radio); }
+.oculto { display: none !important; }
+
+/* ---------- la cueva ---------- */
+
+.cueva { padding: 18px; }
+.grilla { display: grid; gap: 6px; }
+
+.casilla {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--linea); border-radius: var(--radio);
+  background: var(--carta);
+  padding: 6px;
+  display: flex; flex-direction: column; gap: 4px;
+  overflow: hidden;
+}
+.casilla .coord {
+  font: 400 10.5px/1 var(--mono); color: var(--muerto);
+}
+.casilla .marcas { display: flex; flex-wrap: wrap; gap: 3px; align-content: flex-start; }
+.casilla .sensor {
+  margin-top: auto;
+  font: 400 11px/1.3 var(--sans); color: var(--tinta2);
+}
+
+/* el fondo dice de un vistazo en que estado esta la casilla */
+.casilla.visitado { background: var(--tenue); border-color: var(--acento); }
+.casilla.seguro   { background: var(--verdoso); border-color: var(--verde); }
+.casilla.peligro  { background: var(--rojizo); border-color: var(--rojo); }
+.casilla.posible  { background: var(--ocroso); border-color: var(--ocre); border-style: dashed; }
+
+.m {
+  font: 600 11px/1 var(--sans); letter-spacing: .04em;
+  border: 1px solid; border-radius: 3px; padding: 2px 4px;
+}
+.m.ok     { color: var(--verde);  border-color: var(--verde); }
+.m.si     { color: var(--rojo);   border-color: var(--rojo); }
+.m.quiza  { color: var(--ocre);   border-color: var(--ocre); border-style: dashed; }
+.m.visto  { color: var(--tinta2); border-color: var(--linea); }
+.m.oro    { color: var(--verde);  border-color: var(--verde); background: var(--verdoso); }
+
+/* el agente: un disco con la A, como en el libro */
+.agente {
+  position: absolute; right: 6px; bottom: 6px;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--acento); color: var(--papel);
+  font: 700 14px/26px var(--sans); text-align: center;
+}
+
+.leyenda {
+  margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--linea);
+  display: flex; flex-wrap: wrap; gap: 6px 14px;
+  font-size: 12.5px; color: var(--tinta2);
+}
+.leyenda span b { font-weight: 600; }
+
+/* ---------- panel ---------- */
+
+.panel { display: flex; flex-direction: column; }
+.bloque { padding: 16px 18px; border-bottom: 1px solid var(--linea); }
+.bloque:last-child { border-bottom: 0; }
+.bloque > h2 {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin: 0 0 10px;
+  font: 600 11px/1 var(--sans);
+  letter-spacing: .12em; text-transform: uppercase; color: var(--muerto);
+}
+.bloque > h2 span { letter-spacing: 0; text-transform: none; font-weight: 400; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip {
+  font-size: 12.5px; color: var(--muerto);
+  border: 1px solid var(--linea); border-radius: var(--radio); padding: 2px 7px;
+}
+.chip.on { color: var(--acento); border-color: var(--acento); font-weight: 600; }
+
+.ask {
+  display: grid; grid-template-columns: 1fr auto; gap: 2px 10px;
+  align-items: baseline; padding: 4px 0 4px 8px;
+  border-left: 2px solid var(--linea);
+  font-size: 13.5px;
+}
+.ask + .ask { margin-top: 3px; }
+.ask .q { font-family: var(--mono); font-size: 12.5px; color: var(--tinta); }
+.ask .r { font-weight: 600; font-size: 13px; }
+.ask.si { border-left-color: var(--verde); }
+.ask.si .r { color: var(--verde); }
+.ask.no { border-left-color: var(--muerto); }
+.ask.no .r { color: var(--muerto); }
+
+.modelos { font-size: 13.5px; color: var(--tinta2); }
+.modelos b { color: var(--tinta); font-weight: 600; font-family: var(--mono); }
+.modelos div + div { margin-top: 4px; }
+
+.plan { display: flex; flex-wrap: wrap; gap: 5px; }
+.paso {
+  font: 400 12.5px/1 var(--mono);
+  color: var(--tinta2); border: 1px solid var(--linea);
+  border-radius: var(--radio); padding: 4px 7px;
+}
+.paso.ahora { color: var(--acento); border-color: var(--acento); font-weight: 600; }
+
+.accion { font: 600 17px/1.2 var(--sans); color: var(--acento); }
+.nota { margin: 8px 0 0; font-size: 13.5px; color: var(--tinta2); }
+
+.done { padding: 16px 18px; border-top: 1px solid var(--linea); background: var(--verdoso); }
+.done h3 {
+  margin: 0 0 6px; font: 600 12px/1 var(--sans);
+  letter-spacing: .12em; text-transform: uppercase; color: var(--verde);
+}
+.done.fail { background: var(--rojizo); }
+.done.fail h3 { color: var(--rojo); }
+.done p { margin: 0; font-size: 14px; }
+</style>
+
+<header class="barra">
+  <div>
+    <h1 id="nombre"></h1>
+    <p class="sub"><b id="label"></b> &middot; <span id="sub"></span></p>
+  </div>
+  <div class="mando">
+    <span class="vista">
+      <button id="v-saber" aria-pressed="true">lo que sabe</button>
+      <button id="v-cueva" aria-pressed="false">la cueva</button>
+    </span>
+    <button id="prev" aria-label="paso anterior">&larr;</button>
+    <span class="contador">paso <b id="i">1</b> / <span id="n">1</span></span>
+    <button id="next" aria-label="paso siguiente">&rarr;</button>
+  </div>
+</header>
+
+<nav class="riel" id="riel"><span class="et">casillas</span></nav>
+
+<main>
+  <section class="tarjeta cueva">
+    <div class="grilla" id="grilla"></div>
+    <div class="leyenda" id="leyenda"></div>
+  </section>
+
+  <section class="tarjeta panel">
+    <div class="bloque">
+      <h2>PERCEPT <span id="t"></span></h2>
+      <div class="chips" id="percept"></div>
+    </div>
+
+    <div class="bloque">
+      <h2>ASK <span id="ask-n"></span></h2>
+      <div id="asks"></div>
+    </div>
+
+    <div class="bloque" id="caja-modelos">
+      <h2>modelos consistentes</h2>
+      <div class="modelos" id="modelos"></div>
+    </div>
+
+    <div class="bloque" id="caja-plan">
+      <h2>PLAN <span id="plan-n"></span></h2>
+      <div class="plan" id="plan"></div>
+    </div>
+
+    <div class="bloque">
+      <h2>ACTION</h2>
+      <div class="accion" id="accion"></div>
+      <p class="nota oculto" id="nota"></p>
+    </div>
+
+    <div class="done oculto" id="done"></div>
+  </section>
+</main>
+
+<script>
+const DATA = __DATA__;
+const el = (id) => document.getElementById(id);
+const N = DATA.n;
+
+/* ---------- la grilla se arma una sola vez ---------- */
+
+const celdas = {};
+el("grilla").style.gridTemplateColumns = `repeat(${N}, minmax(0, 1fr))`;
+
+// La fila de arriba es y = N y la de abajo y = 1: el eje y del libro va
+// para arriba, y el de una grilla HTML va para abajo.
+for (let y = N; y >= 1; y--) {
+  for (let x = 1; x <= N; x++) {
+    const c = document.createElement("div");
+    c.className = "casilla";
+    c.innerHTML = `<span class="coord">${x},${y}</span>`
+                + `<span class="marcas"></span>`
+                + `<span class="sensor"></span>`;
+    el("grilla").appendChild(c);
+    celdas[`${x},${y}`] = c;
+  }
+}
+
+const marca = (texto, clase) => `<span class="m ${clase}">${texto}</span>`;
+
+/* ---------- el riel ---------- */
+
+DATA.frames.forEach((f, i) => {
+  const b = document.createElement("button");
+  b.textContent = `${f.pos[0]},${f.pos[1]}`;
+  b.onclick = () => mostrar(i);
+  el("riel").appendChild(b);
+});
+
+/* ---------- dibujar un cuadro ---------- */
+
+let actual = 0;
+let vista = "saber";
+
+function mostrar(i) {
+  actual = Math.max(0, Math.min(i, DATA.frames.length - 1));
+  const f = DATA.frames[actual];
+
+  vista === "saber" ? pintarSaber(f) : pintarCueva(f);
+  pintarPanel(f);
+
+  el("i").textContent = actual + 1;
+  el("prev").disabled = actual === 0;
+  el("next").disabled = actual === DATA.frames.length - 1;
+  [...el("riel").querySelectorAll("button")].forEach((b, k) =>
+    b.setAttribute("aria-current", k === actual));
+}
+
+/* Lo que el agente probo, casilla por casilla. Es la figura 7.3 del libro. */
+function pintarSaber(f) {
+  for (const clave in celdas) {
+    const c = celdas[clave];
+    const s = f.casillas[clave] || {};
+    const marcas = [];
+    let clase = "casilla";
+
+    if (s.visitado) { clase += " visitado"; marcas.push(marca("V", "visto")); }
+    if (s.ok === true && !s.visitado) clase += " seguro";
+    if (s.ok === true) marcas.push(marca("OK", "ok"));
+
+    if (s.pozo === "si")  { clase += " peligro"; marcas.push(marca("POZO", "si")); }
+    else if (s.pozo === "?") marcas.push(marca("¿pozo?", "quiza"));
+
+    if (s.wumpus === "si")  { clase += " peligro"; marcas.push(marca("WUMPUS", "si")); }
+    else if (s.wumpus === "?") marcas.push(marca("¿wumpus?", "quiza"));
+
+    if (s.ok === false && !clase.includes("peligro")) clase += " posible";
+    if (s.oro) marcas.push(marca("ORO", "oro"));
+
+    c.className = clase;
+    c.querySelector(".marcas").innerHTML = marcas.join("");
+
+    // Lo que el agente percibio cuando estuvo parado ahi.
+    const sensores = [];
+    if (s.brisa) sensores.push("brisa");
+    if (s.hedor) sensores.push("hedor");
+    if (s.visitado && !sensores.length) sensores.push("nada");
+    c.querySelector(".sensor").textContent = sensores.join(" · ");
+
+    const viejo = c.querySelector(".agente");
+    if (viejo) viejo.remove();
+  }
+  ponerAgente(f);
+}
+
+/* La cueva de verdad, la que el agente no ve. Es la figura 7.2. */
+function pintarCueva(f) {
+  const clave = (p) => `${p[0]},${p[1]}`;
+  const pozos = new Set(DATA.cueva.pozos.map(clave));
+  const brisas = new Set(DATA.cueva.brisas.map(clave));
+  const hedores = new Set(DATA.cueva.hedores.map(clave));
+
+  for (const k in celdas) {
+    const c = celdas[k];
+    const marcas = [];
+    let clase = "casilla";
+
+    if (pozos.has(k)) { clase += " peligro"; marcas.push(marca("POZO", "si")); }
+    if (k === clave(DATA.cueva.wumpus)) {
+      clase += " peligro";
+      marcas.push(marca(f.wumpusVivo === false ? "WUMPUS †" : "WUMPUS", "si"));
+    }
+    if (DATA.cueva.oro && k === clave(DATA.cueva.oro) && !f.oroTomado) {
+      marcas.push(marca("ORO", "oro"));
+    }
+    if ((f.casillas[k] || {}).visitado) clase += " visitado";
+
+    c.className = clase;
+    c.querySelector(".marcas").innerHTML = marcas.join("");
+
+    const sensores = [];
+    if (brisas.has(k)) sensores.push("brisa");
+    if (hedores.has(k)) sensores.push("hedor");
+    c.querySelector(".sensor").textContent = sensores.join(" · ");
+
+    const viejo = c.querySelector(".agente");
+    if (viejo) viejo.remove();
+  }
+  ponerAgente(f);
+}
+
+function ponerAgente(f) {
+  const c = celdas[`${f.pos[0]},${f.pos[1]}`];
+  const a = document.createElement("span");
+  a.className = "agente";
+  a.textContent = "A";
+  c.appendChild(a);
+}
+
+function pintarPanel(f) {
+  el("t").textContent = "t = " + f.t;
+
+  const sensores = ["hedor", "brisa", "brillo", "golpe", "grito"];
+  el("percept").innerHTML = sensores
+    .map((s) => `<span class="chip ${f.percept[s] ? "on" : ""}">${s}</span>`)
+    .join("");
+
+  el("asks").innerHTML = f.asks
+    .map(([q, r]) => `<div class="ask ${r ? "si" : "no"}">`
+                   + `<span class="q">${q}</span>`
+                   + `<span class="r">${r ? "true" : "false"}</span></div>`)
+    .join("") || `<div class="modelos">—</div>`;
+  el("ask-n").textContent = f.asks.length ? f.asks.length + " consultas" : "";
+
+  el("caja-modelos").classList.toggle("oculto", !f.modelos);
+  if (f.modelos) {
+    el("modelos").innerHTML = Object.entries(f.modelos)
+      .map(([que, [ok, total]]) =>
+        `<div>${que}: <b>${ok}</b> de <b>${total}</b></div>`)
+      .join("");
+  }
+
+  el("plan-n").textContent = f.plan.length ? f.plan.length + " pasos" : "";
+  el("plan").innerHTML = f.plan.length
+    ? f.plan.map((p, k) => `<span class="paso ${k === 0 ? "ahora" : ""}">${p}</span>`).join("")
+    : `<span class="paso">—</span>`;
+
+  el("accion").textContent = f.accion;
+  el("nota").textContent = f.nota || "";
+  el("nota").classList.toggle("oculto", !f.nota);
+
+  el("done").classList.toggle("oculto", !f.done);
+  if (f.done) {
+    el("done").className = "done " + (f.done.kind === "muerto" ? "fail" : "");
+    el("done").innerHTML = `<h3>${f.done.kind}</h3><p>${f.done.texto}</p>`;
+  }
+}
+
+/* ---------- controles ---------- */
+
+function cambiarVista(v) {
+  vista = v;
+  el("v-saber").setAttribute("aria-pressed", v === "saber");
+  el("v-cueva").setAttribute("aria-pressed", v === "cueva");
+  el("leyenda").innerHTML = v === "saber" ? DATA.leyenda.saber : DATA.leyenda.cueva;
+  mostrar(actual);
+}
+el("v-saber").onclick = () => cambiarVista("saber");
+el("v-cueva").onclick = () => cambiarVista("cueva");
+
+el("nombre").textContent = DATA.name;
+el("label").textContent = DATA.label;
+el("sub").textContent = DATA.sub;
+el("n").textContent = DATA.frames.length;
+el("prev").onclick = () => mostrar(actual - 1);
+el("next").onclick = () => mostrar(actual + 1);
+document.addEventListener("keydown", (ev) => {
+  if (ev.key === "ArrowRight" || ev.key === " ") { mostrar(actual + 1); ev.preventDefault(); }
+  if (ev.key === "ArrowLeft") { mostrar(actual - 1); ev.preventDefault(); }
+  if (ev.key === "Home") mostrar(0);
+  if (ev.key === "End") mostrar(DATA.frames.length - 1);
+});
+
+cambiarVista("saber");
+</script>

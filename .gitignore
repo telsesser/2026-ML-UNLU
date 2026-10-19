@@ -14,3 +14,9 @@ salidas/
 # Material de referencia con copyright (capitulos escaneados, papers). Vive en
 # la maquina, no en el repositorio: este es publico.
 **/info/
+
+# Vista previa aproximada de las presentaciones (la regenera armar_presentaciones.py)
+03-refuerzos/presentaciones/vista_previa/
+
+# Parciales y su resolucion: no van al repositorio publico.
+parcial/

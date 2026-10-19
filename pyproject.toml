@@ -3,7 +3,21 @@ name = "busqueda"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
+    "gymnasium[classic-control,toy-text]>=1.1",
     "ipykernel>=7.3.0",
     "matplotlib>=3.11.1",
     "networkx>=3.6.1",
+    "scipy>=1.18.1",
+    "sympy>=1.14.0",
+    "torch>=2.14.1",
 ]
+
+# torch sale del indice solo-CPU: la rueda por defecto trae CUDA y pesa varios
+# GB que la unidad de refuerzos no necesita (DQN en CartPole corre en CPU).
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

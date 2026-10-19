@@ -1,0 +1,10 @@
+{
+  // VS Code las sugiere al abrir el repo por primera vez.
+  "recommendations": [
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-toolsai.jupyter",
+    "quarto.quarto",
+    "charliermarsh.ruff"
+  ]
+}

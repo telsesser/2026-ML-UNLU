@@ -9,11 +9,12 @@ project:
   render:
     - index.qmd
     - 01-busqueda/busqueda.ipynb
-    # La unidad 02 todavia es un esqueleto: descomentar estas dos lineas --y
-    # las de la navegacion, mas abajo, y la seccion en index.qmd-- cuando el
-    # contenido este escrito.
-    # - 02-agentes/agentes.ipynb
-    # - 02-agentes/enunciado.md
+    - 02-agentes/agentes.ipynb
+    - 02-agentes/enunciado.md
+    - 03-refuerzos/clase1-decisiones-secuenciales.ipynb
+    - 03-refuerzos/enunciado-clase1.md
+    - 03-refuerzos/clase2-dqn.ipynb
+    - 03-refuerzos/enunciado-clase2.md
 
 # Los notebooks ya traen las salidas guardadas -- las paginas paso a paso pesan
 # 300 KB y estan adentro del .ipynb. Quarto no re-ejecuta notebooks por
@@ -38,12 +39,22 @@ website:
             text: "Clase — Búsqueda no informada"
           - href: 01-busqueda/TP1-agentes-y-busqueda-no-informada.docx
             text: "Práctico — TP1 (.docx)"
-      # - text: "02 · Agentes"
-      #   menu:
-      #     - href: 02-agentes/agentes.ipynb
-      #       text: "Clase — Agentes basados en conocimiento"
-      #     - href: 02-agentes/enunciado.md
-      #       text: "Práctico"
+      - text: "02 · Agentes"
+        menu:
+          - href: 02-agentes/agentes.ipynb
+            text: "Clase — Agentes basados en conocimiento"
+          - href: 02-agentes/enunciado.md
+            text: "Práctico — Guía de laboratorio"
+      - text: "03 · Refuerzos"
+        menu:
+          - href: 03-refuerzos/clase1-decisiones-secuenciales.ipynb
+            text: "Clase 1 — Decisiones secuenciales y Q-learning"
+          - href: 03-refuerzos/enunciado-clase1.md
+            text: "Práctico — Clase 1"
+          - href: 03-refuerzos/clase2-dqn.ipynb
+            text: "Clase 2 — Aproximación de funciones y DQN"
+          - href: 03-refuerzos/enunciado-clase2.md
+            text: "Práctico — Clase 2"
   sidebar:
     style: floating
     contents:
@@ -55,12 +66,22 @@ website:
             text: Clase
           - href: 01-busqueda/TP1-agentes-y-busqueda-no-informada.docx
             text: "Práctico — TP1 (.docx)"
-      # - section: "02 · Agentes basados en conocimiento"
-      #   contents:
-      #     - href: 02-agentes/agentes.ipynb
-      #       text: Clase
-      #     - href: 02-agentes/enunciado.md
-      #       text: Práctico
+      - section: "02 · Agentes basados en conocimiento"
+        contents:
+          - href: 02-agentes/agentes.ipynb
+            text: Clase
+          - href: 02-agentes/enunciado.md
+            text: Práctico
+      - section: "03 · Aprendizaje por refuerzos"
+        contents:
+          - href: 03-refuerzos/clase1-decisiones-secuenciales.ipynb
+            text: "Clase 1"
+          - href: 03-refuerzos/enunciado-clase1.md
+            text: "Práctico 1"
+          - href: 03-refuerzos/clase2-dqn.ipynb
+            text: "Clase 2"
+          - href: 03-refuerzos/enunciado-clase2.md
+            text: "Práctico 2"
 
 format:
   html:

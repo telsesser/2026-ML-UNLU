@@ -1,0 +1,5 @@
+{
+  // Entorno que arma `uv sync`: los notebooks toman este kernel sin elegirlo.
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.terminal.activateEnvironment": true
+}

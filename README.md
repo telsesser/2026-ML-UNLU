@@ -12,7 +12,8 @@ Referencias a Russell & Norvig, *Artificial Intelligence: A Modern Approach*,
 | --- | --- |
 | [`00-lib/`](00-lib/) | lo común a todas las unidades: `Problem`, `Node`, la frontera, el narrador (`view`, `web`) y los cinco algoritmos de búsqueda. Nada de esto sabe de ningún problema en particular. |
 | [`01-busqueda/`](01-busqueda/) | **búsqueda no informada** sobre el mapa de Rumania, la guía del TP1 y el [8-puzzle](01-busqueda/8-puzzle/) que el TP pide resolver. |
-| [`02-agentes/`](02-agentes/) | **agentes basados en conocimiento**: lógica proposicional e inferencia. |
+| [`02-agentes/`](02-agentes/) | **agentes basados en conocimiento**: lógica proposicional e inferencia con SymPy, y la guía de laboratorio de la unidad. |
+| [`03-refuerzos/`](03-refuerzos/) | **aprendizaje por refuerzos**, en dos clases: decisiones secuenciales y Q-learning, y aproximación de funciones y DQN (con PyTorch sobre Gymnasium). Cada clase tiene su notebook, su guía y su presentación (`presentaciones/`). `anterior/` guarda el material 2025 del que salió la clase 1. |
 
 Cada unidad guarda las piezas que solo le sirven a ella:
 `01-busqueda/romania.py` es el mapa; `01-busqueda/8-puzzle/puzzle.py`,
@@ -37,7 +38,13 @@ uv run python 00-lib/breadth_first_search.py --view
 
 # la tabla comparativa del 8-puzzle
 uv run python 01-busqueda/8-puzzle/puzzle.py
+
+# las presentaciones de refuerzos (necesitan pdflatex y pdftocairo)
+uv run --with python-pptx python 03-refuerzos/presentaciones/armar_presentaciones.py
 ```
+
+`torch` se instala desde el índice solo-CPU de PyTorch (ver `pyproject.toml`):
+la rueda por defecto trae CUDA y pesa varios GB.
 
 Las páginas paso a paso que escriben esos scripts van a `salidas/`, que no se
 versiona.
