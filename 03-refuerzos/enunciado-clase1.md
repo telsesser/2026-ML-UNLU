@@ -11,7 +11,7 @@ cálculos que conviene saber hacer sin computadora, y aplicar Q-learning a un
 entorno de Gymnasium.
 
 Referencias: Russell y Norvig, *Artificial Intelligence: A Modern Approach*,
-4ª edición, capítulos 16 y 23; Sutton y Barto, *Reinforcement Learning: An
+4ª edición, capítulos 15, 16 y 23; Sutton y Barto, *Reinforcement Learning: An
 Introduction*, 2ª edición, capítulos 2, 3, 4 y 6. El [notebook de la
 clase](clase1-decisiones-secuenciales.ipynb) tiene todo el código que hace
 falta.
@@ -135,8 +135,9 @@ Usá el código del apostador del notebook de la clase.
   Graficá en cada caso la función de valor y la política final.
 
 - Con probabilidad 0.55 la política óptima es muy distinta. Explicá el
-  resultado: ¿por qué conviene apostar poco cuando la moneda favorece al
-  jugador, y todo lo posible cuando lo perjudica?
+  resultado: ¿por qué, cuando la moneda perjudica al jugador, conviene hacer
+  pocas apuestas grandes, y cuando lo favorece, muchas apuestas de 1? ¿Por
+  qué con 0.25, teniendo 50, apuesta todo, y teniendo 51 no?
 
 - ¿Cuántas iteraciones hacen falta para que el cambio total (`delta`) sea
   menor que $10^{-9}$? Para contarlas, sacá el límite de 12 iteraciones y
@@ -265,12 +266,15 @@ mostrar_politica(Q)
   tabla y en cuándo el agente recibe una recompensa distinta de cero.
 
 - Repetí con `is_slippery=False`. ¿Qué tasa de éxito se obtiene? ¿Hacen falta
-  tantos episodios?
+  tantos episodios? Ojo: para evaluar en el lago que no resbala hay que
+  llamar a `tasa_de_exito(Q, is_slippery=False)`; por defecto evalúa en el
+  resbaladizo.
 
 - Probá $\alpha \in \{0.01, 0.1, 0.5\}$ y $\gamma \in \{0.9, 0.99\}$ en el lago
   resbaladizo. Armá una tabla con la tasa de éxito, usando al menos dos
-  semillas por combinación. ¿Por qué $\gamma$ tiene tanto efecto en este
-  problema, si la única recompensa es la de la meta?
+  semillas por combinación. ¿Por qué con $\alpha = 0.1$ y $0.5$ el valor de
+  $\gamma$ cambia tanto el resultado, si la única recompensa es la de la
+  meta? ¿Y por qué con $\alpha = 0.01$ casi no cambia nada?
 
 - En el lago resbaladizo, la política aprendida a veces elige moverse **contra
   un borde o alejándose de la meta**. Buscá un ejemplo en tu política y
