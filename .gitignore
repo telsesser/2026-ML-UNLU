@@ -20,3 +20,7 @@ salidas/
 
 # Parciales y su resolucion: no van al repositorio publico.
 parcial/
+
+# Resumen de lectura para preparar la clase: es material personal, no va al
+# repositorio publico (ademas trae recortes de libros con copyright).
+03-refuerzos/resumen/
