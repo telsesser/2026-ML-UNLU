@@ -674,13 +674,26 @@ def clase1():
             Nota("El objetivo es encontrar la política que maximiza la recompensa acumulada."),
         ], figura=agente, ancho_figura=3.3),
 
+        Diapositiva("Notación", [
+            Texto(["Usamos la notación de Sutton y Barto. Russell y Norvig llaman **utilidad** al "
+                   "valor de un estado y escriben el modelo por separado:"]),
+            Texto(["Uπ(s) y U(s) en Russell y Norvig son vπ(s) y v*(s).",
+                   "Q(s, a) en Russell y Norvig es q*(s, a).",
+                   "P(s′ | s, a) y R(s, a, s′) en Russell y Norvig son la dinámica p(s′, r | s, a).",
+                   "Las mayúsculas V y Q son estimaciones que el agente va aprendiendo."],
+                  vinetas=True),
+            Nota("Excepción: Sutton y Barto no tratan la teoría de la utilidad. En la sección de "
+                 "decisiones bajo incertidumbre, U es la utilidad de un resultado, como en "
+                 "Russell y Norvig."),
+        ]),
+
         Diapositiva("Decisiones bajo incertidumbre", [
             Texto(["En búsqueda, cada acción tenía un resultado seguro. Ahora la misma acción puede "
                    "llevar a resultados distintos, cada uno con cierta probabilidad.",
                    "Para decidir hace falta una **utilidad** U(s), que mide qué tan deseable es cada "
-                   "resultado, y la probabilidad P(s′ | a) de cada resultado."]),
+                   "resultado, y la probabilidad p(s′ | a) de cada resultado."]),
             Texto(["Utilidad esperada de una acción:"]),
-            Formula(r"EU(a) = \sum_{s'} P(s' \mid a)\, U(s')"),
+            Formula(r"EU(a) = \sum_{s'} p(s' \mid a)\, U(s')"),
             Texto(["Principio de **máxima utilidad esperada** (MEU): un agente racional elige"]),
             Formula(r"a^* = \arg\max_a EU(a)"),
         ]),
@@ -766,13 +779,11 @@ def clase1():
         ]),
 
         Diapositiva("Procesos de decisión de Markov", [
-            Texto(["Un **MDP** queda definido por:"]),
-            Formula(r"(\mathcal{S},\ \mathcal{A},\ P,\ R,\ \gamma)"),
-            Texto(["estados, acciones, probabilidades de transición p(s′, r | s, a), recompensas y "
-                   "factor de descuento."]),
+            Texto(["Un **MDP** queda definido por los estados, las acciones, el factor de descuento γ "
+                   "y la **dinámica**: la probabilidad de cada próximo estado y recompensa."]),
+            Formula(r"p(s', r \mid s, a) = \Pr\{S_{t+1} = s',\ R_{t+1} = r \mid S_t = s,\ A_t = a\}"),
             Texto(["**Propiedad de Markov:** el próximo estado y la recompensa dependen solo del "
                    "estado y la acción actuales, no de toda la historia."]),
-            Formula(r"P(S_{t+1}, R_{t+1} \mid S_t, A_t) = P(S_{t+1}, R_{t+1} \mid S_0, A_0, \ldots, S_t, A_t)"),
             Nota("Las tragamonedas son un MDP con un único estado."),
         ]),
 
@@ -809,10 +820,10 @@ def clase1():
 
         Diapositiva("Iteración de valores", [
             Texto(["Calcula v* cuando se conocen las probabilidades de transición y las recompensas."]),
-            Texto(["Inicializar V(s) = 0 para todos los estados.",
+            Texto(["Inicializar v₀(s) = 0 para todos los estados.",
                    "Para cada estado, aplicar la actualización de Bellman:",
                    ], vinetas=True),
-            Formula(r"V_{k+1}(s) = \max_a \sum_{s', r} p(s', r \mid s, a) \left[ r + \gamma\, V_k(s') \right]"),
+            Formula(r"v_{k+1}(s) = \max_a \sum_{s', r} p(s', r \mid s, a) \left[ r + \gamma\, v_k(s') \right]"),
             Texto(["Repetir hasta que los valores casi no cambien.",
                    "La política óptima es la acción que alcanza el máximo en cada estado."], vinetas=True),
             Nota("Necesita el modelo completo y recorrer todos los estados en cada iteración. "

@@ -16,6 +16,12 @@ Introduction*, 2ª edición, capítulos 2, 3, 4 y 6. El [notebook de la
 clase](clase1-decisiones-secuenciales.ipynb) tiene todo el código que hace
 falta.
 
+Notación: usamos la de Sutton y Barto, igual que en el notebook. Lo que Russell
+y Norvig llaman utilidad de un estado, $U^\pi(s)$ y $U(s)$, acá es el valor
+$v_\pi(s)$ y $v_*(s)$. Su $Q(s,a)$ es nuestro $q_*(s,a)$. Su modelo
+$P(s' \mid s,a)$ y $R(s,a,s')$ es nuestra dinámica $p(s',r \mid s,a)$. Las
+mayúsculas $V$ y $Q$ son estimaciones.
+
 ## 1. Fundamentos teóricos
 
 Respondé las siguientes preguntas. Son del tipo de las que pueden aparecer en
