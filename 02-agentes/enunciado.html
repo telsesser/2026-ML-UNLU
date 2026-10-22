@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,6 +71,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../03-refuerzos/clase1-decisiones-secuenciales.html" rel="next">
 <link href="../02-agentes/agentes.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -78,10 +79,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-722e05f976e177018ab3cac10df43184.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-b9e659d11790f305d8ba6018797b7a2e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -164,6 +165,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
     </ul>
   </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-refuerzos" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">03 · Refuerzos</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-refuerzos">    
+        <li>
+    <a class="dropdown-item" href="../03-refuerzos/clase1-decisiones-secuenciales.html">
+ <span class="dropdown-text">Clase 1 — Decisiones secuenciales y Q-learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../03-refuerzos/enunciado-clase1.html">
+ <span class="dropdown-text">Práctico — Clase 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../03-refuerzos/clase2-dqn.html">
+ <span class="dropdown-text">Clase 2 — Aproximación de funciones y DQN</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../03-refuerzos/enunciado-clase2.html">
+ <span class="dropdown-text">Práctico — Clase 2</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -239,6 +263,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">03 · Aprendizaje por refuerzos</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03-refuerzos/clase1-decisiones-secuenciales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clase 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03-refuerzos/enunciado-clase1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Práctico 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03-refuerzos/clase2-dqn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clase 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03-refuerzos/enunciado-clase2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Práctico 2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -283,8 +342,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="objetivo" class="level2">
 <h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
-<p>Modelar un problema como una base de conocimiento en lógica proposicional, consultarla por implicación lógica con SymPy, y distinguir con claridad las tres respuestas posibles: lo que se deduce, lo que se refuta y lo que queda desconocido. Sobre el final, reconocer el límite de la lógica proposicional que motiva la de primer orden.</p>
-<p>Referencia: Russell y Norvig, <em>Artificial Intelligence: A Modern Approach</em>, 4ª edición, capítulos 7 y 8. El <a href="../02-agentes/agentes.html">notebook de la clase</a> tiene todo el código que hace falta.</p>
+<p>Modelar un problema como una base de conocimiento en lógica proposicional, consultarla por implicación lógica con SymPy, y distinguir con claridad las tres respuestas posibles: lo que se deduce, lo que se refuta y lo que queda desconocido.</p>
+<p>Referencia: Russell y Norvig, <em>Artificial Intelligence: A Modern Approach</em>, 4ª edición, capítulo 7. El <a href="../02-agentes/agentes.html">notebook de la clase</a> tiene todo el código que hace falta.</p>
 </section>
 <section id="un-ejemplo-pequeño-para-razonar" class="level2">
 <h2 class="anchored" data-anchor-id="un-ejemplo-pequeño-para-razonar">1. Un ejemplo pequeño para razonar</h2>
@@ -474,7 +533,6 @@ R3:  Mojada</code></pre>
 <ul>
 <li><p>Definí el vocabulario: qué proposiciones hay, qué significa cada una, cuáles son observaciones y cuáles recomendaciones.</p></li>
 <li><p>Escribí las reglas y armá al menos tres casos, uno de ellos con una observación desconocida. Consultá las conclusiones y separá lo demostrado, lo refutado y lo desconocido.</p></li>
-<li><p>Buscá en tu base las reglas que se repiten con distintos nombres —una por sala, una por equipo, una por materia—. Escribí, en lógica de primer orden y con cuantificadores, la sentencia única que las reemplazaría. ¿Qué supuesto sobre el dominio hace falta para volver a desplegarla con un <code>for</code> de Python?</p></li>
 </ul>
 <p>Para cerrar, comparen los modelos entre grupos: ¿usan los mismos símbolos?, ¿hay reglas que parecen razonables pero afirman más de lo que dice el protocolo?, ¿cuándo una recomendación no demostrada se confundió con una recomendación prohibida? Una base puede ser consistente y, aun así, representar mal el problema.</p>
 
@@ -889,6 +947,9 @@ R3:  Mojada</code></pre>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../03-refuerzos/clase1-decisiones-secuenciales.html" class="pagination-link" aria-label="Clase 1">
+        <span class="nav-page-text">Clase 1</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
