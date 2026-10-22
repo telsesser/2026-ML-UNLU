@@ -304,11 +304,19 @@ def fig_iteracion_valores_4x3():
 
 
 def figuras_del_resumen(*nombres):
-    """Las figuras de `resumen/figuras.py`, como PNG en img/. Devuelve sus rutas."""
+    """Las figuras de `resumen/figuras.py`, como PNG en img/. Devuelve sus rutas.
+
+    El resumen solo está en el repo privado. Sin él se usan los PNG que ya están en img/.
+    """
     import importlib.util
     import sys
 
     rutas = {}
+    origen = UNIDAD / "resumen" / "figuras.py"
+    if not origen.exists():
+        for ruta in IMG.glob("*.png"):
+            rutas[ruta.stem] = ruta
+        return rutas
 
     def a_png(fig, nombre):
         rutas[nombre] = IMG / f"{nombre}.png"
@@ -318,7 +326,7 @@ def figuras_del_resumen(*nombres):
     # resumen/figuras.py cambia los rcParams al importarse: se aíslan para que no
     # alteren el resto de las figuras de las presentaciones.
     with plt.rc_context():
-        spec = importlib.util.spec_from_file_location("figuras_resumen", UNIDAD / "resumen" / "figuras.py")
+        spec = importlib.util.spec_from_file_location("figuras_resumen", origen)
         modulo = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(modulo)
         matplotlib.use("Agg")
@@ -794,7 +802,8 @@ def clase1():
     valores = fig_iteracion_valores_4x3()
     qlearning = fig_qlearning_4x3()
     resumen = figuras_del_resumen("tragamonedas", "mundo-4x3", "descuento", "respaldo")
-    resumen.pop("mundo4x3-utilidades").unlink()     # fig_mundo_4x3 dibuja las dos
+    if "mundo4x3-utilidades" in resumen:            # fig_mundo_4x3 dibuja las dos
+        resumen.pop("mundo4x3-utilidades").unlink()
     mc_td = png_de_notebook("clase1-decisiones-secuenciales.ipynb", "resultados = [comparar(", -1,
                             "mc-td-4x3.png")
     apostador = png_de_notebook("clase1-decisiones-secuenciales.ipynb", "HEAD_PROB = 0.4", -1,
