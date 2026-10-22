@@ -151,7 +151,7 @@ def fig_agente_entorno():
     return guardar(fig, "agente-entorno.png")
 
 
-def dibujar_grilla_4x3(ax, politica=None):
+def dibujar_grilla_4x3(ax, politica=None, valores=None):
     terminales = {(4, 3): ("+1", "#93C47D"), (4, 2): ("−1", "#E06666")}
     for x in range(1, 5):
         for y in range(1, 4):
@@ -165,7 +165,10 @@ def dibujar_grilla_4x3(ax, politica=None):
             elif politica and (x, y) in politica:
                 ax.text(x - 0.5, y - 0.5, politica[(x, y)], ha="center", va="center",
                         fontsize=26, color="#" + AZUL)
-    if not politica:
+            elif valores and (x, y) in valores:
+                ax.text(x - 0.5, y - 0.5, f"{valores[(x, y)]:.2f}", ha="center", va="center",
+                        fontsize=11, color="#" + AZUL)
+    if not politica and not valores:
         ax.text(0.5, 0.5, "S", ha="center", va="center", fontsize=20, color="#" + AZUL,
                 fontweight="bold")
     for x in range(1, 5):
@@ -203,6 +206,66 @@ def fig_politica_4x3():
     fig, ax = plt.subplots(figsize=(4.2, 3.2))
     dibujar_grilla_4x3(ax, politica)
     return guardar(fig, "politica-4x3.png")
+
+
+def iteracion_valores_4x3(iteraciones, costo_paso=-0.04):
+    # La misma iteración de valores que el notebook de la clase 1, con γ = 1.
+    movimientos = {"↑": (0, 1), "↓": (0, -1), "←": (-1, 0), "→": (1, 0)}
+    costados = {"↑": ("←", "→"), "↓": ("→", "←"), "←": ("↓", "↑"), "→": ("↑", "↓")}
+    terminales = {(4, 3): 1.0, (4, 2): -1.0}
+    estados = [(x, y) for x in range(1, 5) for y in range(1, 4)
+               if (x, y) != (2, 2) and (x, y) not in terminales]
+
+    def mover(s, a):
+        d = (s[0] + movimientos[a][0], s[1] + movimientos[a][1])
+        return s if d == (2, 2) or not (1 <= d[0] <= 4 and 1 <= d[1] <= 3) else d
+
+    def valor_accion(v, s, a):
+        total = 0.0
+        for prob, b in ((0.8, a), (0.1, costados[a][0]), (0.1, costados[a][1])):
+            s2 = mover(s, b)
+            total += prob * (terminales.get(s2, costo_paso) + v.get(s2, 0.0))
+        return total
+
+    v = {s: 0.0 for s in estados}
+    for _ in range(iteraciones):
+        v = {s: max(valor_accion(v, s, a) for a in movimientos) for s in estados}
+    return v
+
+
+def fig_iteracion_valores_4x3():
+    fig, axes = plt.subplots(1, 3, figsize=(10, 2.9))
+    for ax, k in zip(axes, (1, 3, 30)):
+        dibujar_grilla_4x3(ax, valores=iteracion_valores_4x3(k))
+        ax.set_title(f"iteración {k}" if k < 30 else "convergido", fontsize=14, color="#" + OSCURO)
+    return guardar(fig, "valores-4x3.png")
+
+
+def figuras_del_resumen(*nombres):
+    """Las figuras de `resumen/figuras.py`, como PNG en img/. Devuelve sus rutas."""
+    import importlib.util
+    import sys
+
+    rutas = {}
+
+    def a_png(fig, nombre):
+        rutas[nombre] = IMG / f"{nombre}.png"
+        fig.savefig(rutas[nombre], dpi=200, bbox_inches="tight", transparent=True)
+        plt.close(fig)
+
+    # resumen/figuras.py cambia los rcParams al importarse: se aíslan para que no
+    # alteren el resto de las figuras de las presentaciones.
+    with plt.rc_context():
+        spec = importlib.util.spec_from_file_location("figuras_resumen", UNIDAD / "resumen" / "figuras.py")
+        modulo = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(modulo)
+        matplotlib.use("Agg")
+        modulo.guardar = a_png
+        IMG.mkdir(parents=True, exist_ok=True)
+        for nombre in nombres:
+            getattr(modulo, "fig_" + nombre.replace("-", "_"))()
+        sys.modules.pop("figuras_resumen", None)
+    return rutas
 
 
 def entrenar_cliff(metodo, episodios=500, alpha=0.5, epsilon=0.1, semilla=0):
@@ -660,6 +723,10 @@ def clase1():
     agente = fig_agente_entorno()
     mundo = fig_mundo_4x3()
     politica = fig_politica_4x3()
+    valores = fig_iteracion_valores_4x3()
+    resumen = figuras_del_resumen("tragamonedas", "mundo-4x3", "descuento", "respaldo",
+                                  "volver-a-casa")
+    resumen.pop("mundo4x3-utilidades").unlink()     # fig_mundo_4x3 dibuja las dos
     apostador = png_de_notebook("clase1-decisiones-secuenciales.ipynb", "HEAD_PROB = 0.4", -1,
                                 "apostador.png")
 
@@ -718,6 +785,8 @@ def clase1():
                     r"{\text{cantidad de veces que se eligió } a}"),
             Texto(["Se puede actualizar en forma incremental, sin guardar todas las recompensas:"]),
             Formula(r"Q_{n+1} = Q_n + \frac{1}{n} \left[ R_n - Q_n \right]"),
+            Nota("Es la forma que se repite en toda la unidad: nueva ← vieja + paso · [objetivo − "
+                 "vieja]. TD, Q-learning y DQN cambian solo el objetivo."),
         ]),
 
         Diapositiva("Exploración y explotación", [
@@ -743,6 +812,13 @@ def clase1():
                  "lo que parece."),
         ]),
 
+        Diapositiva("Comparación con 10 máquinas", [
+            Texto(["Promedio de 2000 problemas de 10 máquinas. Greedy se estanca y elige la mejor "
+                   "máquina solo un 35 % de las veces; ε-greedy y UCB siguen mejorando."]),
+            Nota("La acción greedy suele ser la que tuvo suerte en las primeras jugadas: elegir el "
+                 "máximo favorece a las estimaciones que salieron altas por azar."),
+        ], figura=resumen["tragamonedas"], ancho_figura=8.0, figura_abajo=True),
+
         Diapositiva("Decisiones secuenciales: el mundo 4×3", [
             Texto(["Ahora cada acción lleva a un nuevo estado, y desde ahí hay que volver a decidir.",
                    "El agente empieza en S y el juego termina en +1 o en −1. Las acciones **no son "
@@ -765,6 +841,17 @@ def clase1():
                  "(3,1) da toda la vuelta para no arriesgarse a caer en −1."),
         ], figura=politica, ancho_figura=3.2),
 
+        Diapositiva("La política depende de la recompensa", [
+            Texto(["Políticas óptimas del mundo 4×3 para cuatro valores de la recompensa por paso r. "
+                   "Cuanto más cuesta vivir, más riesgo acepta el agente para terminar rápido."]),
+            Texto(["r = −2: desde (3,2) se tira al −1, que cuesta menos que seguir caminando.",
+                   "r = −0.6: toma el camino corto, aunque pase al lado del −1.",
+                   "r = −0.04: da la vuelta segura.",
+                   "r = −0.01: evita el −1 a toda costa; desde (4,1) choca contra la pared."],
+                  vinetas=True),
+            Nota("Con r > 0 vivir conviene: el agente evita las dos salidas para siempre."),
+        ], figura=resumen["mundo4x3-politicas"], ancho_figura=8.0, figura_abajo=True),
+
         Diapositiva("Recompensas y retorno", [
             Texto(["Después de cada acción el agente recibe una recompensa. La utilidad de una "
                    "secuencia es el **retorno**: la suma de las recompensas futuras, descontadas."]),
@@ -773,9 +860,24 @@ def clase1():
             Texto(["El **factor de descuento** γ ∈ [0, 1] indica cuánto valen las recompensas "
                    "futuras frente a las inmediatas.",
                    "**Tareas episódicas** (terminan siempre): se puede usar γ = 1.",
-                   "**Tareas continuas** (no terminan): hace falta γ < 1 para que la suma sea finita."],
+                   "**Tareas continuas** (no terminan): hace falta γ < 1 para que la suma sea finita. "
+                   "Si todas las recompensas valen R, el retorno es R / (1 − γ)."],
                   vinetas=True),
-            Nota("Con γ cerca de 0 el agente es miope; con γ cerca de 1, previsor."),
+            Nota("Con γ cerca de 0 el agente es miope; con γ cerca de 1, previsor. Mira "
+                 "unos 1 / (1 − γ) pasos: con γ = 0.9, unos 10."),
+        ], figura=resumen["descuento"], ancho_figura=3.6),
+
+        Diapositiva("Ejemplo: el retorno en el mundo 4×3", [
+            Texto(["Cada paso da −0.04 y entrar en una salida da +1 o −1. Tres episodios desde (1,1):"]),
+            Formula(r"\begin{array}{lccc}"
+                    r" & \text{pasos} & \gamma = 1 & \gamma = 0.9 \\[2pt] \hline"
+                    r"\text{camino corto a } {+1} & 5 & 4(-0.04) + 1 = 0.84 & 0.52 \\"
+                    r"\text{camino largo a } {+1} & 7 & 6(-0.04) + 1 = 0.76 & 0.34 \\"
+                    r"\text{cae en } {-1} & 5 & 4(-0.04) - 1 = -1.16 & -0.79"
+                    r"\end{array}"),
+            Texto(["Con γ < 1 el camino largo pierde más: tardar cuesta."]),
+            Nota("Como las acciones fallan al azar, la misma política da episodios distintos y el "
+                 "retorno es aleatorio. Por eso una política se evalúa por su retorno **esperado**."),
         ]),
 
         Diapositiva("Procesos de decisión de Markov", [
@@ -792,20 +894,24 @@ def clase1():
             Formula(r"v_\pi(s) = \mathbb{E}_\pi\left[ G_t \mid S_t = s \right]"),
             Texto(["**Valor de acción:** el retorno esperado si en s se toma a, y después se sigue π."]),
             Formula(r"q_\pi(s, a) = \mathbb{E}_\pi\left[ G_t \mid S_t = s, A_t = a \right]"),
-            Texto(["El valor de un estado es el promedio de los valores de sus acciones:"]),
-            Formula(r"v_\pi(s) = \sum_a \pi(a \mid s)\, q_\pi(s, a)"),
+            Texto(["Se relacionan en los dos sentidos:"]),
+            Formula(r"v_\pi(s) = \sum_a \pi(a \mid s)\, q_\pi(s, a) \qquad "
+                    r"q_\pi(s, a) = \sum_{s', r} p(s', r \mid s, a) \left[ r + \gamma\, v_\pi(s') \right]"),
+            Nota("La primera promedia sobre lo que elige la política; la segunda, sobre lo que "
+                 "responde el entorno."),
         ]),
 
         Diapositiva("Ecuación de Bellman", [
-            Texto(["El valor de un estado se escribe en función de los valores de los estados que "
-                   "le siguen:"]),
+            Texto(["Reemplazando q por su expresión, el valor de un estado queda en función de los "
+                   "valores de los estados que le siguen:"]),
             Formula(r"v_\pi(s) = \sum_a \pi(a \mid s) \sum_{s', r} p(s', r \mid s, a)"
                     r" \left[ r + \gamma\, v_\pi(s') \right]"),
             Texto(["π(a | s): cuánto elige la política cada acción.",
                    "p(s′, r | s, a): cómo responde el entorno.",
                    "r + γ v(s′): la recompensa inmediata más el valor descontado de donde se llega."],
                   vinetas=True),
-            Nota("Es un sistema de ecuaciones, una por estado: sus incógnitas son los valores."),
+            Nota("Es un sistema de ecuaciones **lineales**, una por estado: v = r + γPv, o sea "
+                 "(I − γP) v = r. Para una política fija se puede resolver directo."),
         ]),
 
         Diapositiva("Ecuación de optimalidad de Bellman", [
@@ -815,8 +921,17 @@ def clase1():
             Formula(r"q_*(s, a) = \sum_{s', r} p(s', r \mid s, a) \left[ r + \gamma \max_{a'} q_*(s', a') \right]"),
             Texto(["Conociendo q*, la política óptima sale directo:"]),
             Formula(r"\pi_*(s) = \arg\max_a q_*(s, a)"),
-            Nota("Con q* se elige la acción sin necesidad de conocer el modelo del mundo."),
+            Nota("Por el máximo, el sistema deja de ser lineal y no se resuelve directo: hay que "
+                 "iterar. Con q* se elige la acción sin conocer el modelo del mundo."),
         ]),
+
+        Diapositiva("Diagramas de respaldo", [
+            Texto(["Las cuatro ecuaciones se pueden dibujar. Los círculos vacíos son estados y los "
+                   "llenos, pares estado–acción. El valor **sube** desde las hojas hasta la raíz."]),
+            Texto(["En vπ y qπ se **promedia**: según π al elegir la acción y según p al ver qué "
+                   "responde el entorno.",
+                   "En v* y q* la elección de la acción toma el **máximo**."], vinetas=True),
+        ], figura=resumen["diagramas-respaldo"], ancho_figura=8.0, figura_abajo=True),
 
         Diapositiva("Iteración de valores", [
             Texto(["Calcula v* cuando se conocen las probabilidades de transición y las recompensas."]),
@@ -829,6 +944,14 @@ def clase1():
             Nota("Necesita el modelo completo y recorrer todos los estados en cada iteración. "
                  "La iteración de políticas alterna dos pasos: evaluar la política y mejorarla."),
         ]),
+
+        Diapositiva("Ejemplo: iteración de valores en el mundo 4×3", [
+            Texto(["Con costo por paso 0.04 y γ = 1. Los valores arrancan en 0 y el +1 se va "
+                   "propagando desde la salida, una casilla por iteración. La política que elige "
+                   "en cada estado la acción de mayor valor es la que vimos antes."]),
+            Nota("En (3,1), ir a la izquierda vale 0.65 y subir, 0.63: dar la vuelta conviene. "
+                 "La política greedy suele estabilizarse mucho antes que los valores."),
+        ], figura=valores, ancho_figura=9.0, figura_abajo=True),
 
         Diapositiva("Ejemplo: el problema del apostador", [
             Texto(["Un jugador apuesta a cara o ceca. Si sale cara (probabilidad 0.4) gana lo que "
@@ -850,6 +973,14 @@ def clase1():
             Texto(["El término entre corchetes es el **error TD**: la diferencia entre lo que se esperaba "
                    "y lo que se obtuvo más lo que se espera obtener después. α es la tasa de aprendizaje."]),
         ]),
+
+        Diapositiva("Ejemplo: volver a casa", [
+            Texto(["Al salir de la oficina se predicen 30 minutos de viaje; al ver que llueve, 40; ... "
+                   "y se llega en 43. **Monte Carlo** corrige cada predicción hacia el resultado "
+                   "final, y recién al llegar. **TD** corrige cada una hacia la siguiente, en el momento."]),
+            Nota("Sutton y Barto, ejemplo 6.1. Si te quedás atascado en la autopista, ya sabés que "
+                 "los 30 minutos eran optimistas: TD no espera a llegar para corregirlo."),
+        ], figura=resumen["volver-a-casa"], ancho_figura=8.0, figura_abajo=True),
 
         Diapositiva("Q-learning", [
             Texto(["Aplica la idea de TD a los valores de acción, usando la ecuación de optimalidad "
