@@ -151,7 +151,7 @@ def fig_agente_entorno():
     return guardar(fig, "agente-entorno.png")
 
 
-def dibujar_grilla_4x3(ax, politica=None, valores=None):
+def dibujar_grilla_4x3(ax, politica=None, valores=None, flechas=None):
     terminales = {(4, 3): ("+1", "#93C47D"), (4, 2): ("−1", "#E06666")}
     for x in range(1, 5):
         for y in range(1, 4):
@@ -166,8 +166,12 @@ def dibujar_grilla_4x3(ax, politica=None, valores=None):
                 ax.text(x - 0.5, y - 0.5, politica[(x, y)], ha="center", va="center",
                         fontsize=26, color="#" + AZUL)
             elif valores and (x, y) in valores:
-                ax.text(x - 0.5, y - 0.5, f"{valores[(x, y)]:.2f}", ha="center", va="center",
+                alto = y - 0.35 if flechas else y - 0.5
+                ax.text(x - 0.5, alto, f"{valores[(x, y)]:.2f}", ha="center", va="center",
                         fontsize=11, color="#" + AZUL)
+                if flechas:
+                    ax.text(x - 0.5, y - 0.72, flechas.get((x, y), "·"), ha="center", va="center",
+                            fontsize=14, color="#" + OSCURO)
     if not politica and not valores:
         ax.text(0.5, 0.5, "S", ha="center", va="center", fontsize=20, color="#" + AZUL,
                 fontweight="bold")
@@ -227,16 +231,22 @@ def iteracion_valores_4x3(iteraciones, costo_paso=-0.04):
             total += prob * (terminales.get(s2, costo_paso) + v.get(s2, 0.0))
         return total
 
-    v = {s: 0.0 for s in estados}
+    # Además de los valores devuelve, en cada estado, la acción que dio el máximo
+    # en la última iteración. Si varias empatan no hay flecha.
+    v, politica = {s: 0.0 for s in estados}, {}
     for _ in range(iteraciones):
-        v = {s: max(valor_accion(v, s, a) for a in movimientos) for s in estados}
-    return v
+        q = {s: {a: valor_accion(v, s, a) for a in movimientos} for s in estados}
+        v = {s: max(q[s].values()) for s in estados}
+        politica = {s: a for s in estados for a in movimientos
+                    if q[s][a] == v[s] and sum(abs(x - v[s]) < 1e-9 for x in q[s].values()) == 1}
+    return v, politica
 
 
 def fig_iteracion_valores_4x3():
     fig, axes = plt.subplots(1, 3, figsize=(10, 2.9))
     for ax, k in zip(axes, (1, 3, 30)):
-        dibujar_grilla_4x3(ax, valores=iteracion_valores_4x3(k))
+        v, politica = iteracion_valores_4x3(k)
+        dibujar_grilla_4x3(ax, valores=v, flechas=politica)
         ax.set_title(f"iteración {k}" if k < 30 else "convergido", fontsize=14, color="#" + OSCURO)
     return guardar(fig, "valores-4x3.png")
 
@@ -946,11 +956,10 @@ def clase1():
         ]),
 
         Diapositiva("Ejemplo: iteración de valores en el mundo 4×3", [
-            Texto(["Con costo por paso 0.04 y γ = 1. Los valores arrancan en 0 y el +1 se va "
-                   "propagando desde la salida, una casilla por iteración. La política que elige "
-                   "en cada estado la acción de mayor valor es la que vimos antes."]),
-            Nota("En (3,1), ir a la izquierda vale 0.65 y subir, 0.63: dar la vuelta conviene. "
-                 "La política greedy suele estabilizarse mucho antes que los valores."),
+            Texto(["Costo por paso 0.04 y γ = 1. El +1 se propaga desde la salida, una casilla por "
+                   "iteración. La flecha es la acción que da el máximo; el punto, un empate."]),
+            Nota("En la iteración 1, (3,2) elige chocar contra la pared para no arriesgarse a caer "
+                 "en −1. Al converger queda la política que vimos antes."),
         ], figura=valores, ancho_figura=9.0, figura_abajo=True),
 
         Diapositiva("Ejemplo: el problema del apostador", [
