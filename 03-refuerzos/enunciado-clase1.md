@@ -146,8 +146,8 @@ Usá el código del apostador del notebook de la clase.
   qué con 0.25, teniendo 50, apuesta todo, y teniendo 51 no?
 
 - ¿Cuántas iteraciones hacen falta para que el cambio total (`delta`) sea
-  menor que $10^{-9}$? Para contarlas, sacá el límite de 12 iteraciones y
-  graficá solo al final, fuera del ciclo.
+  menor que $10^{-9}$? Para contarlas, sacá el límite de 12 iteraciones
+  (`niter`).
 
 ## 4. Q-learning en FrozenLake
 

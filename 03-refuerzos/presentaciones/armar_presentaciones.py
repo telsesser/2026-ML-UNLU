@@ -242,6 +242,58 @@ def iteracion_valores_4x3(iteraciones, costo_paso=-0.04):
     return v, politica
 
 
+def qlearning_4x3(episodios=2000, alpha=0.2, epsilon=0.2, semilla=0, costo_paso=-0.04):
+    # El mismo Q-learning que el notebook de la clase 1, con la misma semilla y en el mismo orden
+    # de sorteos, así da exactamente lo mismo. Devuelve max_a Q(s, a) y la acción que lo alcanza.
+    movimientos = {"↑": (0, 1), "↓": (0, -1), "←": (-1, 0), "→": (1, 0)}
+    costados = {"↑": ("←", "→"), "↓": ("→", "←"), "←": ("↓", "↑"), "→": ("↑", "↓")}
+    terminales = {(4, 3): 1.0, (4, 2): -1.0}
+    estados = [(x, y) for x in range(1, 5) for y in range(1, 4)
+               if (x, y) != (2, 2) and (x, y) not in terminales]
+
+    def mover(s, a):
+        d = (s[0] + movimientos[a][0], s[1] + movimientos[a][1])
+        return s if d == (2, 2) or not (1 <= d[0] <= 4 and 1 <= d[1] <= 3) else d
+
+    rng = np.random.default_rng(semilla)
+    Q = {s: {a: 0.0 for a in movimientos} for s in estados}
+    for _ in range(episodios):
+        s = (1, 1)
+        while s not in terminales:
+            if rng.random() < epsilon:
+                a = list(movimientos)[rng.integers(4)]
+            else:
+                mejores = [b for b in movimientos if Q[s][b] == max(Q[s].values())]
+                a = mejores[rng.integers(len(mejores))]
+            destinos = [mover(s, a), mover(s, costados[a][0]), mover(s, costados[a][1])]
+            s2 = destinos[rng.choice(3, p=[0.8, 0.1, 0.1])]
+            r = terminales.get(s2, costo_paso)
+            siguiente = 0.0 if s2 in terminales else max(Q[s2].values())
+            Q[s][a] += alpha * (r + siguiente - Q[s][a])
+            s = s2
+    politica = {}
+    for s in estados:
+        mejor = "↑"
+        for a in movimientos:
+            if Q[s][a] > Q[s][mejor]:
+                mejor = a
+        politica[s] = mejor
+    return {s: Q[s][politica[s]] for s in estados}, politica
+
+
+def fig_qlearning_4x3():
+    fig, axes = plt.subplots(1, 2, figsize=(7, 2.9))
+    v, politica = iteracion_valores_4x3(30)
+    dibujar_grilla_4x3(axes[0], valores=v, flechas=politica)
+    axes[0].set_title("iteración de valores", fontsize=13, color="#" + OSCURO)
+    v, politica = qlearning_4x3()
+    print("Q-learning 4x3:", {s: (round(v[s], 3), politica[s]) for s in sorted(v)})
+    dibujar_grilla_4x3(axes[1], valores=v, flechas=politica)
+    axes[1].set_title("Q-learning", fontsize=13, color="#" + OSCURO)
+    axes[1].add_patch(patches.Rectangle((2, 1), 1, 1, fill=False, ec="#E06666", lw=3))
+    return guardar(fig, "qlearning-4x3.png")
+
+
 def fig_iteracion_valores_4x3():
     fig, axes = plt.subplots(1, 3, figsize=(10, 2.9))
     for ax, k in zip(axes, (1, 3, 30)):
@@ -411,6 +463,12 @@ def png_de_notebook(notebook, marca, indice=-1, nombre=None):
         if celda["cell_type"] == "code" and marca in "".join(celda["source"]):
             pngs = [o["data"]["image/png"] for o in celda.get("outputs", [])
                     if "image/png" in o.get("data", {})]
+            if not pngs:
+                # Una animación de matplotlib (to_jshtml): sus cuadros son PNG dentro del HTML.
+                for o in celda.get("outputs", []):
+                    html = "".join(o.get("data", {}).get("text/html", "")).replace("\\\n", "")
+                    pngs += [c.replace("\n", "") for c in
+                             re.findall(r"data:image/png;base64,([A-Za-z0-9+/=\n]+)", html)]
             if not pngs:
                 raise RuntimeError(f"la celda con {marca!r} de {notebook} no tiene salidas: ¿se ejecutó?")
             ruta = IMG / nombre
@@ -734,9 +792,11 @@ def clase1():
     mundo = fig_mundo_4x3()
     politica = fig_politica_4x3()
     valores = fig_iteracion_valores_4x3()
-    resumen = figuras_del_resumen("tragamonedas", "mundo-4x3", "descuento", "respaldo",
-                                  "volver-a-casa")
+    qlearning = fig_qlearning_4x3()
+    resumen = figuras_del_resumen("tragamonedas", "mundo-4x3", "descuento", "respaldo")
     resumen.pop("mundo4x3-utilidades").unlink()     # fig_mundo_4x3 dibuja las dos
+    mc_td = png_de_notebook("clase1-decisiones-secuenciales.ipynb", "resultados = [comparar(", -1,
+                            "mc-td-4x3.png")
     apostador = png_de_notebook("clase1-decisiones-secuenciales.ipynb", "HEAD_PROB = 0.4", -1,
                                 "apostador.png")
 
@@ -983,13 +1043,15 @@ def clase1():
                    "y lo que se obtuvo más lo que se espera obtener después. α es la tasa de aprendizaje."]),
         ]),
 
-        Diapositiva("Ejemplo: volver a casa", [
-            Texto(["Al salir de la oficina se predicen 30 minutos de viaje; al ver que llueve, 40; ... "
-                   "y se llega en 43. **Monte Carlo** corrige cada predicción hacia el resultado "
-                   "final, y recién al llegar. **TD** corrige cada una hacia la siguiente, en el momento."]),
-            Nota("Sutton y Barto, ejemplo 6.1. Si te quedás atascado en la autopista, ya sabés que "
-                 "los 30 minutos eran optimistas: TD no espera a llegar para corregirlo."),
-        ], figura=resumen["volver-a-casa"], ancho_figura=8.0, figura_abajo=True),
+        Diapositiva("Ejemplo: Monte Carlo y TD en el mundo 4×3", [
+            Texto(["Evaluar la política óptima sin conocer el modelo, solo jugando episodios. Los dos "
+                   "arrancan en 0; el error se mide contra los valores de la iteración de valores."]),
+            Texto(["Acá gana **Monte Carlo**: al terminar el episodio, cada estado del camino recibe "
+                   "el retorno completo. TD propaga el +1 hacia atrás **una casilla por visita**, "
+                   "como la iteración de valores."]),
+            Nota("La ventaja segura de TD es que aprende en cada paso, sin esperar al final: sirve "
+                 "con episodios muy largos y en tareas que no terminan."),
+        ], figura=mc_td, ancho_figura=3.8),
 
         Diapositiva("Q-learning", [
             Texto(["Aplica la idea de TD a los valores de acción, usando la ecuación de optimalidad "
@@ -1019,6 +1081,15 @@ Para cada episodio:
 """, tam=12),
             Nota("Sutton y Barto, sección 6.5. Si S′ es terminal, su valor es 0."),
         ]),
+
+        Diapositiva("Ejemplo: Q-learning en el mundo 4×3", [
+            Texto(["Sin conocer el modelo ni recibir una política, Q-learning aprende jugando: 2000 "
+                   "episodios desde (1,1), con α = 0.2 y ε = 0.2. Acierta la acción óptima en 8 de "
+                   "las 9 casillas."]),
+            Nota("Falla en (3,2): ← (0.48) le gana a ↑ (0.42). En realidad valen 0.68 y 0.70, casi "
+                 "lo mismo. Subir arriesga caer en −1, y con α fijo cada caída baja mucho la "
+                 "estimación: el ruido alcanza para dar vuelta la elección."),
+        ], figura=qlearning, ancho_figura=7.0, figura_abajo=True),
     ]
 
     indice = [

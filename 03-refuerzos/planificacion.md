@@ -17,11 +17,12 @@ Ya está armado:
 
 Cambios respecto de lo que sigue en este documento:
 
-- **Se mantienen el apostador y la grilla 5×5** en la clase 1, para tocar lo
-  mínimo el material 2025. El mundo 4×3 aparece en la parte nueva de
-  utilidad, plan y política, y como primer ejemplo de iteración de valores,
-  antes del apostador. El ejercicio del apostador con otra probabilidad
-  pasó al práctico.
+- **Se mantiene el apostador** en la clase 1, para tocar lo mínimo el
+  material 2025. El mundo 4×3 aparece en la parte nueva de utilidad, plan y
+  política, como primer ejemplo de iteración de valores (antes del
+  apostador), en la comparación de Monte Carlo y TD, y en Q-learning, donde
+  reemplazó a la grilla 5×5. El ejercicio del apostador con otra
+  probabilidad pasó al práctico.
 - **De Monte Carlo** quedó solo el párrafo que lo explica como idea, como
   puente hacia TD. Blackjack salió.
 - **Las capturas de libros** (3 diagramas) quedaron como estaban en el

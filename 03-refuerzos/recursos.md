@@ -12,7 +12,7 @@ repetición y red objetivo.
 
 | recurso | clase | temas |
 | --- | :---: | --- |
-| [`clase1-decisiones-secuenciales.ipynb`](clase1-decisiones-secuenciales.ipynb) | 1 | utilidad y MEU (dos apuestas), tragamonedas (greedy, ε-greedy, UCB), mundo 4×3 (plan contra política), retorno y descuento, MDP y ecuación de Bellman, $v$ y $q$, ecuación de optimalidad, iteración de valores (mundo 4×3 y apostador), TD(0), Q-learning (grilla 5×5) |
+| [`clase1-decisiones-secuenciales.ipynb`](clase1-decisiones-secuenciales.ipynb) | 1 | utilidad y MEU (dos apuestas), tragamonedas (greedy, ε-greedy, UCB), mundo 4×3 (plan contra política), retorno y descuento, MDP y ecuación de Bellman, $v$ y $q$, ecuación de optimalidad, iteración de valores (mundo 4×3 y apostador), TD(0), Monte Carlo contra TD en el mundo 4×3, Q-learning (mundo 4×3) |
 | [`clase2-dqn.ipynb`](clase2-dqn.ipynb) | 2 | Q-learning en CliffWalking, SARSA, on-policy y off-policy, ε decreciente, CartPole, discretización, aproximación de funciones y semi-gradiente, red neuronal como aproximador, Q-learning con red (inestabilidad), tríada mortal, memoria de repetición, red objetivo, DQN, ablación, Double DQN |
 | `presentaciones/C3-1_ Decisiones secuenciales y Q-learning.pptx` | 1 | los mismos temas que el notebook 1, solo conceptos y fórmulas |
 | `presentaciones/C3-2_ Aproximación de funciones y DQN.pptx` | 2 | los mismos temas que el notebook 2, solo conceptos y fórmulas |
