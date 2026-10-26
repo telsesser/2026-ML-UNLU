@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://telsesser.github.io/2026-ML-UNLU/03-refuerzos/enunciado-clase2.html</loc>
-    <lastmod>2026-10-22T02:01:16.175Z</lastmod>
+    <loc>https://telsesser.github.io/2026-ML-UNLU/03-refuerzos/enunciado.html</loc>
+    <lastmod>2026-10-26T01:57:44.255Z</lastmod>
   </url>
   <url>
-    <loc>https://telsesser.github.io/2026-ML-UNLU/03-refuerzos/enunciado-clase1.html</loc>
-    <lastmod>2026-10-22T18:43:20.376Z</lastmod>
-  </url>
-  <url>
-    <loc>https://telsesser.github.io/2026-ML-UNLU/02-agentes/enunciado.html</loc>
-    <lastmod>2026-10-22T02:01:19.008Z</lastmod>
-  </url>
-  <url>
-    <loc>https://telsesser.github.io/2026-ML-UNLU/01-busqueda/busqueda.html</loc>
-    <lastmod>2026-10-22T02:01:16.152Z</lastmod>
-  </url>
-  <url>
-    <loc>https://telsesser.github.io/2026-ML-UNLU/index.html</loc>
-    <lastmod>2026-10-22T02:06:30.020Z</lastmod>
+    <loc>https://telsesser.github.io/2026-ML-UNLU/03-refuerzos/clase1-decisiones-secuenciales.html</loc>
+    <lastmod>2026-10-26T00:55:22.727Z</lastmod>
   </url>
   <url>
     <loc>https://telsesser.github.io/2026-ML-UNLU/02-agentes/agentes.html</loc>
     <lastmod>2026-10-22T02:01:19.002Z</lastmod>
   </url>
   <url>
-    <loc>https://telsesser.github.io/2026-ML-UNLU/03-refuerzos/clase1-decisiones-secuenciales.html</loc>
-    <lastmod>2026-10-22T18:46:33.826Z</lastmod>
+    <loc>https://telsesser.github.io/2026-ML-UNLU/index.html</loc>
+    <lastmod>2026-10-26T00:57:59.823Z</lastmod>
+  </url>
+  <url>
+    <loc>https://telsesser.github.io/2026-ML-UNLU/01-busqueda/busqueda.html</loc>
+    <lastmod>2026-10-22T02:01:16.152Z</lastmod>
+  </url>
+  <url>
+    <loc>https://telsesser.github.io/2026-ML-UNLU/02-agentes/enunciado.html</loc>
+    <lastmod>2026-10-22T02:01:19.008Z</lastmod>
   </url>
   <url>
     <loc>https://telsesser.github.io/2026-ML-UNLU/03-refuerzos/clase2-dqn.html</loc>
-    <lastmod>2026-10-22T18:43:20.376Z</lastmod>
+    <lastmod>2026-10-26T04:12:09.942Z</lastmod>
   </url>
 </urlset>

@@ -71,7 +71,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../03-refuerzos/enunciado-clase1.html" rel="next">
+<link href="../03-refuerzos/clase2-dqn.html" rel="next">
 <link href="../02-agentes/enunciado.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -204,19 +204,15 @@ window.Quarto = {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-refuerzos">    
         <li>
     <a class="dropdown-item" href="../03-refuerzos/clase1-decisiones-secuenciales.html">
- <span class="dropdown-text">Clase 1 — Decisiones secuenciales y Q-learning</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../03-refuerzos/enunciado-clase1.html">
- <span class="dropdown-text">Práctico — Clase 1</span></a>
+ <span class="dropdown-text">Clase 1 — Decisiones secuenciales</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../03-refuerzos/clase2-dqn.html">
- <span class="dropdown-text">Clase 2 — Aproximación de funciones y DQN</span></a>
+ <span class="dropdown-text">Clase 2 — Q-learning, aproximación de funciones y DQN</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../03-refuerzos/enunciado-clase2.html">
- <span class="dropdown-text">Práctico — Clase 2</span></a>
+    <a class="dropdown-item" href="../03-refuerzos/enunciado.html">
+ <span class="dropdown-text">Práctico</span></a>
   </li>  
     </ul>
   </li>
@@ -312,20 +308,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../03-refuerzos/enunciado-clase1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 1</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../03-refuerzos/clase2-dqn.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Clase 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../03-refuerzos/enunciado-clase2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Práctico 2</span></a>
+  <a href="../03-refuerzos/enunciado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Práctico</span></a>
   </div>
 </li>
       </ul>
@@ -395,15 +385,7 @@ window.Quarto = {
   <li><a href="#otro-ejemplo-el-problema-del-apostador" id="toc-otro-ejemplo-el-problema-del-apostador" class="nav-link" data-scroll-target="#otro-ejemplo-el-problema-del-apostador">Otro ejemplo: el problema del apostador</a></li>
   <li><a href="#preguntas-5" id="toc-preguntas-5" class="nav-link" data-scroll-target="#preguntas-5">Preguntas:</a></li>
   </ul></li>
-  <li><a href="#aprender-sin-modelo-del-mundo" id="toc-aprender-sin-modelo-del-mundo" class="nav-link" data-scroll-target="#aprender-sin-modelo-del-mundo">Aprender sin modelo del mundo</a></li>
-  <li><a href="#métodos-de-diferencias-temporales" id="toc-métodos-de-diferencias-temporales" class="nav-link" data-scroll-target="#métodos-de-diferencias-temporales">Métodos de diferencias temporales:</a>
-  <ul class="collapse">
-  <li><a href="#ejemplo-monte-carlo-y-td-en-el-mundo-43" id="toc-ejemplo-monte-carlo-y-td-en-el-mundo-43" class="nav-link" data-scroll-target="#ejemplo-monte-carlo-y-td-en-el-mundo-43">Ejemplo: Monte Carlo y TD en el mundo 4×3</a></li>
-  <li><a href="#preguntas-6" id="toc-preguntas-6" class="nav-link" data-scroll-target="#preguntas-6">Preguntas:</a></li>
-  <li><a href="#q-learning" id="toc-q-learning" class="nav-link" data-scroll-target="#q-learning"><strong>Q-learning</strong>:</a></li>
-  <li><a href="#ejemplo-q-learning-en-el-mundo-43" id="toc-ejemplo-q-learning-en-el-mundo-43" class="nav-link" data-scroll-target="#ejemplo-q-learning-en-el-mundo-43">Ejemplo: Q-learning en el mundo 4×3</a></li>
-  <li><a href="#preguntas-7" id="toc-preguntas-7" class="nav-link" data-scroll-target="#preguntas-7">Preguntas:</a></li>
-  </ul></li>
+  <li><a href="#continúa-en-la-clase-2" id="toc-continúa-en-la-clase-2" class="nav-link" data-scroll-target="#continúa-en-la-clase-2">Continúa en la clase 2</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -430,7 +412,7 @@ window.Quarto = {
 </header>
 
 
-<p>Russell &amp; Norvig, <em>Artificial Intelligence: A Modern Approach</em>, 4ª edición, capítulos 15, 16 y 23. Sutton &amp; Barto, <em>Reinforcement Learning: An Introduction</em>, 2ª edición, capítulos 2, 3, 4 y 6.</p>
+<p>Russell &amp; Norvig, <em>Artificial Intelligence: A Modern Approach</em>, 4ª edición, capítulos 15, 16 y 23. Sutton &amp; Barto, <em>Reinforcement Learning: An Introduction</em>, 2ª edición, capítulos 2, 3 y 4.</p>
 <blockquote class="blockquote">
 <p><strong>Notación.</strong> Usamos la de Sutton y Barto. Russell y Norvig llaman <em>utilidad</em> al valor de un estado: su <span class="math inline">\(U^\pi(s)\)</span> y <span class="math inline">\(U(s)\)</span> son nuestros <span class="math inline">\(v_\pi(s)\)</span> y <span class="math inline">\(v_*(s)\)</span>, su <span class="math inline">\(Q(s,a)\)</span> es <span class="math inline">\(q_*(s,a)\)</span>, y escriben el modelo como <span class="math inline">\(P(s' \mid s,a)\)</span> y <span class="math inline">\(R(s,a,s')\)</span> en lugar de <span class="math inline">\(p(s',r \mid s,a)\)</span>. Las mayúsculas <span class="math inline">\(V\)</span> y <span class="math inline">\(Q\)</span> son estimaciones que el agente va aprendiendo. La única excepción es la primera sección: Sutton y Barto no tratan la teoría de la utilidad, así que ahí <span class="math inline">\(U\)</span> es la utilidad de un resultado, como en Russell y Norvig.</p>
 </blockquote>
@@ -5769,341 +5751,11 @@ IiLSsv8DXGQ/8lO2BNEAAAAASUVORK5CYII=\
 <p>¿Por qué la política óptima tiende a esa forma?</p>
 </section>
 </section>
-<section id="aprender-sin-modelo-del-mundo" class="level2">
-<h2 class="anchored" data-anchor-id="aprender-sin-modelo-del-mundo">Aprender sin modelo del mundo</h2>
-<p>En el ejemplo anterior conocía el modelo del mundo, el cual tenía pocos estados y acciones. Podía calcular la función de valor de cada uno e iterar hasta encontrar la óptima. Pero ¿qué hago cuando no tengo un modelo del mundo o los estados son demasiados como para iterar?</p>
-<p>Los métodos de Monte Carlo permiten aprender la <strong>función de valor de estado</strong> de una política dada. Recordemos que el <strong>valor de un estado <span class="math inline">\(v(s)\)</span></strong> es el <strong>retorno esperado</strong> —es decir, la <strong>recompensa acumulada futura con descuento esperada</strong>— al comenzar desde ese estado. Una forma de estimarlo consiste en <strong>promediar los retornos observados</strong> después de las visitas a ese estado. A medida que se observan más retornos, el promedio debería <strong>converger al valor esperado</strong>. Esta idea es la base de todos los métodos de Monte Carlo.</p>
-<p>Resumiendo, en Monte Carlo actualizo la función de valor con el promedio de los retornos observados después de las visitas a cada estado. Si las visitas al estado <span class="math inline">\(s\)</span> tienden a infinito, la función de valor converge a <span class="math inline">\(v_\pi\)</span>.</p>
-</section>
-<section id="métodos-de-diferencias-temporales" class="level2">
-<h2 class="anchored" data-anchor-id="métodos-de-diferencias-temporales">Métodos de diferencias temporales:</h2>
-<p>Con el método de Monte Carlo se tenía que esperar al fin del episodio para conocer el retorno <span class="math inline">\(G_t\)</span> y recién ahí actualizar <span class="math inline">\(V(S_t)\)</span>. Los métodos de diferencias temporales buscan optimizar el proceso actualizando la función de valor en cada paso.</p>
-<p>La función de valor en los métodos de diferencias temporales se actualiza de la siguiente forma:</p>
-<p><span class="math display">\[
-V(S_t) \leftarrow V(S_t) + \alpha \left[ R_{t+1} + \gamma V(S_{t+1}) - V(S_t) \right]
-\]</span></p>
-<p>Donde:</p>
-<p><span class="math inline">\(V(S_t)\)</span>: Valor estimado del estado actual</p>
-<p><span class="math inline">\(\alpha\)</span>: Controla qué tan rápido aprendemos (valores pequeños = aprendizaje lento pero estable)</p>
-<p><span class="math inline">\(R_{t+1}\)</span>: Recompensa inmediata recibida</p>
-<p><span class="math inline">\(\gamma\)</span>: Cuánto valoramos recompensas futuras vs.&nbsp;inmediatas</p>
-<p><span class="math inline">\(V(S_{t+1})\)</span>: Nuestra estimación del valor del próximo estado</p>
-<p><span class="math inline">\([R_{t+1} + \gamma V(S_{t+1}) - V(S_t)]\)</span>: Error de diferencia temporal. Es la diferencia entre lo que esperábamos y lo que realmente obtuvimos más lo que esperamos obtener después</p>
-<p>Los métodos de Diferencias Temporales (TD) presentan dos ventajas clave:</p>
-<ul>
-<li><p>Frente a la Programación Dinámica (DP): No necesitan un modelo previo del entorno (cómo responde a las acciones).</p></li>
-<li><p>Frente a Monte Carlo: Son incrementales y se pueden ejecutar online. Aprenden en cada paso, sin tener que esperar a que termine el episodio para conocer el retorno <span class="math inline">\(G_t\)</span>. Esto es crucial en entornos con episodios muy largos, tareas continuas (sin episodios) o cuando se realizan acciones exploratorias. Muchas veces además aprende más rápido, pero no siempre: en el ejemplo que sigue gana Monte Carlo.</p></li>
-</ul>
-<section id="ejemplo-monte-carlo-y-td-en-el-mundo-43" class="level3">
-<h3 class="anchored" data-anchor-id="ejemplo-monte-carlo-y-td-en-el-mundo-43">Ejemplo: Monte Carlo y TD en el mundo 4×3</h3>
-<p>Volvamos al mundo 4×3 y a la política óptima de antes. Ahora el agente <strong>no conoce el modelo</strong>: no sabe que las acciones salen bien con probabilidad 0.8. Solo juega episodios y, con lo que vive, estima el valor de cada estado bajo esa política. Como la política es la óptima, el valor real es el <span class="math inline">\(v_*\)</span> que calculamos con la iteración de valores, así que podemos medir cuánto se equivoca cada método.</p>
-<ul>
-<li><strong>Monte Carlo</strong> espera a que termine el episodio y corrige cada estado visitado hacia el retorno <span class="math inline">\(G_t\)</span> que lo siguió, promediando todos los retornos observados.</li>
-<li><strong>TD(0)</strong> corrige en cada paso hacia <span class="math inline">\(R_{t+1} + \gamma V(S_{t+1})\)</span>, con <span class="math inline">\(\alpha = 0.1\)</span>.</li>
-</ul>
-<p>Los dos arrancan con todos los valores en 0. Cada episodio empieza en una casilla al azar, para que se visiten todas.</p>
-<div id="da05e8ec" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-22T18:45:48.336915Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-22T18:45:48.336749Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-22T18:45:48.343487Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-22T18:45:48.342828Z&quot;}}" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># El valor real de la política óptima: el que dio la iteración de valores.</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>v_real <span class="op">=</span> <span class="bu">dict</span>(v)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> jugar_episodio(politica, rng):</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># El entorno: devuelve las transiciones (s, r, s') de un episodio que empieza en una casilla al azar.</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> ESTADOS[rng.integers(<span class="bu">len</span>(ESTADOS))]</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    episodio <span class="op">=</span> []</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> s <span class="kw">not</span> <span class="kw">in</span> TERMINALES:</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        s2 <span class="op">=</span> paso(s, politica[s], rng)</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>        episodio.append((s, recompensa(s2), s2))</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> s2</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> episodio</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">0</span>)</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="co"># La política que se evalúa: la óptima de la celda de la política.</span></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Política que se evalúa:"</span>)</span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>dibujar_politica(politica)</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Los dos métodos arrancan con todos los valores en 0.</span></span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>V_mc <span class="op">=</span> {s: <span class="fl">0.0</span> <span class="cf">for</span> s <span class="kw">in</span> ESTADOS}</span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>visitas <span class="op">=</span> {s: <span class="dv">0</span> <span class="cf">for</span> s <span class="kw">in</span> ESTADOS}</span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>V_td <span class="op">=</span> {s: <span class="fl">0.0</span> <span class="cf">for</span> s <span class="kw">in</span> ESTADOS} <span class="op">|</span> {s: <span class="fl">0.0</span> <span class="cf">for</span> s <span class="kw">in</span> TERMINALES}</span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.1</span></span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    episodio <span class="op">=</span> jugar_episodio(politica, rng)</span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Monte Carlo: al terminar el episodio, cada estado visitado se corrige hacia el retorno G</span></span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># que lo siguió. G se calcula de atrás para adelante: G_t = R_{t+1} + gamma G_{t+1}.</span></span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Con paso 1 / visitas, V_mc[s] es el promedio de todos los G vistos desde s.</span></span>
-<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> s, r, s2 <span class="kw">in</span> <span class="bu">reversed</span>(episodio):</span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>        G <span class="op">=</span> r <span class="op">+</span> GAMMA <span class="op">*</span> G</span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>        visitas[s] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>        V_mc[s] <span class="op">=</span> V_mc[s] <span class="op">+</span> (<span class="dv">1</span> <span class="op">/</span> visitas[s]) <span class="op">*</span> (G <span class="op">-</span> V_mc[s])</span>
-<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># TD(0): cada paso, en el orden en que ocurrió, corrige el estado hacia r + gamma V(s').</span></span>
-<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> s, r, s2 <span class="kw">in</span> episodio:</span>
-<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>        V_td[s] <span class="op">=</span> V_td[s] <span class="op">+</span> alpha <span class="op">*</span> (r <span class="op">+</span> GAMMA <span class="op">*</span> V_td[s2] <span class="op">-</span> V_td[s])</span>
-<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Valores reales:"</span>)</span>
-<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>dibujar_valores(v_real)</span>
-<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Monte Carlo después de 10 episodios:"</span>)</span>
-<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a>dibujar_valores(V_mc)</span>
-<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">TD(0) después de 10 episodios:"</span>)</span>
-<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a>dibujar_valores(V_td)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Política que se evalúa:
- →   →   →  +1
- ↑   ■   ↑  -1
- ↑   ←   ←   ←
-
-Valores reales:
-  0.852    0.908    0.958       +1
-  0.802        ■    0.700       -1
-  0.745    0.695    0.651    0.428
-
-Monte Carlo después de 10 episodios:
-  0.880    0.953    1.000       +1
-  0.827        ■   -0.347       -1
-  0.720    0.680    0.053    0.680
-
-TD(0) después de 10 episodios:
- -0.006    0.117    0.570       +1
- -0.023        ■   -0.142       -1
- -0.023   -0.018   -0.012   -0.005</code></pre>
-</div>
-</div>
-<p>Diez episodios pueden tener suerte o mala suerte. Para comparar en serio, repitamos lo mismo 100 veces, con 500 episodios cada vez, y midamos después de cada episodio cuánto se equivoca cada método. La función <code>comparar</code> tiene adentro exactamente las dos actualizaciones de la celda anterior; lo único nuevo es que anota el error.</p>
-<div id="2fb3503d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-22T18:45:48.345450Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-22T18:45:48.345256Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-22T18:45:52.766036Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-22T18:45:52.765306Z&quot;}}" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> error(V):</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Raíz del error cuadrático medio contra los valores reales.</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.mean([(V[s] <span class="op">-</span> v_real[s]) <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> s <span class="kw">in</span> ESTADOS]))</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> comparar(episodios, alpha, rng):</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Las mismas actualizaciones de la celda anterior, anotando el error después de cada episodio.</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    V_mc <span class="op">=</span> {s: <span class="fl">0.0</span> <span class="cf">for</span> s <span class="kw">in</span> ESTADOS}</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    visitas <span class="op">=</span> {s: <span class="dv">0</span> <span class="cf">for</span> s <span class="kw">in</span> ESTADOS}</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    V_td <span class="op">=</span> {s: <span class="fl">0.0</span> <span class="cf">for</span> s <span class="kw">in</span> ESTADOS} <span class="op">|</span> {s: <span class="fl">0.0</span> <span class="cf">for</span> s <span class="kw">in</span> TERMINALES}</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    errores_mc, errores_td <span class="op">=</span> [], []</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(episodios):</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>        episodio <span class="op">=</span> jugar_episodio(politica, rng)</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>        G <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> s, r, s2 <span class="kw">in</span> <span class="bu">reversed</span>(episodio):</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>            G <span class="op">=</span> r <span class="op">+</span> GAMMA <span class="op">*</span> G</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>            visitas[s] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>            V_mc[s] <span class="op">=</span> V_mc[s] <span class="op">+</span> (<span class="dv">1</span> <span class="op">/</span> visitas[s]) <span class="op">*</span> (G <span class="op">-</span> V_mc[s])</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> s, r, s2 <span class="kw">in</span> episodio:</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>            V_td[s] <span class="op">=</span> V_td[s] <span class="op">+</span> alpha <span class="op">*</span> (r <span class="op">+</span> GAMMA <span class="op">*</span> V_td[s2] <span class="op">-</span> V_td[s])</span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>        errores_mc.append(error(V_mc))</span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>        errores_td.append(error(V_td))</span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> errores_mc, errores_td, V_mc, V_td</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>resultados <span class="op">=</span> [comparar(<span class="dv">500</span>, alpha<span class="op">=</span><span class="fl">0.1</span>, rng<span class="op">=</span>rng) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>)]</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>error_mc <span class="op">=</span> np.mean([r[<span class="dv">0</span>] <span class="cf">for</span> r <span class="kw">in</span> resultados], axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>error_td <span class="op">=</span> np.mean([r[<span class="dv">1</span>] <span class="cf">for</span> r <span class="kw">in</span> resultados], axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">500</span>):</span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"después de </span><span class="sc">{</span>k<span class="sc">:&gt;3}</span><span class="ss"> episodios:  error MC </span><span class="sc">{</span>error_mc[k <span class="op">-</span> <span class="dv">1</span>]<span class="sc">:.3f}</span><span class="ss">   error TD </span><span class="sc">{</span>error_td[k <span class="op">-</span> <span class="dv">1</span>]<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">501</span>), error_mc, label<span class="op">=</span><span class="st">"Monte Carlo"</span>)</span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">501</span>), error_td, label<span class="op">=</span><span class="st">"TD(0), α = 0.1"</span>)</span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"episodios"</span>)</span>
-<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"error contra los valores reales"</span>)</span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Evaluar la política óptima del mundo 4×3 (promedio de 100 corridas)"</span>)</span>
-<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Los valores al final de la última corrida, después de 500 episodios.</span></span>
-<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>_, _, V_mc, V_td <span class="op">=</span> resultados[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Valores reales:"</span>)</span>
-<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>dibujar_valores(v_real)</span>
-<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Monte Carlo después de 500 episodios:"</span>)</span>
-<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>dibujar_valores(V_mc)</span>
-<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">TD(0) después de 500 episodios:"</span>)</span>
-<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>dibujar_valores(V_td)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>después de   1 episodios:  error MC 0.514   error TD 0.753
-después de  10 episodios:  error MC 0.212   error TD 0.687
-después de 100 episodios:  error MC 0.090   error TD 0.338
-después de 500 episodios:  error MC 0.037   error TD 0.058</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="clase1-decisiones-secuenciales_files/figure-html/cell-14-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Valores reales:
-  0.852    0.908    0.958       +1
-  0.802        ■    0.700       -1
-  0.745    0.695    0.651    0.428
-
-Monte Carlo después de 500 episodios:
-  0.877    0.931    0.972       +1
-  0.815        ■    0.749       -1
-  0.738    0.713    0.654    0.451
-
-TD(0) después de 500 episodios:
-  0.834    0.866    0.874       +1
-  0.807        ■    0.638       -1
-  0.758    0.717    0.670    0.494</code></pre>
-</div>
-</div>
-</section>
-<section id="preguntas-6" class="level3">
-<h3 class="anchored" data-anchor-id="preguntas-6">Preguntas:</h3>
-<p>En este ejemplo Monte Carlo aprende más rápido. Miren las grillas después de 10 episodios: ¿qué casillas de TD siguen cerca de 0? ¿Qué tiene que ver con cómo se propagaban los valores en la iteración de valores?</p>
-<p>¿Por qué Monte Carlo no tiene ese problema? ¿Qué le pasa a cada estado del camino cuando termina un episodio?</p>
-<p>Después de 10 episodios, Monte Carlo da −0.347 en (3,2), aunque el valor real es 0.700. ¿Qué pudo haber pasado en los pocos episodios que pasaron por ahí?</p>
-<p>Con suficientes episodios, ¿los dos llegan a los mismos valores?</p>
-<p>Si el episodio no terminara nunca (una tarea continua), ¿cuál de los dos métodos se podría usar? ¿Por qué?</p>
-</section>
-<section id="q-learning" class="level3">
-<h3 class="anchored" data-anchor-id="q-learning"><strong>Q-learning</strong>:</h3>
-<p>Uno de los primeros avances en el aprendizaje por refuerzo fue el desarrollo de un algoritmo de control TD fuera de la política conocido como Q-learning (Watkins, 1989), definido por</p>
-<p><span class="math display">\[
-Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \left[ R_{t+1} + \gamma \max_a Q(S_{t+1}, a) - Q(S_t, A_t) \right]
-\]</span></p>
-<p>donde:</p>
-<ul>
-<li><span class="math inline">\(Q(S_t, A_t)\)</span>: valor estimado de tomar la acción <span class="math inline">\(A_t\)</span> en el estado <span class="math inline">\(S_t\)</span><br>
-</li>
-<li><span class="math inline">\(\alpha\)</span>: tasa de aprendizaje (learning rate)<br>
-</li>
-<li><span class="math inline">\(R_{t+1}\)</span>: recompensa recibida tras ejecutar la acción<br>
-</li>
-<li><span class="math inline">\(\gamma\)</span>: factor de descuento (discount factor)<br>
-</li>
-<li><span class="math inline">\(\max_a Q(S_{t+1}, a)\)</span>: valor estimado máximo del siguiente estado<br>
-</li>
-<li>El término entre corchetes <span class="math inline">\([\,]\)</span> es el <strong>error de temporal-diferencia (TD error)</strong>.</li>
-</ul>
-<p>El algoritmo Q-learning es de aprendizaje por refuerzo fuera de política (off-policy). En cada paso, el agente observa el resultado de una acción, recibe una recompensa y llega a un nuevo estado, así actualiza su estimación del valor de esa acción combinando la recompensa inmediata con el valor máximo esperado de las acciones futuras. Con el tiempo, al explorar y actualizar según la fórmula de Q-learning, el agente converge hacia una política óptima que maximiza la recompensa acumulada esperada.</p>
-</section>
-<section id="ejemplo-q-learning-en-el-mundo-43" class="level3">
-<h3 class="anchored" data-anchor-id="ejemplo-q-learning-en-el-mundo-43">Ejemplo: Q-learning en el mundo 4×3</h3>
-<p>Cerremos con el mismo mundo. La iteración de valores encontró la política óptima porque conocía el modelo. Monte Carlo y TD aprendieron sin modelo, pero evaluaban una política que les dimos. Q-learning hace las dos cosas: <strong>sin conocer el modelo y sin que le den una política</strong>, aprende la política óptima jugando.</p>
-<p>El agente empieza cada episodio en (1,1) y elige con ε-greedy sobre su tabla <span class="math inline">\(Q\)</span>. Usamos <span class="math inline">\(\alpha = 0.2\)</span>, <span class="math inline">\(\varepsilon = 0.2\)</span> y <span class="math inline">\(\gamma = 1\)</span>. Al final comparamos lo aprendido con lo que dio la iteración de valores.</p>
-<div id="2afd77f5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-22T18:45:52.768198Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-22T18:45:52.767968Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-22T18:45:53.116821Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-22T18:45:53.116118Z&quot;}}" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.2</span>     <span class="co"># tasa de aprendizaje</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.2</span>   <span class="co"># probabilidad de explorar</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>episodios <span class="op">=</span> <span class="dv">2000</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">0</span>)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># La tabla Q arranca en cero: un valor por cada par (estado, acción).</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>Q <span class="op">=</span> {}</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> ESTADOS:</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    Q[s] <span class="op">=</span> {}</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> a <span class="kw">in</span> MOVIMIENTOS:</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        Q[s][a] <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>pasos_por_episodio <span class="op">=</span> []</span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ep <span class="kw">in</span> <span class="bu">range</span>(episodios):</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    pasos <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> s <span class="kw">not</span> <span class="kw">in</span> TERMINALES:</span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Elegir la acción con ε-greedy.</span></span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> rng.random() <span class="op">&lt;</span> epsilon:</span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Explorar: una de las cuatro acciones al azar.</span></span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>            acciones <span class="op">=</span> [<span class="st">"↑"</span>, <span class="st">"↓"</span>, <span class="st">"←"</span>, <span class="st">"→"</span>]</span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>            a <span class="op">=</span> acciones[rng.integers(<span class="dv">4</span>)]</span>
-<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Explotar: la acción de mayor Q. Primero se busca el valor más alto...</span></span>
-<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>            mejor_valor <span class="op">=</span> <span class="bu">max</span>(Q[s].values())</span>
-<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>            <span class="co"># ...después se juntan todas las acciones que llegan a ese valor (puede haber empate)...</span></span>
-<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>            mejores <span class="op">=</span> []</span>
-<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> b <span class="kw">in</span> MOVIMIENTOS:</span>
-<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> Q[s][b] <span class="op">==</span> mejor_valor:</span>
-<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>                    mejores.append(b)</span>
-<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>            <span class="co"># ...y se elige una de ellas al azar.</span></span>
-<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>            a <span class="op">=</span> mejores[rng.integers(<span class="bu">len</span>(mejores))]</span>
-<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>        <span class="co"># El entorno responde: 0.8 hacia donde se eligió, 0.1 hacia cada costado.</span></span>
-<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>        s2 <span class="op">=</span> paso(s, a, rng)</span>
-<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>        r <span class="op">=</span> recompensa(s2)</span>
-<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Actualización de Q-learning: hacia r + gamma max_a' Q(s', a'). Una salida vale 0.</span></span>
-<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> s2 <span class="kw">in</span> TERMINALES:</span>
-<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>            max_q_siguiente <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>            max_q_siguiente <span class="op">=</span> <span class="bu">max</span>(Q[s2].values())</span>
-<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>        Q[s][a] <span class="op">=</span> Q[s][a] <span class="op">+</span> alpha <span class="op">*</span> (r <span class="op">+</span> GAMMA <span class="op">*</span> max_q_siguiente <span class="op">-</span> Q[s][a])</span>
-<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> s2</span>
-<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a>        pasos <span class="op">=</span> pasos <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a>    pasos_por_episodio.append(pasos)</span>
-<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Lo aprendido: en cada estado, la mejor acción según Q y su valor.</span></span>
-<span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a>politica_q <span class="op">=</span> {}</span>
-<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a>v_q <span class="op">=</span> {}</span>
-<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> ESTADOS:</span>
-<span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a>    mejor_accion <span class="op">=</span> <span class="st">"↑"</span></span>
-<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> a <span class="kw">in</span> MOVIMIENTOS:</span>
-<span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> Q[s][a] <span class="op">&gt;</span> Q[s][mejor_accion]:</span>
-<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a>            mejor_accion <span class="op">=</span> a</span>
-<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a>    politica_q[s] <span class="op">=</span> mejor_accion</span>
-<span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a>    v_q[s] <span class="op">=</span> Q[s][mejor_accion]</span>
-<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Iteración de valores (conoce el modelo):"</span>)</span>
-<span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a>dibujar_valores(v_real, politica)</span>
-<span id="cb27-62"><a href="#cb27-62" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Q-learning después de </span><span class="sc">{</span>episodios<span class="sc">}</span><span class="ss"> episodios (sin modelo): max_a Q(s, a) y su acción"</span>)</span>
-<span id="cb27-63"><a href="#cb27-63" aria-hidden="true" tabindex="-1"></a>dibujar_valores(v_q, politica_q)</span>
-<span id="cb27-64"><a href="#cb27-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-65"><a href="#cb27-65" aria-hidden="true" tabindex="-1"></a>coinciden <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb27-66"><a href="#cb27-66" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> ESTADOS:</span>
-<span id="cb27-67"><a href="#cb27-67" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> politica_q[s] <span class="op">==</span> politica[s]:</span>
-<span id="cb27-68"><a href="#cb27-68" aria-hidden="true" tabindex="-1"></a>        coinciden <span class="op">=</span> coinciden <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb27-69"><a href="#cb27-69" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">La política aprendida coincide con la óptima en </span><span class="sc">{</span>coinciden<span class="sc">}</span><span class="ss"> de </span><span class="sc">{</span><span class="bu">len</span>(ESTADOS)<span class="sc">}</span><span class="ss"> casillas."</span>)</span>
-<span id="cb27-70"><a href="#cb27-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-71"><a href="#cb27-71" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Valores Q en (3,2):"</span>)</span>
-<span id="cb27-72"><a href="#cb27-72" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> MOVIMIENTOS:</span>
-<span id="cb27-73"><a href="#cb27-73" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">  </span><span class="sc">{</span>Q[(<span class="dv">3</span>, <span class="dv">2</span>)][a]<span class="sc">:+.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Iteración de valores (conoce el modelo):
- 0.852→   0.908→   0.958→       +1
- 0.802↑        ■   0.700↑       -1
- 0.745↑   0.695←   0.651←   0.428←
-
-Q-learning después de 2000 episodios (sin modelo): max_a Q(s, a) y su acción
- 0.869→   0.890→   0.941→       +1
- 0.818↑        ■   0.481←       -1
- 0.757↑   0.688←   0.515←   0.405←
-
-La política aprendida coincide con la óptima en 8 de 9 casillas.
-
-Valores Q en (3,2):
-  ↑  +0.423
-  ↓  +0.479
-  ←  +0.481
-  →  -0.517</code></pre>
-</div>
-</div>
-<div id="598da36a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-22T18:45:53.119699Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-22T18:45:53.119493Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-22T18:45:53.245927Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-22T18:45:53.245072Z&quot;}}" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>plt.plot(pasos_por_episodio[:<span class="dv">300</span>])</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"episodio"</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"pasos hasta una salida"</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Q-learning en el mundo 4×3: los primeros 300 episodios"</span>)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="clase1-decisiones-secuenciales_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="preguntas-7" class="level3">
-<h3 class="anchored" data-anchor-id="preguntas-7">Preguntas:</h3>
-<p>¿Por qué en los primeros episodios el agente necesita muchos pasos para llegar a una salida? ¿Qué tiene que ver con lo que vimos en TD y en la iteración de valores?</p>
-<p>Q-learning es <em>off-policy</em>. ¿Qué política usa el agente para elegir sus acciones durante el entrenamiento, y cuál es la política que está aprendiendo?</p>
-<p>¿En qué casilla la política aprendida no coincide con la óptima? Miren sus valores Q: ¿qué cree el agente que conviene hacer ahí? Con el modelo, subir vale 0.700 y chocar contra la pared, 0.681. ¿Por qué es fácil equivocarse justo en esa casilla? (Pista: ¿qué le pasa a la estimación de subir cada vez que el agente se desvía y cae en −1?)</p>
-<p>Q-learning nunca usó las probabilidades 0.8 y 0.1. ¿Qué necesita la iteración de valores que Q-learning no? ¿Y qué gana la iteración de valores a cambio?</p>
-<p>En la próxima clase usamos Q-learning en un problema con más riesgo (CliffWalking), lo comparamos con SARSA, y vemos qué hacer cuando los estados son tantos que no entran en una tabla.</p>
+<section id="continúa-en-la-clase-2" class="level2">
+<h2 class="anchored" data-anchor-id="continúa-en-la-clase-2">Continúa en la clase 2</h2>
+<p>Hasta acá, para encontrar la política óptima hizo falta conocer el modelo del mundo: las probabilidades de transición y las recompensas. En la <a href="../03-refuerzos/clase2-dqn.html">clase 2</a> vemos cómo aprender <strong>sin modelo</strong>, jugando: diferencias temporales y Q-learning, sobre el mismo mundo 4×3.</p>
 
 
-</section>
 </section>
 </section>
 
@@ -6515,8 +6167,8 @@ Valores Q en (3,2):
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../03-refuerzos/enunciado-clase1.html" class="pagination-link" aria-label="Práctico 1">
-        <span class="nav-page-text">Práctico 1</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../03-refuerzos/clase2-dqn.html" class="pagination-link" aria-label="Clase 2">
+        <span class="nav-page-text">Clase 2</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
