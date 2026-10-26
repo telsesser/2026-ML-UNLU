@@ -370,6 +370,15 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
+<p>Como las transiciones son deterministas, la iteración de valores actualiza cada estado con</p>
+<p><span class="math display">\[
+V_{k+1}(s) = \max_a \left[ r(s,a) + \gamma \, V_k(s') \right]
+\]</span></p>
+<p>donde <span class="math inline">\(s'\)</span> es el estado al que lleva la acción <span class="math inline">\(a\)</span>. Q-learning actualiza, después de cada paso <span class="math inline">\((s, a, r, s')\)</span>,</p>
+<p><span class="math display">\[
+Q(s,a) \leftarrow Q(s,a) + \alpha \left[ r + \gamma \max_{a'} Q(s',a') - Q(s,a) \right]
+\]</span></p>
+<p>El estado terminal vale 0: <span class="math inline">\(V(T) = 0\)</span> y <span class="math inline">\(\max_{a'} Q(T,a') = 0\)</span>.</p>
 <ol type="a">
 <li>Con γ = 0.9 y valores iniciales <span class="math inline">\(V(A) = V(B) = 0\)</span>, haga dos iteraciones de la iteración de valores. En cada una, indique la mejor acción en A.</li>
 <li>Ahora el agente no conoce la tabla. Con todos los <span class="math inline">\(Q(s,a)\)</span> en cero, α = 0.5 y γ = 0.9, vive el episodio A →avanzar→ B →salir→ T. Aplique la regla de Q-learning en cada paso.</li>

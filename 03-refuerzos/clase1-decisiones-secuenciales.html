@@ -1244,55 +1244,69 @@ v_{k+1}(s) = \max_a \sum_{s',r} p(s',r|s,a) \big[ r + \gamma v_k(s') \big]
 <span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"  "</span>.join(<span class="ss">f"</span><span class="sc">{</span>c<span class="sc">:&gt;7}</span><span class="ss">"</span> <span class="cf">for</span> c <span class="kw">in</span> fila))</span>
 <span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Los terminales valen 0: al entrar ya se cobró su recompensa y el episodio termina.</span></span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> {s: <span class="fl">0.0</span> <span class="cf">for</span> s <span class="kw">in</span> ESTADOS} <span class="op">|</span> {s: <span class="fl">0.0</span> <span class="cf">for</span> s <span class="kw">in</span> TERMINALES}</span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>dibujar_valores(v)</span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">101</span>):</span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>    v_nuevo, flechas <span class="op">=</span> <span class="bu">dict</span>(v), {}</span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> s <span class="kw">in</span> ESTADOS:</span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>        <span class="co"># El valor de cada acción: sum_{s', r} p(s', r | s, a) [r + gamma v(s')].</span></span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>        <span class="co"># La acción va hacia donde se eligió con 0.8 y hacia cada costado con 0.1.</span></span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> {}</span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> a <span class="kw">in</span> MOVIMIENTOS:</span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>            izq, der <span class="op">=</span> COSTADOS[a]</span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>            q[a] <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> prob, direccion <span class="kw">in</span> ((<span class="fl">0.8</span>, a), (<span class="fl">0.1</span>, izq), (<span class="fl">0.1</span>, der)):</span>
-<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>                s2 <span class="op">=</span> mover(s, direccion)</span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>                q[a] <span class="op">+=</span> prob <span class="op">*</span> (recompensa(s2) <span class="op">+</span> GAMMA <span class="op">*</span> v[s2])</span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Actualización de Bellman: el valor del estado es el de su mejor acción.</span></span>
-<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>        v_nuevo[s] <span class="op">=</span> <span class="bu">max</span>(q.values())</span>
-<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>        <span class="co"># La acción que da el máximo. Si varias empatan, un punto.</span></span>
-<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>        mejores <span class="op">=</span> [a <span class="cf">for</span> a <span class="kw">in</span> MOVIMIENTOS <span class="cf">if</span> <span class="bu">abs</span>(q[a] <span class="op">-</span> v_nuevo[s]) <span class="op">&lt;</span> <span class="fl">1e-9</span>]</span>
-<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(mejores) <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>            flechas[s] <span class="op">=</span> mejores[<span class="dv">0</span>]</span>
-<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>            flechas[s] <span class="op">=</span> <span class="st">"·"</span></span>
-<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>    delta <span class="op">=</span> <span class="bu">max</span>(<span class="bu">abs</span>(v_nuevo[s] <span class="op">-</span> v[s]) <span class="cf">for</span> s <span class="kw">in</span> ESTADOS)</span>
-<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> v_nuevo</span>
-<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> k <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>):</span>
-<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Iteración </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">:"</span>)</span>
-<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a>        dibujar_valores(v, flechas)</span>
-<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>()</span>
-<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> delta <span class="op">&lt;</span> <span class="fl">1e-6</span>:</span>
-<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
-<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Convergió en la iteración </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">:"</span>)</span>
-<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a>dibujar_valores(v, flechas)</span>
-<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a><span class="co"># La política óptima elige en cada estado la acción de mayor valor: son las flechas.</span></span>
-<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Política que sale de los valores:"</span>)</span>
-<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a>dibujar_politica(flechas)</span>
-<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Los valores de las acciones en (3,1), con la misma cuenta de arriba.</span></span>
-<span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Valor de cada acción en (3,1):"</span>)</span>
-<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">1</span>)</span>
-<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> MOVIMIENTOS:</span>
-<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a>    izq, der <span class="op">=</span> COSTADOS[a]</span>
-<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a>    q_a <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> prob, direccion <span class="kw">in</span> ((<span class="fl">0.8</span>, a), (<span class="fl">0.1</span>, izq), (<span class="fl">0.1</span>, der)):</span>
-<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a>        s2 <span class="op">=</span> mover(s, direccion)</span>
-<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a>        q_a <span class="op">+=</span> prob <span class="op">*</span> (recompensa(s2) <span class="op">+</span> GAMMA <span class="op">*</span> v[s2])</span>
-<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">  </span><span class="sc">{</span>q_a<span class="sc">:+.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> {}</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> ESTADOS:</span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>    v[s] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> TERMINALES:</span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>    v[s] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>dibujar_valores(v)</span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">101</span>):</span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Los valores nuevos se calculan con los de la iteración anterior. Las salidas siguen en 0.</span></span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>    v_nuevo <span class="op">=</span> {}</span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> s <span class="kw">in</span> TERMINALES:</span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>        v_nuevo[s] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>    flechas <span class="op">=</span> {}</span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> s <span class="kw">in</span> ESTADOS:</span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>        <span class="co"># El valor de cada acción: sum_{s', r} p(s', r | s, a) [r + gamma v(s')].</span></span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>        <span class="co"># La acción va hacia donde se eligió con 0.8 y hacia cada costado con 0.1.</span></span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> {}</span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> a <span class="kw">in</span> MOVIMIENTOS:</span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>            izq, der <span class="op">=</span> COSTADOS[a]</span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>            q[a] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> prob, direccion <span class="kw">in</span> ((<span class="fl">0.8</span>, a), (<span class="fl">0.1</span>, izq), (<span class="fl">0.1</span>, der)):</span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>                s2 <span class="op">=</span> mover(s, direccion)</span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>                q[a] <span class="op">+=</span> prob <span class="op">*</span> (recompensa(s2) <span class="op">+</span> GAMMA <span class="op">*</span> v[s2])</span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Actualización de Bellman: el valor del estado es el de su mejor acción.</span></span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>        v_nuevo[s] <span class="op">=</span> <span class="bu">max</span>(q.values())</span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>        <span class="co"># La acción que da el máximo. Si varias empatan, un punto.</span></span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>        mejores <span class="op">=</span> []</span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> a <span class="kw">in</span> MOVIMIENTOS:</span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">abs</span>(q[a] <span class="op">-</span> v_nuevo[s]) <span class="op">&lt;</span> <span class="fl">1e-9</span>:</span>
+<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a>                mejores.append(a)</span>
+<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(mejores) <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a>            flechas[s] <span class="op">=</span> mejores[<span class="dv">0</span>]</span>
+<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a>            flechas[s] <span class="op">=</span> <span class="st">"·"</span></span>
+<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a>    <span class="co"># delta: cuánto cambió el valor que más se movió en esta iteración.</span></span>
+<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a>    delta <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> s <span class="kw">in</span> ESTADOS:</span>
+<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a>        delta <span class="op">=</span> <span class="bu">max</span>(delta, <span class="bu">abs</span>(v_nuevo[s] <span class="op">-</span> v[s]))</span>
+<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> v_nuevo</span>
+<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> k <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>):</span>
+<span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Iteración </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">:"</span>)</span>
+<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a>        dibujar_valores(v, flechas)</span>
+<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>()</span>
+<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> delta <span class="op">&lt;</span> <span class="fl">1e-6</span>:</span>
+<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Convergió en la iteración </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">:"</span>)</span>
+<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a>dibujar_valores(v, flechas)</span>
+<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a><span class="co"># La política óptima elige en cada estado la acción de mayor valor: son las flechas.</span></span>
+<span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Política que sale de los valores:"</span>)</span>
+<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a>dibujar_politica(flechas)</span>
+<span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-82"><a href="#cb18-82" aria-hidden="true" tabindex="-1"></a><span class="co"># Los valores de las acciones en (3,1), con la misma cuenta de arriba.</span></span>
+<span id="cb18-83"><a href="#cb18-83" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Valor de cada acción en (3,1):"</span>)</span>
+<span id="cb18-84"><a href="#cb18-84" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb18-85"><a href="#cb18-85" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> MOVIMIENTOS:</span>
+<span id="cb18-86"><a href="#cb18-86" aria-hidden="true" tabindex="-1"></a>    izq, der <span class="op">=</span> COSTADOS[a]</span>
+<span id="cb18-87"><a href="#cb18-87" aria-hidden="true" tabindex="-1"></a>    q_a <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb18-88"><a href="#cb18-88" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> prob, direccion <span class="kw">in</span> ((<span class="fl">0.8</span>, a), (<span class="fl">0.1</span>, izq), (<span class="fl">0.1</span>, der)):</span>
+<span id="cb18-89"><a href="#cb18-89" aria-hidden="true" tabindex="-1"></a>        s2 <span class="op">=</span> mover(s, direccion)</span>
+<span id="cb18-90"><a href="#cb18-90" aria-hidden="true" tabindex="-1"></a>        q_a <span class="op">+=</span> prob <span class="op">*</span> (recompensa(s2) <span class="op">+</span> GAMMA <span class="op">*</span> v[s2])</span>
+<span id="cb18-91"><a href="#cb18-91" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">  </span><span class="sc">{</span>q_a<span class="sc">:+.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  0.000    0.000    0.000       +1
   0.000        ■    0.000       -1
