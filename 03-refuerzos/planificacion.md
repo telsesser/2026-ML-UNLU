@@ -3,6 +3,37 @@ title: "Aprendizaje por refuerzos — planificación 2026"
 subtitle: "Qué hay, qué falta y qué leer, tema por tema"
 ---
 
+## Cambio al 25 de octubre: la clase 1 no llegó a Q-learning
+
+La clase 1 se dio hasta el problema del apostador. Faltaron TD, Monte Carlo
+contra TD y Q-learning en el mundo 4×3, y la práctica. Como Q-learning es
+tema de la clase 1 en el cronograma, pasó a la clase 2, y para hacerle lugar
+salió lo que no está en el cronograma:
+
+- **Pasa a la clase 2:** aprender sin modelo, TD(0), Monte Carlo contra TD y
+  Q-learning en el mundo 4×3, con un repaso corto de la iteración de valores
+  al principio. El notebook de la clase 1 termina en el apostador.
+- **Sale:** CliffWalking y SARSA (notebook, presentación y práctico). La
+  exploración decreciente queda, porque la usan CartPole y DQN. Double DQN
+  sale de la presentación; en el notebook queda como lectura al final, y en el
+  práctico, como opcional.
+- **Un solo práctico**, `enunciado.md`, opcional y corto: tres ejercicios con el
+  formato del primer parcial (un escenario y preguntas a, b, c, con cuentas
+  chicas). Salieron FrozenLake, DQN en CartPole, el apostador y Acrobot.
+
+| Clase 2 | min |
+| --- | --- |
+| Repaso: iteración de valores y la necesidad del modelo | 10 |
+| Aprender sin modelo: TD (Monte Carlo como idea) | 15 |
+| Q-learning en el mundo 4×3 y exploración decreciente | 30 |
+| CartPole: la tabla no escala | 15 |
+| Red neuronal como aproximador | 20 |
+| Q-learning con red: inestabilidad y tríada mortal | 15 |
+| Memoria de repetición | 20 |
+| Red objetivo y DQN | 30 |
+| Cierre (DQN en Atari) | 5 |
+| **total** | **~160** |
+
 ## Estado al 18 de octubre
 
 Ya está armado:
@@ -11,7 +42,7 @@ Ya está armado:
 | --- | --- |
 | clase 1 | `clase1-decisiones-secuenciales.ipynb`, que sale del notebook 2025 |
 | clase 2 | `clase2-dqn.ipynb`, nuevo |
-| prácticos | `enunciado-clase1.md` y `enunciado-clase2.md` |
+| prácticos | `enunciado-clase1.md` y `enunciado-clase2.md` (el 25 de octubre se unieron en `enunciado.md`) |
 | presentaciones | `presentaciones/`, sobre la plantilla de `utils/`; se regeneran con `armar_presentaciones.py` |
 | bibliografía por tema | `recursos.md` |
 

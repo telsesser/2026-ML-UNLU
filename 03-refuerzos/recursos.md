@@ -12,12 +12,11 @@ repetición y red objetivo.
 
 | recurso | clase | temas |
 | --- | :---: | --- |
-| [`clase1-decisiones-secuenciales.ipynb`](clase1-decisiones-secuenciales.ipynb) | 1 | utilidad y MEU (dos apuestas), tragamonedas (greedy, ε-greedy, UCB), mundo 4×3 (plan contra política), retorno y descuento, MDP y ecuación de Bellman, $v$ y $q$, ecuación de optimalidad, iteración de valores (mundo 4×3 y apostador), TD(0), Monte Carlo contra TD en el mundo 4×3, Q-learning (mundo 4×3) |
-| [`clase2-dqn.ipynb`](clase2-dqn.ipynb) | 2 | Q-learning en CliffWalking, SARSA, on-policy y off-policy, ε decreciente, CartPole, discretización, aproximación de funciones y semi-gradiente, red neuronal como aproximador, Q-learning con red (inestabilidad), tríada mortal, memoria de repetición, red objetivo, DQN, ablación, Double DQN |
-| `presentaciones/C3-1_ Decisiones secuenciales y Q-learning.pptx` | 1 | los mismos temas que el notebook 1, solo conceptos y fórmulas |
-| `presentaciones/C3-2_ Aproximación de funciones y DQN.pptx` | 2 | los mismos temas que el notebook 2, solo conceptos y fórmulas |
-| [`enunciado-clase1.md`](enunciado-clase1.md) | 1 | preguntas conceptuales; a mano: retorno, tragamonedas (ε-greedy, UCB), iteración de valores, Q-learning; apostador con otras probabilidades; Q-learning en FrozenLake |
-| [`enunciado-clase2.md`](enunciado-clase2.md) | 2 | preguntas conceptuales; a mano: SARSA contra Q-learning, objetivo y pérdida de DQN, Double DQN, tabla contra red; SARSA y Q-learning con ε decreciente; DQN en CartPole (red objetivo, memoria, exploración, Double DQN); desafío con Acrobot |
+| [`clase1-decisiones-secuenciales.ipynb`](clase1-decisiones-secuenciales.ipynb) | 1 | utilidad y MEU (dos apuestas), tragamonedas (greedy, ε-greedy, UCB), mundo 4×3 (plan contra política), retorno y descuento, MDP y ecuación de Bellman, $v$ y $q$, ecuación de optimalidad, iteración de valores (mundo 4×3 y apostador) |
+| [`clase2-dqn.ipynb`](clase2-dqn.ipynb) | 2 | repaso de iteración de valores, TD(0), Monte Carlo contra TD en el mundo 4×3, Q-learning (mundo 4×3), off-policy, ε decreciente, CartPole, discretización, aproximación de funciones y semi-gradiente, red neuronal como aproximador, Q-learning con red (inestabilidad), tríada mortal, memoria de repetición, red objetivo, DQN, ablación, Double DQN |
+| `presentaciones/C3-1_ Decisiones secuenciales.pptx` | 1 | los mismos temas que el notebook 1, solo conceptos y fórmulas |
+| `presentaciones/C3-2_ Q-learning, aproximación de funciones y DQN.pptx` | 2 | los mismos temas que el notebook 2, solo conceptos y fórmulas |
+| [`enunciado.md`](enunciado.md) | 1 y 2 | práctica opcional tipo parcial: modelado de un MDP, exploración, iteración de valores y Q-learning a mano, parámetros de la red y objetivo de DQN |
 
 ## Bibliografía en `info/`
 
@@ -103,7 +102,7 @@ El capítulo 15 (decisiones simples: utilidad, MEU, loterías) **no está** en
 
 | recurso | temas |
 | --- | --- |
-| [Gymnasium](https://gymnasium.farama.org) | documentación de FrozenLake, CliffWalking, CartPole y Acrobot |
+| [Gymnasium](https://gymnasium.farama.org) | documentación de CartPole |
 | [PyTorch, *Reinforcement Learning (DQN) Tutorial*](https://pytorch.org/tutorials/intermediate/reinforcement_q_learning.html) | DQN en CartPole con memoria de repetición y red objetivo (actualización suave) |
 | [CleanRL, DQN](https://docs.cleanrl.dev/rl-algorithms/dqn/) | implementación de referencia de DQN en un solo archivo |
 | [Hugging Face, *Deep RL Course*](https://huggingface.co/learn/deep-rl-course) | unidad 1: introducción; unidad 2: Q-learning; unidad 3: deep Q-learning en Atari |

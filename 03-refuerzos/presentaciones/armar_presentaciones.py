@@ -243,7 +243,7 @@ def iteracion_valores_4x3(iteraciones, costo_paso=-0.04):
 
 
 def qlearning_4x3(episodios=2000, alpha=0.2, epsilon=0.2, semilla=0, costo_paso=-0.04):
-    # El mismo Q-learning que el notebook de la clase 1, con la misma semilla y en el mismo orden
+    # El mismo Q-learning que el notebook de la clase 2, con la misma semilla y en el mismo orden
     # de sorteos, así da exactamente lo mismo. Devuelve max_a Q(s, a) y la acción que lo alcanza.
     movimientos = {"↑": (0, 1), "↓": (0, -1), "←": (-1, 0), "→": (1, 0)}
     costados = {"↑": ("←", "→"), "↓": ("→", "←"), "←": ("↓", "↑"), "→": ("↑", "↓")}
@@ -336,67 +336,6 @@ def figuras_del_resumen(*nombres):
             getattr(modulo, "fig_" + nombre.replace("-", "_"))()
         sys.modules.pop("figuras_resumen", None)
     return rutas
-
-
-def entrenar_cliff(metodo, episodios=500, alpha=0.5, epsilon=0.1, semilla=0):
-    # La misma función que el notebook de la clase 2.
-    rng = np.random.default_rng(semilla)
-    env = gym.make("CliffWalking-v1")
-    Q = np.zeros((48, 4))
-
-    def elegir(s):
-        if rng.random() < epsilon:
-            return int(rng.integers(4))
-        return int(rng.choice(np.flatnonzero(Q[s] == Q[s].max())))
-
-    for ep in range(episodios):
-        s, _ = env.reset(seed=semilla * 1000 + ep)
-        a = elegir(s)
-        fin = False
-        while not fin:
-            s2, r, terminado, truncado, _ = env.step(a)
-            a2 = elegir(s2)
-            siguiente = Q[s2].max() if metodo == "q-learning" else Q[s2, a2]
-            Q[s, a] += alpha * (r + (0 if terminado else siguiente) - Q[s, a])
-            s, a, fin = s2, a2, terminado or truncado
-    return Q
-
-
-def camino_greedy(Q):
-    env = gym.make("CliffWalking-v1")
-    s, _ = env.reset()
-    camino = [s]
-    for _ in range(100):
-        s, _, terminado, truncado, _ = env.step(int(np.argmax(Q[s])))
-        camino.append(s)
-        if terminado or truncado:
-            break
-    return camino
-
-
-def fig_cliff():
-    fig, ax = plt.subplots(figsize=(7.5, 2.9))
-    for fila in range(4):
-        for col in range(12):
-            y = 3 - fila
-            color = "white"
-            if fila == 3 and 0 < col < 11:
-                color = "#999999"
-            ax.add_patch(patches.Rectangle((col, y), 1, 1, fc=color, ec="#CCCCCC", lw=1))
-    ax.text(6, 0.5, "acantilado (−100)", ha="center", va="center", fontsize=13, color="white")
-    ax.text(0.5, 0.5, "S", ha="center", va="center", fontsize=15, color="#" + OSCURO, fontweight="bold")
-    ax.text(11.5, 0.5, "G", ha="center", va="center", fontsize=15, color="#" + OSCURO, fontweight="bold")
-    for metodo, color, dy in (("q-learning", "#CC4125", -0.08), ("sarsa", "#" + AZUL, 0.08)):
-        camino = camino_greedy(entrenar_cliff(metodo))
-        xs = [s % 12 + 0.5 for s in camino]
-        ys = [3 - s // 12 + 0.5 + dy for s in camino]
-        ax.plot(xs, ys, color=color, lw=3, label=metodo.capitalize().replace("Sarsa", "SARSA"))
-    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.02), ncol=2, frameon=False, fontsize=13)
-    ax.set_xlim(0, 12)
-    ax.set_ylim(0, 4)
-    ax.set_aspect("equal")
-    ax.axis("off")
-    return guardar(fig, "cliff-caminos.png")
 
 
 def fig_cartpole():
@@ -800,12 +739,9 @@ def clase1():
     mundo = fig_mundo_4x3()
     politica = fig_politica_4x3()
     valores = fig_iteracion_valores_4x3()
-    qlearning = fig_qlearning_4x3()
     resumen = figuras_del_resumen("tragamonedas", "mundo-4x3", "descuento", "respaldo")
     if "mundo4x3-utilidades" in resumen:            # fig_mundo_4x3 dibuja las dos
         resumen.pop("mundo4x3-utilidades").unlink()
-    mc_td = png_de_notebook("clase1-decisiones-secuenciales.ipynb", "resultados = [comparar(", -1,
-                            "mc-td-4x3.png")
     apostador = png_de_notebook("clase1-decisiones-secuenciales.ipynb", "HEAD_PROB = 0.4", -1,
                                 "apostador.png")
 
@@ -1039,6 +975,48 @@ def clase1():
                    "El valor de cada estado es la probabilidad de ganar."]),
             Nota("Sutton y Barto, ejemplo 4.3. A la izquierda, los valores; a la derecha, la política."),
         ], figura=apostador, ancho_figura=9.0, figura_abajo=True),
+    ]
+
+    indice = [
+        ("Decisiones bajo incertidumbre", 0),
+        ("Utilidad y máxima utilidad esperada", 1),
+        ("Exploración y explotación: tragamonedas", 1),
+        ("Decisiones secuenciales", 0),
+        ("Políticas y retorno", 1),
+        ("Procesos de decisión de Markov", 1),
+        ("Ecuaciones de Bellman", 1),
+        ("Iteración de valores", 1),
+        ("Referencias", 0),
+    ]
+    referencias = [
+        REF_RN, REF_SB,
+        "Auer, P., Cesa-Bianchi, N., & Fischer, P. (2002). Finite-time analysis of the multiarmed "
+        "bandit problem. Machine Learning, 47(2–3), 235–256.",
+    ]
+    armar("C3-1_ Decisiones secuenciales", "Decisiones secuenciales",
+          indice, d, referencias)
+
+
+def clase2():
+    politica = fig_politica_4x3()
+    qlearning = fig_qlearning_4x3()
+    mc_td = png_de_notebook("clase2-dqn.ipynb", "corridas_mc.append(errores_mc)", -1, "mc-td-4x3.png")
+    cartpole = fig_cartpole()
+    red = fig_red_q()
+    memoria = fig_memoria()
+    ablacion = png_de_notebook("clase2-dqn.ipynb", "variantes = {", -1, "ablacion.png")
+
+    d = [
+        Diapositiva("Repaso: iteración de valores", [
+            Texto(["En el mundo 4×3 encontramos la política óptima aplicando una y otra vez la ecuación "
+                   "de optimalidad de Bellman:"]),
+            Formula(r"v_{k+1}(s) = \max_a \sum_{s', r} p(s', r \mid s, a) \left[ r + \gamma\, v_k(s') \right]"),
+            Texto(["Para hacer la cuenta hace falta el **modelo**: la dinámica p(s′, r | s, a). En el 4×3, "
+                   "que las acciones salen bien con probabilidad 0.8 y que cada paso cuesta 0.04.",
+                   "¿Se puede llegar a la misma política sin conocer el modelo, solo jugando?"]),
+            Nota("Los valores de la iteración de valores sirven de referencia para medir lo que aprenden "
+                 "los métodos sin modelo."),
+        ], figura=politica, ancho_figura=3.2),
 
         Diapositiva("Aprender sin modelo del mundo", [
             Texto(["Casi nunca se conocen las probabilidades de transición. Hay que estimar los "
@@ -1049,7 +1027,9 @@ def clase1():
                    "estado siguiente."]),
             Formula(r"V(S_t) \leftarrow V(S_t) + \alpha \left[ R_{t+1} + \gamma V(S_{t+1}) - V(S_t) \right]"),
             Texto(["El término entre corchetes es el **error TD**: la diferencia entre lo que se esperaba "
-                   "y lo que se obtuvo más lo que se espera obtener después. α es la tasa de aprendizaje."]),
+                   "y lo que se obtuvo más lo que se espera obtener después. α es la tasa de aprendizaje.",
+                   "Distribuyendo α, es un promedio ponderado entre lo viejo y el objetivo:"]),
+            Formula(r"V(S_t) \leftarrow (1 - \alpha)\, V(S_t) + \alpha \left[ R_{t+1} + \gamma V(S_{t+1}) \right]"),
         ]),
 
         Diapositiva("Ejemplo: Monte Carlo y TD en el mundo 4×3", [
@@ -1099,68 +1079,6 @@ Para cada episodio:
                  "lo mismo. Subir arriesga caer en −1, y con α fijo cada caída baja mucho la "
                  "estimación: el ruido alcanza para dar vuelta la elección."),
         ], figura=qlearning, ancho_figura=7.0, figura_abajo=True),
-    ]
-
-    indice = [
-        ("Decisiones bajo incertidumbre", 0),
-        ("Utilidad y máxima utilidad esperada", 1),
-        ("Exploración y explotación: tragamonedas", 1),
-        ("Decisiones secuenciales", 0),
-        ("Políticas y retorno", 1),
-        ("Procesos de decisión de Markov", 1),
-        ("Ecuaciones de Bellman", 1),
-        ("Iteración de valores", 1),
-        ("Aprendizaje por refuerzo sin modelo", 0),
-        ("Diferencias temporales", 1),
-        ("Q-learning", 1),
-        ("Referencias", 0),
-    ]
-    referencias = [
-        REF_RN, REF_SB,
-        "Watkins, C. J. C. H., & Dayan, P. (1992). Q-learning. Machine Learning, 8(3–4), 279–292.",
-        "Auer, P., Cesa-Bianchi, N., & Fischer, P. (2002). Finite-time analysis of the multiarmed "
-        "bandit problem. Machine Learning, 47(2–3), 235–256.",
-    ]
-    armar("C3-1_ Decisiones secuenciales y Q-learning", "Decisiones secuenciales y Q-learning",
-          indice, d, referencias)
-
-
-def clase2():
-    cliff = fig_cliff()
-    cartpole = fig_cartpole()
-    red = fig_red_q()
-    memoria = fig_memoria()
-    ablacion = png_de_notebook("clase2-dqn.ipynb", "variantes = {", -1, "ablacion.png")
-
-    d = [
-        Diapositiva("Repaso: Q-learning", [
-            Texto(["Q-learning aprende una tabla con un valor para cada par de estado y acción:"]),
-            Formula(r"Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \left[ R_{t+1} + \gamma \max_a Q(S_{t+1}, a)"
-                    r" - Q(S_t, A_t) \right]"),
-            Texto(["Elige las acciones con ε-greedy.",
-                   "Para el estado siguiente usa la **mejor** acción, aunque después no la tome.",
-                   "Por eso es **off-policy**: aprende q*, el valor de la política greedy, mientras "
-                   "se mueve con otra política."], vinetas=True),
-        ]),
-
-        Diapositiva("SARSA: aprender la política que se sigue", [
-            Texto(["Para el estado siguiente usa la acción que el agente **efectivamente va a tomar**:"]),
-            Formula(r"Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \left[ R_{t+1} + \gamma\, Q(S_{t+1}, A_{t+1})"
-                    r" - Q(S_t, A_t) \right]"),
-            Texto(["El nombre viene de los cinco elementos de cada actualización:"]),
-            Formula(r"(S_t,\ A_t,\ R_{t+1},\ S_{t+1},\ A_{t+1})"),
-            Texto(["Es **on-policy**: aprende los valores de la misma política ε-greedy con la que se "
-                   "mueve, incluidos los errores que comete al explorar."]),
-        ]),
-
-        Diapositiva("CliffWalking: Q-learning y SARSA", [
-            Texto(["Cada paso cuesta −1 y caer al acantilado, −100. Con ε = 0.1, cada tanto el agente da "
-                   "un paso al azar (Sutton y Barto, ejemplo 6.6)."]),
-            Texto(["**Q-learning** aprende el camino óptimo, pegado al acantilado. Pero mientras explora "
-                   "se cae seguido: recompensa promedio cercana a −50 por episodio.",
-                   "**SARSA** tiene en cuenta sus propios errores y aprende un camino más alejado: "
-                   "es más largo, pero mientras entrena le va mejor (cerca de −25)."], vinetas=True),
-        ], figura=cliff, ancho_figura=6.6, figura_abajo=True),
 
         Diapositiva("Exploración decreciente", [
             Texto(["Explorar sirve al principio, cuando el agente no sabe nada, pero molesta al final. "
@@ -1171,11 +1089,11 @@ def clase2():
             Texto(["Con un ε inicial de 1 el agente arranca eligiendo todo al azar.",
                    "Termina explorando solo una fracción pequeña de las veces, por ejemplo 0.05."],
                   vinetas=True),
-            Nota("Si ε llega a 0, SARSA y Q-learning terminan aprendiendo la misma política."),
+            Nota("En el mundo 4×3 usamos ε = 0.2 fijo: el agente seguía explorando al final."),
         ]),
 
         Diapositiva("Cuando los estados no entran en una tabla", [
-            Texto(["FrozenLake tiene 16 estados y CliffWalking, 48.",
+            Texto(["El mundo 4×3 tiene 11 estados y el apostador, unos 100.",
                    "El backgammon tiene alrededor de 10²⁰.",
                    "En un juego de Atari el estado es la pantalla: 256^(84·84) imágenes posibles.",
                    "Si el estado son números reales (posición, velocidad), hay **infinitos** estados."],
@@ -1303,21 +1221,12 @@ Para cada paso:
                    "su puntaje en 29 de los 46 comparados."], vinetas=True),
             Nota("Sutton y Barto, sección 16.5."),
         ]),
-
-        Diapositiva("Más allá de DQN: Double DQN", [
-            Texto(["El máximo del objetivo tiende a **sobreestimar** los valores: elige la acción y la "
-                   "evalúa con las mismas estimaciones ruidosas (sesgo de maximización)."]),
-            Texto(["Double DQN separa las dos cosas: la red principal elige la acción y la red objetivo "
-                   "la evalúa."]),
-            Formula(r"y = r + \gamma\, \hat{q}\left(s', \arg\max_{a'} \hat{q}(s', a'; \mathbf{w});"
-                    r" \mathbf{w}^-\right)"),
-            Nota("van Hasselt, Guez y Silver (2016). Es un cambio de una línea en el código."),
-        ]),
     ]
 
     indice = [
-        ("Repaso: Q-learning y SARSA", 0),
-        ("On-policy y off-policy", 1),
+        ("Aprender sin modelo del mundo", 0),
+        ("Diferencias temporales", 1),
+        ("Q-learning", 1),
         ("Exploración decreciente", 1),
         ("Aproximación de funciones", 0),
         ("Cuando los estados no entran en una tabla", 1),
@@ -1331,16 +1240,15 @@ Para cada paso:
     ]
     referencias = [
         REF_SB, REF_RN,
+        "Watkins, C. J. C. H., & Dayan, P. (1992). Q-learning. Machine Learning, 8(3–4), 279–292.",
         "Lin, L.-J. (1992). Self-improving reactive agents based on reinforcement learning, planning "
         "and teaching. Machine Learning, 8(3–4), 293–321.",
         "Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. "
         "(2013). Playing Atari with deep reinforcement learning. arXiv:1312.5602.",
         "Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A. A., Veness, J., Bellemare, M. G., … Hassabis, D. "
         "(2015). Human-level control through deep reinforcement learning. Nature, 518(7540), 529–533.",
-        "van Hasselt, H., Guez, A., & Silver, D. (2016). Deep reinforcement learning with double "
-        "Q-learning. Proceedings of the AAAI Conference on Artificial Intelligence, 30(1).",
     ]
-    armar("C3-2_ Aproximación de funciones y DQN", "Aproximación de funciones y DQN",
+    armar("C3-2_ Q-learning, aproximación de funciones y DQN", "Q-learning, aproximación de funciones y DQN",
           indice, d, referencias)
 
 

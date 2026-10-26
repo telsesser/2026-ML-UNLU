@@ -12,9 +12,8 @@ project:
     - 02-agentes/agentes.ipynb
     - 02-agentes/enunciado.md
     - 03-refuerzos/clase1-decisiones-secuenciales.ipynb
-    - 03-refuerzos/enunciado-clase1.md
     - 03-refuerzos/clase2-dqn.ipynb
-    - 03-refuerzos/enunciado-clase2.md
+    - 03-refuerzos/enunciado.md
 
 # Los notebooks ya traen las salidas guardadas -- las paginas paso a paso pesan
 # 300 KB y estan adentro del .ipynb. Quarto no re-ejecuta notebooks por
@@ -48,13 +47,11 @@ website:
       - text: "03 · Refuerzos"
         menu:
           - href: 03-refuerzos/clase1-decisiones-secuenciales.ipynb
-            text: "Clase 1 — Decisiones secuenciales y Q-learning"
-          - href: 03-refuerzos/enunciado-clase1.md
-            text: "Práctico — Clase 1"
+            text: "Clase 1 — Decisiones secuenciales"
           - href: 03-refuerzos/clase2-dqn.ipynb
-            text: "Clase 2 — Aproximación de funciones y DQN"
-          - href: 03-refuerzos/enunciado-clase2.md
-            text: "Práctico — Clase 2"
+            text: "Clase 2 — Q-learning, aproximación de funciones y DQN"
+          - href: 03-refuerzos/enunciado.md
+            text: "Práctico"
   sidebar:
     style: floating
     contents:
@@ -76,12 +73,10 @@ website:
         contents:
           - href: 03-refuerzos/clase1-decisiones-secuenciales.ipynb
             text: "Clase 1"
-          - href: 03-refuerzos/enunciado-clase1.md
-            text: "Práctico 1"
           - href: 03-refuerzos/clase2-dqn.ipynb
             text: "Clase 2"
-          - href: 03-refuerzos/enunciado-clase2.md
-            text: "Práctico 2"
+          - href: 03-refuerzos/enunciado.md
+            text: "Práctico"
 
 format:
   html:

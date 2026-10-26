@@ -8,4 +8,4 @@ toc: false
 | --- | --- |
 | 01 | [Búsqueda no informada](01-busqueda/busqueda.ipynb) · [TP1](01-busqueda/TP1-agentes-y-busqueda-no-informada.docx) |
 | 02 | [Agentes basados en conocimiento](02-agentes/agentes.ipynb) · [Práctico](02-agentes/enunciado.md) |
-| 03 | [Decisiones secuenciales y Q-learning](03-refuerzos/clase1-decisiones-secuenciales.ipynb) · [Práctico](03-refuerzos/enunciado-clase1.md) · [Aproximación de funciones y DQN](03-refuerzos/clase2-dqn.ipynb) · [Práctico](03-refuerzos/enunciado-clase2.md) |
+| 03 | [Decisiones secuenciales](03-refuerzos/clase1-decisiones-secuenciales.ipynb) · [Q-learning, aproximación de funciones y DQN](03-refuerzos/clase2-dqn.ipynb) · [Práctico](03-refuerzos/enunciado.md) |
